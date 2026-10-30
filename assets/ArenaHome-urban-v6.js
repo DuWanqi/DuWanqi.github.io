@@ -12,136 +12,122 @@ function u({to:r,navigate:d,children:l,className:c="",...h}){
   });
 }
 
-function O({navigate:r,onSearch:d}){
-  const[c,h]=o.useState("");
+function O({navigate:r,onSearch:d,phoneH5:l=!1}){
+  const[c,h]=o.useState(""),j=o.useRef(null);
   const k=s=>{s.preventDefault(),d?.(c.trim())};
-
-  // Bottom-right minimalist icon dock (homage to Wanxiangqi lobby "棋手 / 卡牌 / 阵容 + 开始游戏")
-  const dockItems=[
-    {label:"棋手",to:"/players",Icon:w},
-    {label:"卡牌",to:"/atlas",Icon:N},
-    {label:"阵容",to:"/wxq-lineups",Icon:R},
-    {label:"克制链",to:"/counters",Icon:z},
-    {label:"数值研究",to:"/analysis/dps",Icon:S}
+  const v=[
+    {label:"英雄图鉴",count:W.categories.hero.count,to:"/explore/hero-sulie",Icon:N},
+    {label:"装备图鉴",count:W.categories.equipment.count,to:"/explore/equipment-catalog",Icon:b},
+    {label:"天赋图鉴",count:W.categories.talent.count,to:"/explore/talent-catalog",Icon:z},
+    {label:"效果牌图鉴",count:W.categories.effect.count,to:"/explore/effect-catalog",Icon:y},
+    {label:"棋手档案",count:P.length,to:"/players",Icon:w},
+    {label:"机制词典",to:"/mechanics",Icon:I},
+    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",Icon:y},
+    {label:"抽卡模拟",to:"/analysis/draw",Icon:b}
   ];
 
-  // Clean quick links for bottom-left search console
-  const quickTags=[
-    {label:"英雄图鉴 (86)",to:"/explore/hero-sulie"},
-    {label:"装备合成 (95)",to:"/explore/equipment-catalog"},
-    {label:"天赋词条 (297)",to:"/explore/talent-catalog"},
-    {label:"效果牌库 (98)",to:"/explore/effect-catalog"},
-    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs"},
-    {label:"抽卡模拟",to:"/analysis/draw"}
-  ];
-
-  return e.jsxs("div",{
-    className:"lm-home",
-    children:[
-      /* Fullscreen Unobstructed Official KV Artwork */
-      e.jsxs("div",{
-        className:"lm-backdrop",
-        "aria-hidden":"true",
-        children:[
-          e.jsx("img",{src:"/assets/official-kv.jpg",alt:""}),
-          e.jsx("div",{className:"lm-vignette"})
-        ]
-      }),
-
-      /* Bottom-Anchored Clean HUD (Zero face occlusion on upper 75% of screen) */
-      e.jsx("section",{
-        className:"lm-hud",
-        children:e.jsxs("div",{
-          className:"lm-hud-bottom",
+  return e.jsx("div",{
+    className:`arena-home${l?" is-mobile-home":""}`,
+    children:e.jsxs("section",{
+      ref:j,
+      className:"arena-hero",
+      children:[
+        e.jsx("div",{
+          className:"arena-hero-media",
+          "aria-hidden":"true",
+          children:e.jsx("img",{src:"/assets/official-kv.jpg",alt:""})
+        }),
+        e.jsxs("div",{
+          className:"arena-hero-content",
           children:[
-            /* Bottom-Left: Brand Title + Search Bar + Minimal Text Links */
-            e.jsxs("div",{
-              className:"lm-console-left",
+            e.jsxs("header",{
+              className:"arena-title",
               children:[
-                e.jsxs("div",{
-                  className:"lm-brand-hero",
-                  children:[
-                    e.jsxs("div",{
-                      className:"lm-eyebrow-row",
-                      children:[
-                        e.jsx("i",{className:"lm-pulse"}),
-                        e.jsx("span",{children:"S1 万象启程 · 74 篇实战阵容笔记 · 1,492 实体克制图谱"})
-                      ]
-                    }),
-                    e.jsx("h1",{className:"lm-chrome-title",children:"万象棋笔记"})
-                  ]
-                }),
-
+                e.jsx("span",{children:"王者万象棋 · 实战笔记与图鉴推演库"}),
+                e.jsx("h1",{children:"万象棋笔记"}),
+                e.jsx("p",{children:"用数据拆万象棋，用逻辑讲上分"})
+              ]
+            }),
+            e.jsxs("div",{
+              className:"arena-command",
+              children:[
                 e.jsxs("form",{
-                  className:"lm-glass-search",
+                  className:"arena-search",
                   onSubmit:k,
                   children:[
-                    e.jsx(C,{size:16,"aria-hidden":"true"}),
+                    e.jsx(C,{size:21,"aria-hidden":"true"}),
                     e.jsx("input",{
                       value:c,
                       onChange:s=>h(s.target.value),
-                      placeholder:"搜索英雄、装备、天赋、阵容笔记…",
+                      placeholder:"搜索英雄、装备、天赋、效果牌、阵容笔记…",
                       "aria-label":"搜索万象棋笔记"
                     }),
-                    e.jsx("button",{type:"submit",children:"检索"})
+                    e.jsx("button",{type:"submit",children:"搜索资料"})
                   ]
                 }),
-
                 e.jsx("nav",{
-                  className:"lm-quick-links",
-                  "aria-label":"快速图鉴入口",
-                  children:quickTags.map(item=>e.jsx(u,{
-                    to:item.to,
+                  className:"arena-shortcuts",
+                  "aria-label":"分类入口",
+                  children:v.map(({label:s,count:t,to:n,Icon:f})=>e.jsxs(u,{
+                    to:n,
                     navigate:r,
-                    className:"lm-quick-link",
-                    children:item.label
-                  },item.to))
-                })
-              ]
-            }),
-
-            /* Bottom-Right: Game Lobby Style Icon Dock + Primary CTA */
-            e.jsxs("div",{
-              className:"lm-lobby-dock",
-              children:[
-                e.jsx("nav",{
-                  className:"lm-dock-icons",
-                  "aria-label":"核心功能矩阵",
-                  children:dockItems.map(it=>e.jsxs(u,{
-                    to:it.to,
-                    navigate:r,
-                    className:"lm-dock-item",
                     children:[
-                      e.jsx("span",{
-                        className:"lm-dock-icon-box",
-                        children:e.jsx(it.Icon,{size:20,strokeWidth:1.65})
-                      }),
-                      e.jsx("span",{className:"lm-dock-label",children:it.label})
+                      e.jsx(f,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
+                      e.jsx("span",{children:s}),
+                      t?e.jsx("small",{children:t}):null
                     ]
-                  },it.label))
+                  },n))
                 }),
-
-                e.jsxs(u,{
-                  to:"/wxq-lineups",
-                  navigate:r,
-                  className:"lm-start-cta",
+                e.jsxs("div",{
+                  className:"arena-primary-actions",
                   children:[
-                    e.jsxs("div",{
-                      className:"lm-start-copy",
+                    e.jsxs(u,{
+                      to:"/wxq-lineups",
+                      navigate:r,
+                      className:"arena-action arena-action-primary",
                       children:[
-                        e.jsx("small",{children:"LINEUP PLAYBOOK // 74 NOTES"}),
-                        e.jsx("span",{className:"lm-start-main",children:"实战阵容笔记"})
+                        e.jsx(R,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
+                        " 实战阵容笔记 (74篇) ",
+                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
                       ]
                     }),
-                    e.jsx("span",{className:"lm-start-bar"})
+                    e.jsxs(u,{
+                      to:"/counters",
+                      navigate:r,
+                      className:"arena-action",
+                      children:[
+                        e.jsx(z,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
+                        " 万象克制图谱 ",
+                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
+                      ]
+                    }),
+                    e.jsxs(u,{
+                      to:"/lab",
+                      navigate:r,
+                      className:"arena-action",
+                      children:[
+                        " 固定木桩 · 伤害探测 ",
+                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
+                      ]
+                    }),
+                    e.jsxs(u,{
+                      to:"/analysis/dps",
+                      navigate:r,
+                      className:"arena-action",
+                      children:[
+                        e.jsx(S,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
+                        " 数值研究 ",
+                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
+                      ]
+                    })
                   ]
                 })
               ]
             })
           ]
         })
-      })
-    ]
+      ]
+    })
   });
 }
 
