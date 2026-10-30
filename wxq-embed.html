@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="wxq-build" content="mvsovy8r">
-<title>万象棋知识站 · 攻略笔记 / 阵容 / 克制链 / 伤害探测</title>
+<title>万象棋笔记</title>
 <link rel="stylesheet" href="/css/app.css?v=mvsovy8r">
 <style>
   /* Load official Wanxiangqi fonts from wxq.qq.com */
@@ -173,15 +173,18 @@
   .page-head .kicker::before {
     display: none;
   }
-  .page-head h1 {
+  .page-head h1, .os-head h1 {
     margin: 2px 0 6px;
-    font-family: var(--font);
-    font-size: 28px;
-    font-weight: 700;
-    color: #edf0f3;
+    font-family: "WanxiangTitle", var(--font);
+    font-size: 30px;
+    font-weight: 800;
     transform: skew(-5deg);
     transform-origin: left;
-    letter-spacing: 0;
+    letter-spacing: 0.02em;
+    background: linear-gradient(180deg, #ffffff 0%, #dce8f8 52%, #9eb2ce 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .page-head p {
     margin: 4px 0 0;
@@ -1678,6 +1681,10 @@
         if (t.indexOf('🚀') !== -1) {
           tags[i].textContent = t.replace(/🚀\s*/g, '');
         }
+      }
+      var titles = document.querySelectorAll('title');
+      if (document.title && document.title.indexOf('万象棋知识库') !== -1) {
+        document.title = document.title.replace(/万象棋知识库/g, '万象棋笔记');
       }
       syncActiveTab();
       if (window.OSCounterGraph && typeof window.OSCounterGraph.mountIfNeeded === 'function') {

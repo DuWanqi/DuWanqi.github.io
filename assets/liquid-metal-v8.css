@@ -1,0 +1,178 @@
+/* 万象棋笔记 · 全站液态金属都市潮流风格升级 (Liquid Metal Urban Trend Override) */
+
+/* 1. Top Header -> Liquid Chrome & Frosted Night Glass */
+.site-header {
+  background: linear-gradient(180deg, rgba(18, 23, 38, 0.84) 0%, rgba(16, 20, 34, 0.72) 100%) !important;
+  backdrop-filter: blur(20px) saturate(1.25) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.25) !important;
+  border-bottom: 1px solid rgba(214, 228, 255, 0.22) !important;
+  box-shadow: 0 8px 32px rgba(6, 10, 22, 0.42) !important;
+}
+
+/* Custom Liquid Metal Brand Mark ("万象棋笔记") */
+.lm-brand-mark {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 11px !important;
+  text-decoration: none !important;
+}
+
+.lm-brand-ring {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  border: 2.2px solid #e6f0ff;
+  box-shadow:
+    inset 0 0 8px rgba(255, 255, 255, 0.6),
+    0 0 14px rgba(160, 198, 255, 0.45);
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), rgba(30, 42, 72, 0.6));
+}
+
+.lm-brand-ring::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff 0%, #a9bdd8 100%);
+  box-shadow: 0 0 8px #ffffff;
+}
+
+.lm-brand-title {
+  font-family: "WanxiangTitle", "Wanxiang UI", "PingFang SC", sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  transform: skew(-5deg);
+  background: linear-gradient(180deg, #ffffff 0%, #dce8f8 52%, #9fb3cf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lm-brand-sub {
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(205, 222, 248, 0.72);
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 228, 255, 0.25);
+}
+
+/* Primary Nav Pills -> Liquid Chrome Active Indicator */
+.pc-primary-nav .pc-nav-link {
+  border-radius: 999px !important;
+  padding: 6px 14px !important;
+  transition: all 0.18s ease !important;
+}
+
+.pc-primary-nav .pc-nav-link:hover {
+  background: rgba(214, 228, 255, 0.1) !important;
+}
+
+.pc-primary-nav .pc-nav-link.is-current {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(176, 198, 235, 0.1) 100%) !important;
+  border: 1px solid rgba(235, 244, 255, 0.45) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.45),
+    0 4px 14px rgba(10, 16, 32, 0.35) !important;
+}
+
+/* Dropdown Menus -> Frosted Cosmic Blue Glass */
+.pc-nav-dropdown,
+.header-updates-menu,
+.header-more-menu {
+  background: rgba(20, 26, 44, 0.88) !important;
+  border: 1px solid rgba(214, 228, 255, 0.28) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.28),
+    0 20px 60px rgba(6, 10, 22, 0.65) !important;
+}
+
+/* 2. Directory Pages (/atlas & /strategy) -> Redesigned Pop-Mart / Liquid Metal Card Showcase */
+.site-directory {
+  width: min(1440px, calc(100% - 64px)) !important;
+  margin-inline: auto !important;
+  padding: 36px 0 72px !important;
+}
+
+.site-directory > header {
+  position: relative;
+  padding: 28px 32px !important;
+  margin-bottom: 30px !important;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(500px 220px at 85% 20%, rgba(152, 185, 255, 0.2), transparent 70%),
+    linear-gradient(135deg, rgba(28, 36, 58, 0.78) 0%, rgba(19, 25, 42, 0.68) 100%) !important;
+  border: 1px solid rgba(220, 234, 255, 0.32) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.32),
+    0 14px 40px rgba(8, 12, 24, 0.42) !important;
+  backdrop-filter: blur(16px);
+}
+
+.site-directory > header h1 {
+  font-family: "WanxiangTitle", "Wanxiang UI", "PingFang SC", sans-serif !important;
+  font-size: 36px !important;
+  transform: skew(-5deg);
+  transform-origin: left;
+  background: linear-gradient(180deg, #ffffff 0%, #d4e2f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+}
+
+.directory-group {
+  border-top: 0 !important;
+  padding-top: 8px !important;
+  margin-bottom: 28px !important;
+}
+
+.directory-group > h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #eef4fc !important;
+  margin-bottom: 14px !important;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(214, 228, 255, 0.1);
+  border: 1px solid rgba(214, 228, 255, 0.26);
+}
+
+.directory-links {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.directory-links a {
+  border-radius: 16px !important;
+  padding: 18px 20px !important;
+  background: linear-gradient(145deg, rgba(30, 38, 62, 0.72) 0%, rgba(20, 26, 44, 0.62) 100%) !important;
+  border: 1px solid rgba(214, 228, 255, 0.24) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    0 10px 28px rgba(6, 10, 22, 0.35) !important;
+  backdrop-filter: blur(14px);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.directory-links a:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(240, 247, 255, 0.68) !important;
+  background: linear-gradient(145deg, rgba(40, 52, 82, 0.84) 0%, rgba(25, 33, 56, 0.76) 100%) !important;
+  box-shadow:
+    inset 0 1px 3px rgba(255, 255, 255, 0.45),
+    0 16px 36px rgba(10, 16, 34, 0.52) !important;
+}
