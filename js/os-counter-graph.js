@@ -264,12 +264,14 @@
   }
 
   function resetDefaultFilters() {
-    S.dirSel = { "克制": true, "被克制": true };
+    S.dirSel = { "克制": true, "被克制": false };
     S.strength = { "强": true, "中": true, "弱": false };
     var types = allTypes();
+    // 默认不把 76 套继承的具体阵容和 385 张棋手卡全铺在 1度图上（避免 100+ 节点挤成一团），想看具体阵容可点芯片开启
+    var defaultTargetTypes = ["英雄", "流派", "装备", "天赋", "效果牌", "棋手", "特殊单位"];
     types.forEach(function (t) {
       S.srcT[t] = true;
-      S.tgtT[t] = true;
+      S.tgtT[t] = defaultTargetTypes.indexOf(t) >= 0;
     });
     ARCH_ORDER.forEach(function (a) { S.arch[a] = true; });
     CAUSE_ORDER.forEach(function (c) { S.cause[c] = true; });
@@ -294,7 +296,13 @@
       if (!S.arch[a.archetype] || !S.arch[b.archetype]) return false;
       if (e.type === "克制" && !S.cause[e.cause || "其他"]) return false;
       if (e.type !== "负作用") {
-        if (!S.srcT[a.type] || !S.tgtT[b.type]) return false;
+        if (S.focus) {
+          var otherNode = e.source === S.focus ? b : (e.target === S.focus ? a : null);
+          if (otherNode && !S.tgtT[otherNode.type]) return false;
+          if (!otherNode && (!S.tgtT[a.type] || !S.tgtT[b.type])) return false;
+        } else {
+          if (!S.tgtT[a.type] || !S.tgtT[b.type]) return false;
+        }
       }
       if (S.focus) {
         if (e.source === S.focus && !out) return false;
@@ -350,8 +358,18 @@
 
     var edges = kept.filter(function (e) {
       if (!set[e.source] || !set[e.target]) return false;
-      if (!oneWay) return true;
-      return out ? hop[e.target] === hop[e.source] + 1 : hop[e.source] === hop[e.target] + 1;
+      if (S.focus && hop[S.focus] === 0) {
+        // 1度跳数下：严格只画直接连在聚焦中心节点 S.focus 上的放射边，绝不画 1度邻居彼此之间的互克网状边！
+        if (S.degree === 1) {
+          return e.source === S.focus || e.target === S.focus;
+        }
+        // 2度/3度跳数下：只保留相邻跳数层级的树状传导边，剔除同层节点之间的横向杂乱连线
+        if (oneWay) {
+          return out ? hop[e.target] === hop[e.source] + 1 : hop[e.source] === hop[e.target] + 1;
+        }
+        return Math.abs((hop[e.source] || 0) - (hop[e.target] || 0)) === 1;
+      }
+      return true;
     });
     var vdeg = {};
     edges.forEach(function (e) {
@@ -437,6 +455,11 @@
                   '<label class="os-row-label">博弈原因</label>' +
                   '<div id="osCauseChips" class="os-chips"></div>' +
                   '<select id="osLineupSelect" class="os-lineup-sel" title="选择对面阵容，一键查看破阵手段"></select>' +
+                '</div>' +
+                '<div class="os-filter-row">' +
+                  '<label class="os-row-label">显示对象类型</label>' +
+                  '<div id="osTargetTypeChips" class="os-chips"></div>' +
+                  '<span class="os-row-label" style="margin-left:auto;font-size:10.5px;opacity:0.75">单击切换 · 双击只看该类</span>' +
                 '</div>' +
               '</div>' +
               '<div class="os-chart-stage">' +
@@ -564,11 +587,36 @@
         if (!this.value) return;
         S.dirSel["克制"] = false;
         S.dirSel["被克制"] = true;
+        S.tgtT["阵容"] = true;
         Array.prototype.forEach.call(hostEl.querySelectorAll("[data-dir]"), function (b) {
           b.classList.toggle("on", !!S.dirSel[b.getAttribute("data-dir")]);
         });
         selectNode(this.value);
       };
+    }
+
+    var tgtTypeBox = document.getElementById("osTargetTypeChips");
+    if (tgtTypeBox) {
+      var allT = allTypes();
+      tgtTypeBox.innerHTML = allT.map(function (t) {
+        return '<button type="button" class="os-chip ' + (S.tgtT[t] ? "on" : "") + '" data-tgttype="' + esc(t) + '">' + esc(t) + '</button>';
+      }).join("");
+      Array.prototype.forEach.call(tgtTypeBox.querySelectorAll("[data-tgttype]"), function (btn) {
+        btn.onclick = function () {
+          var t = btn.getAttribute("data-tgttype");
+          S.tgtT[t] = !S.tgtT[t];
+          btn.classList.toggle("on", !!S.tgtT[t]);
+          renderChartPanel();
+        };
+        btn.ondblclick = function () {
+          var t = btn.getAttribute("data-tgttype");
+          allT.forEach(function (k) { S.tgtT[k] = (k === t); });
+          Array.prototype.forEach.call(tgtTypeBox.querySelectorAll("[data-tgttype]"), function (b) {
+            b.classList.toggle("on", !!S.tgtT[b.getAttribute("data-tgttype")]);
+          });
+          renderChartPanel();
+        };
+      });
     }
   }
 
@@ -646,7 +694,7 @@
     S.detailEdge = null;
     S.selectedEdge = null;
 
-    // 自动确保选中实体的有效方向打开
+    // 方向保持单向聚焦（优先展示“→ 它克制谁”，如果它没有出边只有入边则自动翻到“← 谁克制它”）
     var allowed = activeRelTypes();
     var out = 0, inn = 0;
     S.edges.forEach(function (e) {
@@ -654,9 +702,18 @@
       if (e.source === id) out++;
       if (e.target === id) inn++;
     });
-    if (out > 0 && inn === 0) { S.dirSel["克制"] = true; S.dirSel["被克制"] = false; }
-    else if (inn > 0 && out === 0) { S.dirSel["克制"] = false; S.dirSel["被克制"] = true; }
-    else { S.dirSel["克制"] = true; S.dirSel["被克制"] = true; }
+    if (n.type === "阵容" || n.type === "流派") {
+      // 选阵容或流派时，默认看“谁克制它（怎么破阵）”
+      S.dirSel["克制"] = false;
+      S.dirSel["被克制"] = true;
+      S.tgtT[n.type] = true;
+    } else if (out > 0) {
+      S.dirSel["克制"] = true;
+      S.dirSel["被克制"] = false;
+    } else if (inn > 0) {
+      S.dirSel["克制"] = false;
+      S.dirSel["被克制"] = true;
+    }
 
     Array.prototype.forEach.call(document.querySelectorAll("[data-dir]"), function (b) {
       b.classList.toggle("on", !!S.dirSel[b.getAttribute("data-dir")]);
