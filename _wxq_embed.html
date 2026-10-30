@@ -1280,6 +1280,304 @@
       border-top: 1px solid var(--line);
     }
   }
+
+  /* ========= WeCom Personal Lineup Notes Reader (Markdown + Images + Entity Links) ========= */
+  .wn-tag-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .wn-layout {
+    display: grid;
+    grid-template-columns: 330px minmax(0, 1fr);
+    border: 1px solid var(--line);
+    background: rgba(14, 17, 22, 0.56);
+    min-height: 760px;
+  }
+  .wn-sidebar {
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    max-height: 820px;
+  }
+  .wn-search-wrap {
+    padding: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .wn-search-wrap input {
+    width: 100%;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--line-2);
+    border-radius: 2px;
+    background: rgba(12, 15, 20, 0.88);
+    color: #edf0f3;
+    font-size: 12.5px;
+  }
+  .wn-search-wrap input:focus {
+    outline: none;
+    border-color: #63c7c4;
+  }
+  .wn-note-list {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .wn-note-item {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 12px;
+    border: 0;
+    border-bottom: 1px solid rgba(178, 189, 204, 0.08);
+    background: transparent;
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .wn-note-item:hover {
+    background: rgba(210, 221, 229, 0.05);
+  }
+  .wn-note-item.is-selected {
+    background: rgba(99, 199, 196, 0.10);
+    box-shadow: inset 2px 0 #63c7c4;
+  }
+  .wn-note-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+    object-fit: cover;
+    border: 1px solid var(--line-2);
+    flex-shrink: 0;
+  }
+  .wn-note-meta {
+    min-width: 0;
+    flex: 1;
+  }
+  .wn-note-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #edf0f3;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .wn-note-sub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 11px;
+    color: #939ca9;
+  }
+  .wn-badge-img {
+    color: #8fdfdc;
+    background: rgba(99, 199, 196, 0.12);
+    border: 1px solid rgba(99, 199, 196, 0.35);
+    padding: 0 5px;
+    border-radius: 2px;
+    font-size: 10px;
+  }
+
+  /* Markdown + Image Reader Column */
+  .wn-reader {
+    padding: 24px 32px 48px;
+    max-height: 820px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .wn-article-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .wn-article-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .wn-article-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 3px;
+    object-fit: cover;
+    border: 1px solid var(--line-2);
+    flex-shrink: 0;
+  }
+  .wn-article-kicker {
+    font-size: 11px;
+    color: #77cfcc;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .wn-article-head h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #edf0f3;
+  }
+  .wn-nav-btns {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .wn-md-body {
+    max-width: 920px;
+    color: #d8e0e8;
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+  .wn-h1 {
+    font-size: 17px;
+    font-weight: 650;
+    color: #edf0f3;
+    margin: 22px 0 10px;
+    padding: 6px 12px;
+    border-left: 3px solid #63c7c4;
+    background: rgba(99, 199, 196, 0.06);
+  }
+  .wn-h2, .wn-section-tag {
+    font-size: 15px;
+    font-weight: 650;
+    color: #8fdfdc;
+    margin: 20px 0 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--line);
+  }
+  .wn-h3 {
+    font-size: 14px;
+    font-weight: 650;
+    color: #d5b966;
+    margin: 14px 0 6px;
+  }
+  .wn-p {
+    margin: 8px 0;
+    color: #d8e0e8;
+  }
+  .wn-list-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 6px 0;
+  }
+  .wn-bullet {
+    color: #63c7c4;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .wn-quote {
+    margin: 10px 0;
+    padding: 10px 14px;
+    border-left: 2px solid #d5b966;
+    background: rgba(213, 185, 102, 0.07);
+    color: #dfc7a0;
+    font-size: 13.5px;
+  }
+  .wn-nested {
+    padding-left: 18px;
+    border-left: 1px dashed var(--line);
+    margin: 6px 0;
+  }
+  .wn-figure {
+    margin: 16px 0 22px;
+  }
+  .wn-img-wrap {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    border: 1px solid var(--line-2);
+    border-radius: 3px;
+    background: rgba(10, 13, 18, 0.85);
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+  .wn-img-wrap img {
+    display: block;
+    max-width: 100%;
+    max-height: 540px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .wn-zoom-hint {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    padding: 2px 8px;
+    background: rgba(12, 16, 22, 0.82);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-size: 10.5px;
+    color: #c5cbd3;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .wn-img-wrap:hover .wn-zoom-hint {
+    opacity: 1;
+  }
+  .wn-empty-note {
+    padding: 18px;
+    border: 1px dashed var(--line);
+    color: #939ca9;
+    font-size: 13px;
+  }
+  .wn-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    background: rgba(6, 9, 14, 0.88);
+    backdrop-filter: blur(6px);
+    display: grid;
+    place-items: center;
+    padding: 28px;
+    cursor: zoom-out;
+  }
+  .wn-lightbox img {
+    max-width: 94vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 1px solid var(--line-2);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+  }
+  .wn-lb-close {
+    position: fixed;
+    top: 20px;
+    right: 26px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line-2);
+    background: rgba(20, 24, 31, 0.85);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  @media (max-width: 960px) {
+    .wn-layout {
+      grid-template-columns: 1fr;
+    }
+    .wn-sidebar {
+      max-height: 320px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .wn-reader {
+      padding: 18px;
+      max-height: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -1351,6 +1649,7 @@
 <script src="/js/echarts.min.js"></script>
 <script src="/js/app.min.js?v=mvsovy8r"></script>
 <script src="/js/os-counter-graph.js?v=20261030_os1"></script>
+<script src="/js/wecom-lineup-notes.js?v=20261030_wn1"></script>
 <script>
   (function() {
     var quickSearchBtn = document.getElementById('utQuickSearch');
@@ -1383,6 +1682,9 @@
       syncActiveTab();
       if (window.OSCounterGraph && typeof window.OSCounterGraph.mountIfNeeded === 'function') {
         window.OSCounterGraph.mountIfNeeded();
+      }
+      if (window.WeComLineupNotes && typeof window.WeComLineupNotes.mountIfNeeded === 'function') {
+        window.WeComLineupNotes.mountIfNeeded();
       }
     }
 
