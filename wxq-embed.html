@@ -708,27 +708,26 @@
   }
   .os-mode-tabs {
     display: flex;
-    gap: 12px;
+    gap: 28px;
   }
   .os-mode-tab {
-    padding: 9px 18px;
-    border-radius: 999px;
-    background: url(/assets/wxq-ui/filter-bg.png) center / 100% 100% no-repeat;
+    padding: 12px 2px;
+    background: transparent;
     border: 0;
-    color: #b4c0d0;
+    color: #939ca9;
     font-family: var(--font-display);
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 700;
+    white-space: nowrap;
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: color 0.15s ease;
   }
   .os-mode-tab:hover {
-    color: #ffffff;
+    color: #edf0f3;
   }
   .os-mode-tab.is-active {
-    color: #ffffff;
-    background: url(/assets/wxq-ui/filter-act.png) center / 100% 100% no-repeat;
-    box-shadow: 0 0 16px rgba(99, 199, 196, 0.25);
+    color: #8fdfdc;
+    box-shadow: inset 0 -2px #63c7c4;
   }
   .os-mode-status {
     display: flex;
