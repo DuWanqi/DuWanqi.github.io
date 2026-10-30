@@ -15,7 +15,7 @@
 }
 @font-face {
   font-family: "WanxiangDIN";
-  src: url(/assets/DINNextLTPro-BoldCondensed.ttf) format("truetype");
+  src: url(/assets/Helvetica_Inserat_LT_Pro.ttf) format("truetype");
   font-display: swap;
 }
 
@@ -32,7 +32,7 @@
   padding-top: 0 !important;
 }
 
-/* ================= 万象棋笔记 · 液态金属都市潮流大厅 (Liquid Metal Urban Lobby) ================= */
+/* ================= 万象棋笔记 · 官方原厂切图与液态金属大厅 ================= */
 .lm-home {
   position: relative;
   width: 100%;
@@ -70,7 +70,7 @@
     linear-gradient(180deg, rgba(12, 16, 28, 0.52) 0%, rgba(18, 23, 38, 0.08) 45%, rgba(12, 16, 28, 0.82) 100%);
 }
 
-/* Stepped Liquid Metal Ring Graphic */
+/* Official Stepped Ring + Diagonal Hatch Decoration */
 .lm-ring-graphic {
   position: absolute;
   left: 50%;
@@ -107,7 +107,7 @@
   justify-content: space-between;
 }
 
-/* Top Sub-HUD Bar: Floating Liquid Metal Text Strip (exact homage to "活动 商城 祈愿 交易行 下载") */
+/* Top Sub-HUD Bar: Official WXQ Icon + Floating Liquid Metal Text Strip */
 .lm-hud-top {
   display: flex;
   align-items: center;
@@ -123,7 +123,6 @@
   flex-wrap: wrap;
 }
 
-/* Pure floating icon + wide solid OSGameFont_Title / HYQiHei_85S liquid metal text */
 .lm-top-pill {
   position: relative;
   display: inline-flex;
@@ -135,14 +134,16 @@
   background: transparent !important;
   box-shadow: none !important;
   text-decoration: none;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8));
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.82));
   transition: transform 0.18s ease, filter 0.18s ease;
 }
 
-.lm-top-pill > svg {
-  color: #f0dfad;
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.65));
-  transition: transform 0.18s ease, color 0.18s ease;
+.lm-native-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+  transition: transform 0.18s ease;
 }
 
 .lm-top-pill > span {
@@ -158,29 +159,26 @@
 
 .lm-top-pill:hover {
   transform: translateY(-1.5px);
-  filter: drop-shadow(0 0 12px rgba(215, 235, 255, 0.7)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 12px rgba(215, 235, 255, 0.75)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.85));
 }
 
-.lm-top-pill:hover > svg {
-  color: #fff3cf;
-  transform: scale(1.08);
+.lm-top-pill:hover .lm-native-icon {
+  transform: scale(1.1);
 }
 
-/* Liquid Glass Search */
+/* Official Extracted Capsule Search Box + Liquid Metal Submit Button */
 .lm-glass-search {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) 72px;
+  grid-template-columns: 38px minmax(0, 1fr) 76px;
   align-items: center;
-  width: min(340px, 100%);
-  height: 38px;
+  width: min(350px, 100%);
+  height: 40px;
   border-radius: 999px;
-  background: rgba(16, 22, 38, 0.42);
+  background: url(/assets/wxq-ui/filter-bg.png) center / 100% 100% no-repeat, rgba(14, 18, 30, 0.62);
   border: 1px solid rgba(224, 236, 255, 0.28);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.22),
-    0 6px 20px rgba(8, 12, 24, 0.32);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(8, 12, 24, 0.42);
   overflow: hidden;
 }
 
@@ -203,48 +201,65 @@
   color: rgba(216, 228, 248, 0.68);
 }
 
+/* Official Launcher Liquid Metal Capsule Button (launcher_game-button-default-bg.6fa4adbc.png) */
 .lm-glass-search button {
-  height: 28px;
+  height: 30px;
   margin-right: 5px;
   border: 0;
   border-radius: 999px;
-  background: linear-gradient(180deg, #ffffff 0%, #cfdcf0 100%);
-  color: #1c2842;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 700;
+  background: url(/assets/wxq-ui/game-btn-bg.png) center / cover no-repeat;
+  color: #162035;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  transition: filter 0.15s ease;
+  box-shadow: 0 2px 10px rgba(160, 198, 255, 0.35);
+  transition: filter 0.15s ease, transform 0.15s ease;
 }
 
 .lm-glass-search button:hover {
   filter: brightness(1.08);
+  transform: scale(1.02);
 }
 
-/* Center Liquid Chrome Title */
+/* Center Liquid Chrome Title with Official Diagonal-Hatch Decoration */
 .lm-center-stage {
+  position: relative;
   margin: auto 0;
   padding-top: 60px;
   text-align: center;
   pointer-events: none;
 }
 
+.lm-center-stage::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 340px;
+  height: 92px;
+  transform: translate(-50%, -50%);
+  background: url(/assets/wxq-ui/game-btn-deco.png) center / contain no-repeat;
+  opacity: 0.36;
+  pointer-events: none;
+}
+
 .lm-chrome-tag {
   display: inline-block;
-  padding: 4px 16px;
+  padding: 4px 18px;
   border-radius: 999px;
   font-family: "WanxiangDIN", sans-serif;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: #e4effc;
-  background: rgba(18, 24, 42, 0.38);
+  color: #e8f1ff;
+  background: url(/assets/wxq-ui/filter-act.png) center / 100% 100% no-repeat;
   border: 1px solid rgba(224, 238, 255, 0.32);
-  backdrop-filter: blur(8px);
 }
 
 .lm-chrome-title {
+  position: relative;
   margin: 14px 0 0;
   font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: clamp(52px, 5.8vw, 78px);
@@ -255,7 +270,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 6px 28px rgba(8, 14, 28, 0.78));
+  filter: drop-shadow(0 6px 28px rgba(8, 14, 28, 0.82));
 }
 
 /* Bottom Lobby Bar */
@@ -266,29 +281,28 @@
   gap: 24px;
 }
 
-/* Floating bottom-left status line */
+/* Floating bottom-left status line with official liquid metal badge */
 .lm-status-capsule {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   padding: 6px 4px;
   background: transparent;
   border: 0;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: rgba(236, 243, 255, 0.92);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  color: rgba(236, 243, 255, 0.94);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.88);
 }
 
-.lm-pulse {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #7fe3d0;
-  box-shadow: 0 0 10px #7fe3d0;
+.lm-status-badge {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(143, 223, 220, 0.55));
 }
 
-/* Bottom-Right Lobby Dock (pure floating "棋手 / 卡牌 / 阵容" + "实战阵容笔记|") */
+/* Bottom-Right Lobby Dock (pure floating official WXQ icons + "实战阵容笔记|") */
 .lm-lobby-dock {
   display: flex;
   flex-direction: column;
@@ -299,26 +313,25 @@
 .lm-dock-icons {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 28px;
 }
 
 .lm-dock-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   color: #f4f8ff;
   text-decoration: none;
-  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.8));
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.82));
   transition: transform 0.18s ease, filter 0.18s ease;
 }
 
 .lm-dock-item:hover {
   transform: translateY(-3px);
-  filter: drop-shadow(0 0 12px rgba(215, 235, 255, 0.75)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 12px rgba(215, 235, 255, 0.8)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.88));
 }
 
-/* Pure floating icon without square box border */
 .lm-dock-icon-box {
   width: 34px;
   height: 34px;
@@ -327,7 +340,13 @@
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  color: #ffffff;
+}
+
+.lm-dock-icon-box img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(1.15) contrast(1.08);
 }
 
 .lm-dock-label {
@@ -342,12 +361,25 @@
 }
 
 .lm-start-cta {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 12px;
   padding: 6px 4px 6px 18px;
   text-decoration: none;
   transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.lm-start-cta::before {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: -8px;
+  width: 140px;
+  height: 38px;
+  background: url(/assets/wxq-ui/game-btn-deco.png) right center / contain no-repeat;
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .lm-start-cta:hover {
@@ -364,7 +396,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.78));
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.82));
 }
 
 .lm-start-bar {

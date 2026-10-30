@@ -7,24 +7,29 @@
 <title>万象棋笔记</title>
 <link rel="stylesheet" href="/css/app.css?v=mvsovy8r">
 <style>
-  /* Load official Wanxiangqi fonts from wxq.qq.com */
+  /* Load official extracted Wanxiangqi fonts */
   @font-face {
-    font-family: "WanxiangTitle";
-    src: url(/assets/zzyt_Title.otf) format("opentype");
+    font-family: "OSGameFontTitle";
+    src: url(/assets/OSGameFont_Title.ttf) format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "OSGameFontContent";
+    src: url(/assets/OSGameFont_Content.ttf) format("truetype");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "HYQiHei85S";
+    src: url(/assets/HYQiHei_85S.ttf) format("truetype");
     font-display: swap;
   }
   @font-face {
     font-family: "WanxiangDIN";
-    src: url(/assets/DINNextLTPro-BoldCondensed.ttf) format("truetype");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "WanxiangSans";
-    src: url(/assets/hyqh-75w.otf) format("opentype");
+    src: url(/assets/Helvetica_Inserat_LT_Pro.ttf) format("truetype");
     font-display: swap;
   }
 
-  /* Urban Tech Minimalism Design System (matching /analysis/dps & wxq.qq.com) */
+  /* Urban Tech Minimalism Design System (matching official extracted WXQ Community UI) */
   :root {
     --ink: #15171c;
     --ink-2: #191b20;
@@ -43,14 +48,14 @@
     --danger: #ef9a7e;
     --radius: 3px;
     --radius-s: 2px;
-    --font: "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-    --font-display: "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    --font: "OSGameFontContent", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    --font-display: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
     --shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
   }
 
   body {
-    background: linear-gradient(90deg, #1a1c22db, #191b20ee 54%, #15171cf4),
-                url(/assets/official-loading-bg.jpg) center top / cover fixed !important;
+    background: linear-gradient(90deg, #141824db, #131722ee 54%, #10141ef4),
+                url(/assets/wxq-ui/bg-new.jpg) center top / cover fixed !important;
     color: var(--text);
     font-family: var(--font);
     font-size: 14px;
@@ -650,11 +655,14 @@
   }
   .os-head h1 {
     margin: 0;
+    font-family: var(--font-display);
     font-size: 28px;
-    font-weight: 700;
-    transform: skew(-5deg);
-    transform-origin: left;
-    color: #edf0f3;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: linear-gradient(180deg, #ffffff 0%, #dce8f8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .os-sub {
     margin: 6px 0 0;
@@ -700,24 +708,27 @@
   }
   .os-mode-tabs {
     display: flex;
-    gap: 28px;
+    gap: 12px;
   }
   .os-mode-tab {
-    padding: 12px 2px;
-    background: transparent;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: url(/assets/wxq-ui/filter-bg.png) center / 100% 100% no-repeat;
     border: 0;
-    color: #939ca9;
+    color: #b4c0d0;
+    font-family: var(--font-display);
     font-size: 13.5px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: color 0.15s ease;
+    transition: all 0.18s ease;
   }
   .os-mode-tab:hover {
-    color: #edf0f3;
+    color: #ffffff;
   }
   .os-mode-tab.is-active {
-    color: #8fdfdc;
-    box-shadow: inset 0 -2px #63c7c4;
+    color: #ffffff;
+    background: url(/assets/wxq-ui/filter-act.png) center / 100% 100% no-repeat;
+    box-shadow: 0 0 16px rgba(99, 199, 196, 0.25);
   }
   .os-mode-status {
     display: flex;
@@ -1351,11 +1362,13 @@
     box-shadow: inset 2px 0 #63c7c4;
   }
   .wn-note-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 3px;
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    border-radius: 2px;
     object-fit: cover;
-    border: 1px solid var(--line-2);
+    background: url(/assets/wxq-ui/golden-border.png) center / 100% 100% no-repeat;
+    border: 0;
     flex-shrink: 0;
   }
   .wn-note-meta {

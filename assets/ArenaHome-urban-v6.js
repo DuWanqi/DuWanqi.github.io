@@ -16,29 +16,29 @@ function O({navigate:r,onSearch:d}){
   const[c,h]=o.useState("");
   const k=s=>{s.preventDefault(),d?.(c.trim())};
 
-  // Bottom-right minimalist floating icon dock (exact homage to Wanxiangqi lobby "棋手 / 卡牌 / 阵容 + 开始游戏|")
+  // Bottom-right minimalist floating icon dock (using official extracted WXQ icons)
   const dockItems=[
-    {label:"棋手",to:"/players",Icon:w},
-    {label:"卡牌",to:"/atlas",Icon:N},
-    {label:"阵容",to:"/wxq-lineups",Icon:R},
-    {label:"克制链",to:"/counters",Icon:z},
-    {label:"数值研究",to:"/analysis/dps",Icon:S}
+    {label:"棋手",to:"/players",iconSrc:"/assets/wxq-ui/icon5.webp"},
+    {label:"卡牌",to:"/atlas",iconSrc:"/assets/wxq-ui/icon1.webp"},
+    {label:"阵容",to:"/wxq-lineups",iconSrc:"/assets/wxq-ui/icon2.webp"},
+    {label:"克制链",to:"/counters",iconSrc:"/assets/wxq-ui/icon4.webp"},
+    {label:"数值研究",to:"/analysis/dps",iconSrc:"/assets/wxq-ui/icon6.webp"}
   ];
 
-  // Top-left floating icon + liquid metal text strip (exact homage to Wanxiangqi lobby "活动 商城 祈愿 交易行 下载")
+  // Top-left floating icon + liquid metal text strip (using official extracted WXQ icons)
   const topQuickLinks=[
-    {label:"英雄图鉴",to:"/explore/hero-sulie",Icon:N},
-    {label:"装备合成",to:"/explore/equipment-catalog",Icon:b},
-    {label:"天赋词条",to:"/explore/talent-catalog",Icon:z},
-    {label:"效果牌库",to:"/explore/effect-catalog",Icon:y},
-    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",Icon:I},
-    {label:"抽卡模拟",to:"/analysis/draw",Icon:S}
+    {label:"英雄图鉴",to:"/explore/hero-sulie",iconSrc:"/assets/wxq-ui/icon1.webp"},
+    {label:"装备合成",to:"/explore/equipment-catalog",iconSrc:"/assets/wxq-ui/icon2.webp"},
+    {label:"天赋词条",to:"/explore/talent-catalog",iconSrc:"/assets/wxq-ui/icon3.webp"},
+    {label:"效果牌库",to:"/explore/effect-catalog",iconSrc:"/assets/wxq-ui/icon4.webp"},
+    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",iconSrc:"/assets/wxq-ui/i-badge.png"},
+    {label:"抽卡模拟",to:"/analysis/draw",iconSrc:"/assets/wxq-ui/i-badge2.png"}
   ];
 
   return e.jsxs("div",{
     className:"lm-home",
     children:[
-      /* Background Layer: Official KV + Liquid Metal Stepped Ring SVG */
+      /* Background Layer: Official KV + Liquid Metal Stepped Ring */
       e.jsxs("div",{
         className:"lm-backdrop",
         "aria-hidden":"true",
@@ -53,7 +53,7 @@ function O({navigate:r,onSearch:d}){
       e.jsxs("section",{
         className:"lm-hud",
         children:[
-          /* Top Sub-HUD Bar: Floating Icon + Liquid Metal Text (like "活动 商城 祈愿 交易行 下载") */
+          /* Top Sub-HUD Bar: Official WXQ Icon + Floating Liquid Metal Text + Official Capsule Search */
           e.jsxs("div",{
             className:"lm-hud-top",
             children:[
@@ -65,7 +65,7 @@ function O({navigate:r,onSearch:d}){
                   navigate:r,
                   className:"lm-top-pill",
                   children:[
-                    e.jsx(item.Icon,{size:15,strokeWidth:2,"aria-hidden":"true"}),
+                    e.jsx("img",{className:"lm-native-icon",src:item.iconSrc,alt:"","aria-hidden":"true"}),
                     e.jsx("span",{children:item.label})
                   ]
                 },item.to))
@@ -87,7 +87,7 @@ function O({navigate:r,onSearch:d}){
             ]
           }),
 
-          /* Center Liquid Chrome Championship Title */
+          /* Center Stage: Official Diagonal-Hatch Decoration + Liquid Metal Title */
           e.jsxs("div",{
             className:"lm-center-stage",
             children:[
@@ -103,7 +103,7 @@ function O({navigate:r,onSearch:d}){
               e.jsxs("div",{
                 className:"lm-status-capsule",
                 children:[
-                  e.jsx("i",{className:"lm-pulse"}),
+                  e.jsx("img",{className:"lm-status-badge",src:"/assets/wxq-ui/i-badge2.png",alt:""}),
                   e.jsx("span",{children:"【万象启程】74 篇实战阵容笔记 & 1,492 实体克制推演图谱已就绪"})
                 ]
               }),
@@ -121,7 +121,7 @@ function O({navigate:r,onSearch:d}){
                       children:[
                         e.jsx("span",{
                           className:"lm-dock-icon-box",
-                          children:e.jsx(it.Icon,{size:22,strokeWidth:1.9})
+                          children:e.jsx("img",{src:it.iconSrc,alt:""})
                         }),
                         e.jsx("span",{className:"lm-dock-label",children:it.label})
                       ]
