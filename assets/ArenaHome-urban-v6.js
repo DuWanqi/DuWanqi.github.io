@@ -16,13 +16,30 @@ function O({navigate:r,onSearch:d}){
   const[c,h]=o.useState("");
   const k=s=>{s.preventDefault(),d?.(c.trim())};
 
-  // Bottom-right minimalist icon dock ("棋手 / 卡牌 / 阵容 + 实战阵容笔记")
+  // Left-side circular Liquid Metal orbs (exact homage to Wanxiangqi lobby "成长之路 / 战令 / 万象之都")
+  const leftOrbs=[
+    {val:"74",sub:"NOTES",label:"实战笔记",to:"/wxq-lineups",Icon:R},
+    {val:"86",sub:"HEROES",label:"英雄卡牌",to:"/explore/hero-sulie",Icon:N},
+    {val:"9.1k",sub:"GRAPH",label:"克制推演",to:"/counters",Icon:z}
+  ];
+
+  // Bottom-right minimalist floating icon dock (exact homage to Wanxiangqi lobby "棋手 / 卡牌 / 阵容 + 开始游戏|")
   const dockItems=[
     {label:"棋手",to:"/players",Icon:w},
     {label:"卡牌",to:"/atlas",Icon:N},
     {label:"阵容",to:"/wxq-lineups",Icon:R},
     {label:"克制链",to:"/counters",Icon:z},
     {label:"数值研究",to:"/analysis/dps",Icon:S}
+  ];
+
+  // Top-left floating icon + liquid metal text strip (exact homage to Wanxiangqi lobby "活动 商城 祈愿 交易行 下载")
+  const topQuickLinks=[
+    {label:"英雄图鉴",to:"/explore/hero-sulie",Icon:N},
+    {label:"装备合成",to:"/explore/equipment-catalog",Icon:b},
+    {label:"天赋词条",to:"/explore/talent-catalog",Icon:z},
+    {label:"效果牌库",to:"/explore/effect-catalog",Icon:y},
+    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",Icon:I},
+    {label:"抽卡模拟",to:"/analysis/draw",Icon:S}
   ];
 
   return e.jsxs("div",{
@@ -43,24 +60,62 @@ function O({navigate:r,onSearch:d}){
       e.jsxs("section",{
         className:"lm-hud",
         children:[
-          /* Top Sub-HUD Bar: Search on the right, no ugly pills or orbs on the left */
-          e.jsx("div",{
+          /* Top Sub-HUD Bar: Floating Icon + Liquid Metal Text (like "活动 商城 祈愿 交易行 下载") */
+          e.jsxs("div",{
             className:"lm-hud-top",
-            style:{justifyContent:"flex-end"},
-            children:e.jsxs("form",{
-              className:"lm-glass-search",
-              onSubmit:k,
+            children:[
+              e.jsx("nav",{
+                className:"lm-top-pills",
+                "aria-label":"快速图鉴入口",
+                children:topQuickLinks.map(item=>e.jsxs(u,{
+                  to:item.to,
+                  navigate:r,
+                  className:"lm-top-pill",
+                  children:[
+                    e.jsx(item.Icon,{size:15,strokeWidth:2,"aria-hidden":"true"}),
+                    e.jsx("span",{children:item.label})
+                  ]
+                },item.to))
+              }),
+              e.jsxs("form",{
+                className:"lm-glass-search",
+                onSubmit:k,
+                children:[
+                  e.jsx(C,{size:16,"aria-hidden":"true"}),
+                  e.jsx("input",{
+                    value:c,
+                    onChange:s=>h(s.target.value),
+                    placeholder:"搜索英雄、装备、天赋、阵容笔记…",
+                    "aria-label":"搜索万象棋笔记"
+                  }),
+                  e.jsx("button",{type:"submit",children:"检索"})
+                ]
+              })
+            ]
+          }),
+
+          /* Left Circular Glass Medallions (like 成长之路 / 战令 / 万象之都) */
+          e.jsx("aside",{
+            className:"lm-left-orbs",
+            "aria-label":"核心数据徽章",
+            children:leftOrbs.map(orb=>e.jsxs(u,{
+              to:orb.to,
+              navigate:r,
+              className:"lm-orb",
               children:[
-                e.jsx(C,{size:16,"aria-hidden":"true"}),
-                e.jsx("input",{
-                  value:c,
-                  onChange:s=>h(s.target.value),
-                  placeholder:"搜索英雄、装备、天赋、阵容笔记…",
-                  "aria-label":"搜索万象棋笔记"
+                e.jsxs("div",{
+                  className:"lm-orb-circle",
+                  children:[
+                    e.jsx("span",{
+                      className:"lm-orb-emblem",
+                      children:e.jsx(orb.Icon,{size:14,strokeWidth:2.1})
+                    }),
+                    e.jsx("strong",{children:orb.val})
+                  ]
                 }),
-                e.jsx("button",{type:"submit",children:"检索"})
+                e.jsx("span",{className:"lm-orb-label",children:orb.label})
               ]
-            })
+            },orb.label))
           }),
 
           /* Center Liquid Chrome Championship Title */
@@ -72,7 +127,7 @@ function O({navigate:r,onSearch:d}){
             ]
           }),
 
-          /* Bottom Bar: Left status capsule + Right Lobby Dock ("棋手 / 卡牌 / 阵容" + "实战阵容笔记") */
+          /* Bottom Bar: Left status line + Right Lobby Dock ("棋手 / 卡牌 / 阵容" + "实战阵容笔记|") */
           e.jsxs("div",{
             className:"lm-hud-bottom",
             children:[
@@ -80,7 +135,7 @@ function O({navigate:r,onSearch:d}){
                 className:"lm-status-capsule",
                 children:[
                   e.jsx("i",{className:"lm-pulse"}),
-                  e.jsx("span",{children:"S1 万象启程 · 74 篇实战阵容笔记 & 1,492 实体克制图谱已就绪"})
+                  e.jsx("span",{children:"【万象启程】74 篇实战阵容笔记 & 1,492 实体克制推演图谱已就绪"})
                 ]
               }),
 
@@ -97,7 +152,7 @@ function O({navigate:r,onSearch:d}){
                       children:[
                         e.jsx("span",{
                           className:"lm-dock-icon-box",
-                          children:e.jsx(it.Icon,{size:19,strokeWidth:1.6})
+                          children:e.jsx(it.Icon,{size:22,strokeWidth:1.9})
                         }),
                         e.jsx("span",{className:"lm-dock-label",children:it.label})
                       ]
