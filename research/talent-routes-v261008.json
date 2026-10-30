@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "publishedOn": "2026-10-22",
+  "sourceName": "万象棋大数据站",
+  "sourceUrl": "https://www.datawxq.com/explorer",
+  "rule": "user-rule-2026-10-21-level-5-or-6-three-picks-insert-level-4-ordinary-equipment",
+  "ruleAuthority": "用户明确指定，不依赖客户端验证",
+  "archiveCollectedOn": "2026-10-12",
+  "recomputedOn": "2026-10-21",
+  "sourceScope": "v261008；20个棋手过滤；冠军快照；不是全体对局随机样本",
+  "rawPages": 200,
+  "rawCount": 5793,
+  "uniqueCount": 5790,
+  "dedupKey": "game_time|player_name|commander_id (接口没有独立对局ID)",
+  "statusCounts": {
+    "completed-by-user-rule": 1248,
+    "four-visible-selections": 4531,
+    "outside-level-5-or-6": 11
+  },
+  "includedCount": 5779,
+  "excludedCount": 11,
+  "ordinaryEquipmentRecords": 1248,
+  "ordinaryEquipmentShare": 0.21595431735594395,
+  "specialEquipmentRecords": 1596,
+  "specialEquipmentShare": 0.2761723481571206,
+  "allLevelsSpecialEquipmentRecords": 1599,
+  "excludedSpecialEquipmentRecords": 3,
+  "ordinaryAndSpecialOverlap": 0,
+  "level5NonGold": 0,
+  "missingByPrefix": {
+    "铜→金": 591,
+    "银→铜": 572,
+    "银→金": 17,
+    "铜→铜": 10,
+    "银→银": 30,
+    "铜→银": 28
+  },
+  "routes": [
+    {
+      "route": "银→特殊装备天赋→银",
+      "categories": [
+        "银",
+        "特殊装备天赋",
+        "银"
+      ],
+      "count": 693,
+      "supplementedRecords": 0,
+      "share": 0.11991694064717079
+    },
+    {
+      "route": "铜→银→银",
+      "categories": [
+        "铜",
+        "银",
+        "银"
+      ],
+      "count": 649,
+      "supplementedRecords": 0,
+      "share": 0.1123031666378266
+    },
+    {
+      "route": "铜→特殊装备天赋→银",
+      "categories": [
+        "铜",
+        "特殊装备天赋",
+        "银"
+      ],
+      "count": 622,
+      "supplementedRecords": 0,
+      "share": 0.10763107804118359
+    },
+    {
+      "route": "铜→银→金",
+      "categories": [
+        "铜",
+        "银",
+        "金"
+      ],
+      "count": 616,
+      "supplementedRecords": 0,
+      "share": 0.10659283613081848
+    },
+    {
+      "route": "铜→金→普通装备天赋",
+      "categories": [
+        "铜",
+        "金",
+        "普通装备天赋"
+      ],
+      "count": 591,
+      "supplementedRecords": 591,
+      "share": 0.10226682817096383
+    },
+    {
+      "route": "铜→铜→银",
+      "categories": [
+        "铜",
+        "铜",
+        "银"
+      ],
+      "count": 581,
+      "supplementedRecords": 0,
+      "share": 0.10053642498702198
+    },
+    {
+      "route": "银→铜→普通装备天赋",
+      "categories": [
+        "银",
+        "铜",
+        "普通装备天赋"
+      ],
+      "count": 572,
+      "supplementedRecords": 572,
+      "share": 0.09897906212147431
+    },
+    {
+      "route": "金→银→银",
+      "categories": [
+        "金",
+        "银",
+        "银"
+      ],
+      "count": 323,
+      "supplementedRecords": 0,
+      "share": 0.055892022841322025
+    },
+    {
+      "route": "银→金→金",
+      "categories": [
+        "银",
+        "金",
+        "金"
+      ],
+      "count": 320,
+      "supplementedRecords": 0,
+      "share": 0.05537290188613947
+    },
+    {
+      "route": "银→特殊装备天赋→金",
+      "categories": [
+        "银",
+        "特殊装备天赋",
+        "金"
+      ],
+      "count": 281,
+      "supplementedRecords": 0,
+      "share": 0.04862432946876622
+    },
+    {
+      "route": "银→银→金",
+      "categories": [
+        "银",
+        "银",
+        "金"
+      ],
+      "count": 270,
+      "supplementedRecords": 0,
+      "share": 0.046720885966430176
+    },
+    {
+      "route": "金→金→金",
+      "categories": [
+        "金",
+        "金",
+        "金"
+      ],
+      "count": 176,
+      "supplementedRecords": 0,
+      "share": 0.03045509603737671
+    },
+    {
+      "route": "银→银→普通装备天赋",
+      "categories": [
+        "银",
+        "银",
+        "普通装备天赋"
+      ],
+      "count": 30,
+      "supplementedRecords": 30,
+      "share": 0.005191209551825575
+    },
+    {
+      "route": "铜→银→普通装备天赋",
+      "categories": [
+        "铜",
+        "银",
+        "普通装备天赋"
+      ],
+      "count": 28,
+      "supplementedRecords": 28,
+      "share": 0.004845128915037204
+    },
+    {
+      "route": "银→金→普通装备天赋",
+      "categories": [
+        "银",
+        "金",
+        "普通装备天赋"
+      ],
+      "count": 17,
+      "supplementedRecords": 17,
+      "share": 0.0029416854127011596
+    },
+    {
+      "route": "铜→铜→普通装备天赋",
+      "categories": [
+        "铜",
+        "铜",
+        "普通装备天赋"
+      ],
+      "count": 10,
+      "supplementedRecords": 10,
+      "share": 0.0017304031839418584
+    }
+  ],
+  "conditionals": [
+    {
+      "prefix": "铜→银",
+      "total": 1293,
+      "nextCounts": {
+        "银": 649,
+        "金": 616,
+        "普通装备天赋": 28
+      },
+      "nextDistribution": [
+        {
+          "category": "银",
+          "count": 649,
+          "probability": 0.5019334880123744
+        },
+        {
+          "category": "金",
+          "count": 616,
+          "probability": 0.47641144624903325
+        },
+        {
+          "category": "普通装备天赋",
+          "count": 28,
+          "probability": 0.02165506573859242
+        }
+      ]
+    },
+    {
+      "prefix": "银→特殊装备天赋",
+      "total": 974,
+      "nextCounts": {
+        "金": 281,
+        "银": 693
+      },
+      "nextDistribution": [
+        {
+          "category": "银",
+          "count": 693,
+          "probability": 0.7114989733059548
+        },
+        {
+          "category": "金",
+          "count": 281,
+          "probability": 0.28850102669404515
+        }
+      ]
+    },
+    {
+      "prefix": "铜→特殊装备天赋",
+      "total": 622,
+      "nextCounts": {
+        "银": 622
+      },
+      "nextDistribution": [
+        {
+          "category": "银",
+          "count": 622,
+          "probability": 1
+        }
+      ]
+    },
+    {
+      "prefix": "铜→金",
+      "total": 591,
+      "nextCounts": {
+        "普通装备天赋": 591
+      },
+      "nextDistribution": [
+        {
+          "category": "普通装备天赋",
+          "count": 591,
+          "probability": 1
+        }
+      ]
+    },
+    {
+      "prefix": "铜→铜",
+      "total": 591,
+      "nextCounts": {
+        "银": 581,
+        "普通装备天赋": 10
+      },
+      "nextDistribution": [
+        {
+          "category": "银",
+          "count": 581,
+          "probability": 0.9830795262267343
+        },
+        {
+          "category": "普通装备天赋",
+          "count": 10,
+          "probability": 0.01692047377326565
+        }
+      ]
+    },
+    {
+      "prefix": "银→铜",
+      "total": 572,
+      "nextCounts": {
+        "普通装备天赋": 572
+      },
+      "nextDistribution": [
+        {
+          "category": "普通装备天赋",
+          "count": 572,
+          "probability": 1
+        }
+      ]
+    },
+    {
+      "prefix": "银→金",
+      "total": 337,
+      "nextCounts": {
+        "金": 320,
+        "普通装备天赋": 17
+      },
+      "nextDistribution": [
+        {
+          "category": "金",
+          "count": 320,
+          "probability": 0.9495548961424333
+        },
+        {
+          "category": "普通装备天赋",
+          "count": 17,
+          "probability": 0.050445103857566766
+        }
+      ]
+    },
+    {
+      "prefix": "金→银",
+      "total": 323,
+      "nextCounts": {
+        "银": 323
+      },
+      "nextDistribution": [
+        {
+          "category": "银",
+          "count": 323,
+          "probability": 1
+        }
+      ]
+    },
+    {
+      "prefix": "银→银",
+      "total": 300,
+      "nextCounts": {
+        "金": 270,
+        "普通装备天赋": 30
+      },
+      "nextDistribution": [
+        {
+          "category": "金",
+          "count": 270,
+          "probability": 0.9
+        },
+        {
+          "category": "普通装备天赋",
+          "count": 30,
+          "probability": 0.1
+        }
+      ]
+    },
+    {
+      "prefix": "金→金",
+      "total": 176,
+      "nextCounts": {
+        "金": 176
+      },
+      "nextDistribution": [
+        {
+          "category": "金",
+          "count": 176,
+          "probability": 1
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "普通装备与特殊装备独立列出，不映射成铜银金。",
+    "所有比例以对应本表分母计算；条件分布分母是此前缀记录数。",
+    "规则补项不等于接口显式返回；具体普通装备武装ID及子类型未知。",
+    "五本金不参与前三次路线分支；铜银金27路之外单列装备分支。"
+  ]
+}

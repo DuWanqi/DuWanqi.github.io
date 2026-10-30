@@ -1,0 +1,725 @@
+@font-face {
+  font-family: "WanxiangTitle";
+  src: url(/assets/zzyt_Title.otf) format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "WanxiangDIN";
+  src: url(/assets/DINNextLTPro-BoldCondensed.ttf) format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --ut-bg: #0b0d12;
+  --ut-bg-elev: #11151d;
+  --ut-bg-card: rgba(18, 23, 32, 0.78);
+  --ut-bg-hover: rgba(25, 32, 44, 0.92);
+  --ut-line: rgba(148, 168, 196, 0.14);
+  --ut-line-strong: rgba(148, 168, 196, 0.28);
+  --ut-cyan: #00e5ff;
+  --ut-cyan-soft: #5ce1e6;
+  --ut-gold: #f5b841;
+  --ut-text: #f0f4f8;
+  --ut-muted: #8b98a9;
+}
+
+/* Global Urban Trend Minimalist Background (No legacy images) */
+html,
+body,
+.site-shell,
+.site-shell.is-arena-home,
+.site-shell:has(.rs-page) {
+  background-color: var(--ut-bg) !important;
+  background-image:
+    radial-gradient(900px 420px at 18% 0%, rgba(0, 229, 255, 0.075), transparent 65%),
+    radial-gradient(800px 380px at 88% 8%, rgba(245, 184, 65, 0.055), transparent 65%),
+    linear-gradient(rgba(148, 168, 196, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 168, 196, 0.032) 1px, transparent 1px) !important;
+  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
+  background-attachment: fixed !important;
+  color: var(--ut-text) !important;
+  font-family: "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+/* Remove all legacy footers, ICP, view counters, and panzhi ads */
+.view-counter,
+.site-footer,
+.icp-footer,
+.arena-sponsor,
+.mobile-home-sponsor-gallery,
+.mobile-home-sponsor-label {
+  display: none !important;
+}
+
+/* Urban Trend Header Redesign */
+.site-header {
+  background: rgba(11, 13, 18, 0.88) !important;
+  backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid var(--ut-line) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.site-shell.is-arena-home > main {
+  padding-top: 66px !important;
+}
+
+.ut-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.ut-brand-diamond {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #00e5ff 0%, #0077ff 100%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  color: #071018;
+  font-family: "WanxiangDIN", sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.ut-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ut-brand-text strong {
+  font-family: "WanxiangTitle", "PingFang SC", sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #f4f8fc;
+  transform: skew(-5deg);
+}
+
+.ut-brand-text small {
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--ut-cyan-soft);
+  margin-top: 2px;
+}
+
+/* Navigation links urban styling */
+.pc-primary-nav .pc-nav-link {
+  position: relative;
+  border-radius: 2px !important;
+  transition: color 0.16s ease, background 0.16s ease !important;
+}
+
+.pc-primary-nav .pc-nav-link.is-current {
+  color: #ffffff !important;
+  background: rgba(0, 229, 255, 0.08) !important;
+  box-shadow: inset 0 -2px var(--ut-cyan) !important;
+}
+
+.pc-primary-nav .pc-nav-link.is-current small {
+  color: var(--ut-cyan-soft) !important;
+}
+
+/* Directory (/atlas & /strategy) Urban Trend Redesign */
+.site-directory {
+  width: min(1480px, calc(100% - 64px)) !important;
+  margin-inline: auto !important;
+  padding: 28px 0 64px !important;
+}
+
+.site-directory > header {
+  border-bottom: 1px solid var(--ut-line) !important;
+  padding-bottom: 18px !important;
+  margin-bottom: 26px !important;
+}
+
+.site-directory > header p {
+  color: var(--ut-cyan-soft) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+.site-directory > header h1 {
+  font-family: "WanxiangTitle", "PingFang SC", sans-serif !important;
+  font-size: 32px !important;
+  transform: skew(-5deg);
+  transform-origin: left;
+}
+
+.directory-links a {
+  background: var(--ut-bg-card) !important;
+  border: 1px solid var(--ut-line) !important;
+  border-radius: 3px !important;
+  transition: all 0.16s ease !important;
+}
+
+.directory-links a:hover {
+  border-color: rgba(0, 229, 255, 0.5) !important;
+  background: var(--ut-bg-hover) !important;
+  box-shadow: inset 2px 0 var(--ut-cyan) !important;
+}
+
+/* ================= URBAN TREND HOME WORKBENCH ================= */
+.urban-tech-home {
+  color: var(--ut-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.urban-tech-home * {
+  box-sizing: border-box;
+}
+
+.ut-workspace {
+  width: min(1480px, calc(100% - 64px));
+  margin-inline: auto;
+  padding: 16px 0 64px;
+}
+
+.ut-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 14px;
+  border: 1px solid var(--ut-line);
+  border-left: 3px solid var(--ut-cyan);
+  background: rgba(16, 21, 30, 0.72);
+  font-size: 11px;
+  color: var(--ut-muted);
+}
+
+.ut-status-left,
+.ut-status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ut-tag-cyan {
+  color: var(--ut-cyan-soft);
+  font-family: "WanxiangDIN", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.ut-sep {
+  opacity: 0.35;
+}
+
+.ut-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 8px #00e5ff;
+}
+
+/* Hero Split Grid */
+.ut-hero-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 32px;
+  align-items: stretch;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--ut-line);
+}
+
+.ut-hero-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ut-eyebrow {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ut-cyan-soft);
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.ut-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  background: var(--ut-cyan);
+}
+
+.ut-title {
+  margin: 0;
+  font-family: "WanxiangTitle", "PingFang SC", sans-serif;
+  font-size: clamp(38px, 4vw, 54px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  transform: skew(-5deg);
+  transform-origin: left;
+  letter-spacing: 0.02em;
+}
+
+.ut-subtitle {
+  margin: 14px 0 22px;
+  color: #9aa7b8;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.ut-search-form {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 124px;
+  height: 46px;
+  max-width: 640px;
+  border: 1px solid var(--ut-line-strong);
+  border-radius: 2px;
+  background: rgba(15, 19, 27, 0.88);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.ut-search-form:focus-within {
+  border-color: var(--ut-cyan);
+  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.25);
+}
+
+.ut-search-form > svg {
+  align-self: center;
+  justify-self: center;
+  color: var(--ut-cyan-soft);
+}
+
+.ut-search-form input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #f0f4f8;
+  font: inherit;
+  font-size: 13.5px;
+  padding: 0 10px 0 0;
+}
+
+.ut-search-form input::placeholder {
+  color: #6c7989;
+}
+
+.ut-search-form button {
+  border: 0;
+  border-left: 1px solid var(--ut-line);
+  background: linear-gradient(135deg, #00e5ff 0%, #29b6f6 100%);
+  color: #061017;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.ut-search-form button:hover {
+  filter: brightness(1.1);
+}
+
+.ut-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.ut-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--ut-line-strong);
+  border-radius: 2px;
+  background: rgba(18, 23, 32, 0.78);
+  color: #dce4ee;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.ut-btn:hover {
+  border-color: var(--ut-cyan);
+  color: var(--ut-cyan-soft);
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.ut-btn-primary {
+  border-color: rgba(0, 229, 255, 0.6);
+  background: rgba(0, 229, 255, 0.12);
+  color: var(--ut-cyan-soft);
+  box-shadow: inset 2px 0 var(--ut-cyan);
+}
+
+/* Right Specimen Showcase */
+.ut-hero-showcase {
+  border: 1px solid var(--ut-line);
+  background: rgba(14, 18, 26, 0.65);
+  padding: 16px 18px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ut-showcase-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--ut-line);
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ut-muted);
+}
+
+.ut-showcase-head a {
+  color: var(--ut-cyan-soft);
+  text-decoration: none;
+  font-family: var(--font);
+  font-weight: 600;
+}
+
+.ut-showcase-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ut-specimen-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ut-line);
+  border-radius: 2px;
+  background: rgba(11, 14, 20, 0.85);
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+
+.ut-specimen-card:hover {
+  border-color: var(--ut-cyan);
+  transform: translateY(-2px);
+}
+
+.ut-specimen-img {
+  aspect-ratio: 280 / 370;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.ut-specimen-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ut-specimen-meta {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ut-line);
+}
+
+.ut-specimen-meta small {
+  display: block;
+  font-size: 10.5px;
+  color: var(--ut-muted);
+}
+
+.ut-specimen-meta strong {
+  display: block;
+  font-size: 14px;
+  margin-top: 2px;
+  color: #f0f4f8;
+}
+
+.ut-specimen-meta em {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 11px;
+  color: var(--ut-gold);
+}
+
+/* Perfectly Aligned 6-Cell Hairline Metrics Grid (No uneven left padding) */
+.ut-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--ut-line);
+  border: 1px solid var(--ut-line);
+  margin-top: 22px;
+}
+
+.ut-metric-cell {
+  background: #0e1219;
+  padding: 16px 20px !important;
+  border: 0 !important;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.ut-metric-cell:hover {
+  background: #141a24;
+  box-shadow: inset 0 -2px var(--ut-cyan);
+}
+
+.ut-metric-cell > span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--ut-muted);
+}
+
+.ut-metric-cell > div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ut-metric-cell strong {
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.ut-metric-cell small {
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 10.5px;
+  color: var(--ut-cyan-soft);
+  letter-spacing: 0.08em;
+}
+
+/* Sections */
+.ut-section {
+  padding: 28px 0 6px;
+}
+
+.ut-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--ut-line);
+}
+
+.ut-section-head span {
+  display: block;
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 11px;
+  color: var(--ut-cyan-soft);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.ut-section-head h2 {
+  margin: 3px 0 0;
+  font-size: 21px;
+  font-weight: 700;
+  transform: skew(-5deg);
+  transform-origin: left;
+  color: #f0f4f8;
+}
+
+.ut-section-head p,
+.ut-head-link {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ut-muted);
+  text-decoration: none;
+}
+
+.ut-head-link:hover {
+  color: var(--ut-cyan-soft);
+}
+
+/* 4-Card Tactical Workbench Grid */
+.ut-module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ut-module-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border: 1px solid var(--ut-line);
+  border-radius: 2px;
+  background: var(--ut-bg-card);
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.ut-module-card.is-cyan {
+  box-shadow: inset 0 2px var(--ut-cyan);
+}
+
+.ut-module-card.is-gold {
+  box-shadow: inset 0 2px var(--ut-gold);
+}
+
+.ut-module-card:hover {
+  border-color: rgba(0, 229, 255, 0.45);
+  background: var(--ut-bg-hover);
+}
+
+.ut-module-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ut-muted);
+  margin-bottom: 10px;
+}
+
+.ut-module-code {
+  color: var(--ut-cyan-soft);
+  font-weight: 700;
+}
+
+.ut-module-card.is-gold .ut-module-code {
+  color: var(--ut-gold);
+}
+
+.ut-module-card h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.ut-module-card h3 a {
+  color: #f0f4f8;
+  text-decoration: none;
+}
+
+.ut-module-card p {
+  margin: 0 0 16px;
+  font-size: 12.5px;
+  color: #9aa7b8;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.ut-module-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--ut-line);
+  font-size: 12px;
+}
+
+.ut-module-enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ut-cyan-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ut-module-alt {
+  color: var(--ut-gold);
+  font-size: 11.5px;
+  text-decoration: none;
+}
+
+/* 8-Cell Database Index Grid */
+.ut-atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--ut-line);
+  gap: 1px;
+  border: 1px solid var(--ut-line);
+}
+
+.ut-atlas-cell {
+  background: #0e1219;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.ut-atlas-cell:hover {
+  background: #151c27;
+  box-shadow: inset 2px 0 var(--ut-cyan);
+}
+
+.ut-atlas-cell-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ut-cyan-soft);
+  font-family: "WanxiangDIN", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.ut-atlas-cell strong {
+  display: block;
+  font-size: 15px;
+  color: #f0f4f8;
+}
+
+.ut-atlas-cell small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--ut-muted);
+}
+
+@media (max-width: 1160px) {
+  .ut-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .ut-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ut-metrics-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ut-atlas-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .ut-workspace {
+    width: calc(100% - 28px);
+  }
+  .ut-module-grid,
+  .ut-atlas-grid {
+    grid-template-columns: 1fr;
+  }
+  .ut-metrics-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

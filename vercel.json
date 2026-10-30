@@ -1,0 +1,25 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    {
+      "source": "/api/view-count",
+      "destination": "/content/site.json"
+    },
+    {
+      "source": "/api/lineup-presets",
+      "destination": "/lineup-featured-presets.json"
+    },
+    {
+      "source": "/official-site/kv.jpg",
+      "destination": "/assets/official-kv.jpg"
+    },
+    {
+      "source": "/official-site/loading-bg.jpg",
+      "destination": "/assets/official-loading-bg.jpg"
+    },
+    {
+      "source": "/((?!assets/|images/|content/|css/|js/|explorer-catalogs/|dps-runtime/|equipment-value-v30/|research/|wxq-embed\\.html|.*\\.[a-zA-Z0-9]+$).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

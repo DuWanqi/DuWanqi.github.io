@@ -1,0 +1,384 @@
+{
+  "generated_at": "2026-08-17 10:00",
+  "pipeline": {
+    "entities": 1408,
+    "lineups": 76,
+    "candidates": 22000,
+    "judged": 21966,
+    "irrelevant": 11468,
+    "irrelevant_rate": 52.2,
+    "edges": 20121,
+    "mechanic_edges": 19522,
+    "manual_upsert": 1,
+    "manual_deleted": 0
+  },
+  "edges_by_type": {
+    "供给": 6257,
+    "触发": 1427,
+    "放大": 558,
+    "依赖": 249,
+    "协同": 1836,
+    "竞争": 18,
+    "克制": 9113,
+    "负作用": 64,
+    "同流派": 599
+  },
+  "edges_by_strength": {
+    "中": 7877,
+    "强": 10697,
+    "弱": 1547
+  },
+  "edges_by_origin": {
+    "resource": 6828,
+    "event": 1304,
+    "rule_target_hero": 98,
+    "rule_recommend": 121,
+    "rule_equip_hero": 4,
+    "rule_cosupply": 1009,
+    "rule_coevent": 827,
+    "rule_equip_faction": 136,
+    "rule_compete": 18,
+    "counter_hero": 1297,
+    "counter_true_dmg": 292,
+    "counter_antiheal": 245,
+    "counter_stun_channel": 37,
+    "counter_shield_ls": 854,
+    "counter_hit_cap": 2,
+    "counter_spring": 152,
+    "counter_execute": 198,
+    "counter_flash": 297,
+    "counter_frost": 25,
+    "counter_opening_flash": 18,
+    "counter_kite": 150,
+    "counter_equip": 327,
+    "counter_aoe_summon": 54,
+    "counter_summon_single": 30,
+    "counter_armor_shred": 18,
+    "counter_magic_shred": 6,
+    "counter_reflect_channel": 24,
+    "counter_sac_level": 1,
+    "counter_mr_magic": 26,
+    "counter_block_onhit": 7,
+    "counter_pen": 20,
+    "counter_lineup": 518,
+    "counter_lineup_role": 3106,
+    "manual": 1,
+    "counter_core_lineup": 1105,
+    "counter_arch": 303,
+    "side_as_lock": 44,
+    "side_hp_cut": 20,
+    "lineup": 599
+  },
+  "nodes_by_type": {
+    "英雄": 86,
+    "装备": 120,
+    "效果牌": 161,
+    "棋手": 43,
+    "天赋": 569,
+    "特殊单位": 44,
+    "棋手卡": 385,
+    "流派": 8,
+    "阵容": 76
+  },
+  "nodes_by_archetype": {
+    "合成战术流": 39,
+    "登场连锁流": 63,
+    "通用": 1129,
+    "闪现击杀流": 20,
+    "整备科技流": 83,
+    "古币成长流": 42,
+    "牺牲复生流": 59,
+    "图腾开团流": 57
+  },
+  "nodes_by_role": {
+    "核心C位": 101,
+    "资源投放": 411,
+    "资源产出": 630,
+    "事件响应器": 150,
+    "事件触发器": 28,
+    "战场承伤": 63,
+    "过渡工具": 25
+  },
+  "lineups_by_archetype": {
+    "古币成长流": 11,
+    "图腾开团流": 13,
+    "合成战术流": 7,
+    "登场连锁流": 10,
+    "整备科技流": 15,
+    "通用": 7,
+    "闪现击杀流": 5,
+    "牺牲复生流": 8
+  },
+  "coverage": [
+    {
+      "type": "天赋",
+      "total": 569,
+      "linked": 335,
+      "zero": 234,
+      "rate": 58.9
+    },
+    {
+      "type": "棋手卡",
+      "total": 385,
+      "linked": 222,
+      "zero": 163,
+      "rate": 57.7
+    },
+    {
+      "type": "效果牌",
+      "total": 161,
+      "linked": 95,
+      "zero": 66,
+      "rate": 59.0
+    },
+    {
+      "type": "装备",
+      "total": 120,
+      "linked": 113,
+      "zero": 7,
+      "rate": 94.2
+    },
+    {
+      "type": "英雄",
+      "total": 86,
+      "linked": 86,
+      "zero": 0,
+      "rate": 100.0
+    },
+    {
+      "type": "特殊单位",
+      "total": 44,
+      "linked": 34,
+      "zero": 10,
+      "rate": 77.3
+    },
+    {
+      "type": "棋手",
+      "total": 43,
+      "linked": 31,
+      "zero": 12,
+      "rate": 72.1
+    }
+  ],
+  "zero_edge_total": 492,
+  "top_tags": [
+    [
+      "克阵容",
+      4420
+    ],
+    [
+      "永久等级",
+      4079
+    ],
+    [
+      "克英雄",
+      2728
+    ],
+    [
+      "产出源",
+      1737
+    ],
+    [
+      "核心受益",
+      1662
+    ],
+    [
+      "核心继承",
+      1105
+    ],
+    [
+      "克装备",
+      897
+    ],
+    [
+      "护盾克吸血",
+      857
+    ],
+    [
+      "克天赋",
+      650
+    ],
+    [
+      "英雄牌",
+      641
+    ],
+    [
+      "登场",
+      531
+    ],
+    [
+      "能量",
+      530
+    ],
+    [
+      "传导",
+      528
+    ],
+    [
+      "使用英雄牌",
+      369
+    ],
+    [
+      "牺牲",
+      305
+    ]
+  ],
+  "top_hubs": [
+    {
+      "name": "阿轲",
+      "type": "英雄",
+      "archetype": "闪现击杀流",
+      "role": "核心C位",
+      "degree": 259
+    },
+    {
+      "name": "云中君",
+      "type": "英雄",
+      "archetype": "闪现击杀流",
+      "role": "核心C位",
+      "degree": 255
+    },
+    {
+      "name": "孙悟空",
+      "type": "英雄",
+      "archetype": "闪现击杀流",
+      "role": "核心C位",
+      "degree": 232
+    },
+    {
+      "name": "露娜",
+      "type": "英雄",
+      "archetype": "登场连锁流",
+      "role": "核心C位",
+      "degree": 227
+    },
+    {
+      "name": "百里玄策",
+      "type": "英雄",
+      "archetype": "闪现击杀流",
+      "role": "核心C位",
+      "degree": 218
+    },
+    {
+      "name": "韩信",
+      "type": "英雄",
+      "archetype": "闪现击杀流",
+      "role": "核心C位",
+      "degree": 215
+    },
+    {
+      "name": "周瑜",
+      "type": "英雄",
+      "archetype": "登场连锁流",
+      "role": "资源产出",
+      "degree": 215
+    },
+    {
+      "name": "明世隐",
+      "type": "英雄",
+      "archetype": "登场连锁流",
+      "role": "资源投放",
+      "degree": 198
+    },
+    {
+      "name": "米莱狄",
+      "type": "英雄",
+      "archetype": "整备科技流",
+      "role": "核心C位",
+      "degree": 196
+    },
+    {
+      "name": "小乔",
+      "type": "英雄",
+      "archetype": "登场连锁流",
+      "role": "资源投放",
+      "degree": 195
+    },
+    {
+      "name": "武则天",
+      "type": "英雄",
+      "archetype": "古币成长流",
+      "role": "核心C位",
+      "degree": 193
+    },
+    {
+      "name": "姜导",
+      "type": "棋手",
+      "archetype": "登场连锁流",
+      "role": "资源投放",
+      "degree": 187
+    },
+    {
+      "name": "张良",
+      "type": "英雄",
+      "archetype": "图腾开团流",
+      "role": "事件响应器",
+      "degree": 185
+    },
+    {
+      "name": "赵云",
+      "type": "英雄",
+      "archetype": "登场连锁流",
+      "role": "核心C位",
+      "degree": 184
+    },
+    {
+      "name": "马可波罗",
+      "type": "英雄",
+      "archetype": "整备科技流",
+      "role": "核心C位",
+      "degree": 182
+    }
+  ],
+  "top_cores": [
+    {
+      "name": "安琪拉",
+      "count": 7
+    },
+    {
+      "name": "蒙犽",
+      "count": 6
+    },
+    {
+      "name": "狄仁杰",
+      "count": 6
+    },
+    {
+      "name": "吕布",
+      "count": 4
+    },
+    {
+      "name": "虞姬",
+      "count": 4
+    },
+    {
+      "name": "孙悟空",
+      "count": 4
+    },
+    {
+      "name": "百里玄策",
+      "count": 3
+    },
+    {
+      "name": "敖隐",
+      "count": 3
+    },
+    {
+      "name": "司空震",
+      "count": 3
+    },
+    {
+      "name": "花木兰",
+      "count": 3
+    },
+    {
+      "name": "镜",
+      "count": 2
+    },
+    {
+      "name": "诸葛亮",
+      "count": 2
+    }
+  ],
+  "avg_reason_len": 60.8
+}

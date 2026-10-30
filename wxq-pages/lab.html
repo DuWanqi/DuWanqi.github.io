@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="wxq-build" content="mvsovy8r">
+<meta name="theme-color" content="#090d14">
+<meta name="description" content="可调等级、装备、天赋的固定木桩伤害探测：对比不同英雄在同一条件下的普攻与技能输出曲线。">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://wxqwiki.com/lab">
+<meta property="og:site_name" content="万象棋知识库">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="伤害探测 · 万象棋知识库">
+<meta property="og:url" content="https://wxqwiki.com/lab">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="LLM 友好的站点说明">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<title>伤害探测 · 万象棋知识库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/app.css?v=mvsovy8r">
+<meta property="og:description" content="可调等级、装备、天赋的固定木桩伤害探测：对比不同英雄在同一条件下的普攻与技能输出曲线。">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner page-width">
+    <a class="brand" href="/"><i></i>万象棋知识库<small>WANXIANGQI WIKI</small></a>
+    <nav class="main-nav" id="mainNav">
+      <a href="/explore/hero" data-route="explore">图鉴</a>
+      <a href="/lords" data-route="lords">棋手</a>
+      <a href="/lineups" data-route="lineups">阵容</a>
+      <a href="/playbooks" data-route="playbooks">精细操作</a>
+      <a href="/counters" data-route="counters">克制链</a>
+      <a href="/mechanics" data-route="mechanics">机制</a>
+      <a href="/lab" data-route="lab">伤害探测</a>
+      <a href="/knowledge" data-route="knowledge">知识库</a>
+    </nav>
+    <div class="header-actions">
+      <button class="search-btn" id="searchBtn">🔍 <span>搜索英雄、装备、天赋、阵容…</span><kbd>Ctrl K</kbd></button>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="page-width" id="app">
+    <div class="page-head fade-in"><div><div class="kicker">数据工具</div><h1>固定木桩 · 伤害探测</h1><p>用官方基础属性 + 成长模板 + 技能原文解析，模拟单目标不移动、不反击的 20 秒输出。所有假设参数可调，并在结果下方明示。</p></div>
+      <div class="stat-row"><div class="stat-chip"><b>536.9</b><span>DPS</span></div><div class="stat-chip"><b>10.7k</b><span>总伤害</span></div><div class="stat-chip"><b>3</b><span>施法次数</span></div></div></div>
+    <div class="lab-layout">
+      <aside class="lab-side fade-in">
+        <div class="panel" style="padding:14px">
+          <div class="hero-pick" id="pickHero"><img src="/images/game-os-cos_custom_os_hero_touxiang_auto_2af25469dff50369747fcf3973dcda48.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><div><b>嬴政</b><small>逐鹿 · 4阶 · 法师 · 远程</small></div><span style="margin-left:auto;color:var(--muted)">切换 ›</span></div>
+          <div class="field" style="margin-top:12px"><label>等级<span>Lv 100</span></label><input type="range" name="level" min="1" max="300" value="100"><div class="row"><input type="number" name="levelNum" min="1" max="999" value="100"><div class="quick" style="display:flex;gap:4px;flex-wrap:wrap"><button class="chip" data-lv="1">1</button><button class="chip" data-lv="40">40</button><button class="chip" data-lv="100">100</button><button class="chip" data-lv="200">200</button><button class="chip" data-lv="500">500</button><button class="chip" data-lv="999">999</button></div></div></div>
+          <label class="toggle " id="awk"><i></i>觉醒（当前仅影响标注，觉醒词条多为场外成长）</label>
+          <label class="toggle " id="magToggle" style="margin-top:8px"><i></i>普攻按法术攻击力结算</label>
+        </div>
+        <div class="panel" style="padding:14px"><h3 class="section-title" style="font-size:13px">装备 <small>最多3件</small></h3><div class="equip-slots" id="slots"><div class="slot" data-slot="0"><span style="position:static;background:none;color:var(--muted)">+ 装备1</span></div><div class="slot" data-slot="1"><span style="position:static;background:none;color:var(--muted)">+ 装备2</span></div><div class="slot" data-slot="2"><span style="position:static;background:none;color:var(--muted)">+ 装备3</span></div></div></div>
+        <div class="panel" style="padding:14px"><h3 class="section-title" style="font-size:13px">木桩</h3>
+          <div class="row" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><div class="field"><label>生命</label><input name="hp" value="3000" type=number step=100></div><div class="field"><label>物防</label><input name="armor" value="40" type=number></div><div class="field"><label>法防</label><input name="mres" value="40" type=number></div></div>
+          <div class="chip-group" id="presets"><label>预设</label><button class="chip" data-p="1000,20,20">前期</button><button class="chip" data-p="3000,40,40">中期</button><button class="chip" data-p="8000,80,60">后期坦克</button><button class="chip" data-p="5000,30,90">高魔抗</button></div>
+        </div>
+        <div class="panel" style="padding:14px"><h3 class="section-title" style="font-size:13px">模型参数 <small>假设，可调</small></h3>
+          <div class="field"><label>模拟时长(秒)</label><input name="duration" value="20" type=number min=5 max=120></div><div class="row"><div class="field"><label>普攻回能</label><input name="manaPerHit" value="10" type=number min=0></div><div class="field"><label>每秒回能</label><input name="manaRegen" value="0" type=number min=0 step=0.5></div></div><div class="field"><label>施法耗时(秒)</label><input name="castTime" value="0.5" type=number min=0 step=0.1></div>
+        </div>
+        <div class="panel" style="padding:14px"><h3 class="section-title" style="font-size:13px">对比英雄 <small>同等级同装备</small></h3><div class="compare-strip" id="cmpStrip"><button class="chip" id="addCmp">+ 添加</button></div></div>
+        <button class="btn ghost" id="shareBtn" style="justify-content:center">复制分享链接</button>
+      </aside>
+      <section class="results fade-in">
+        
+        <div class="big-nums"><div><label>每秒伤害 DPS</label><b class="">536.9</b><small>20秒 · 减伤后</small></div><div><label>总伤害</label><b class="jade">10,739</b><small>普攻12次 · 施法3次</small></div><div><label>物理/法术减伤倍率</label><b class="">50% / 50%</b><small>木桩 物防40 法防40</small></div><div><label>面板攻速</label><b class="">0.60</b><small>物攻142.8 法攻266 暴击0%</small></div></div>
+        <div class="panel" style="padding:14px"><h3 class="section-title">累计伤害曲线 <small>普攻 / 技能 / 装备附加</small></h3><canvas class="chart" id="chart" width="900" height="260"></canvas></div>
+        <div class="two-col">
+          <div class="panel" style="padding:14px"><h3 class="section-title">伤害构成</h3><div class="breakdown"><div class="bar"><span>普攻</span><i style="width:7.978396498742899%"></i><span>857 · 8%</span></div><div class="bar"><span>技能</span><i style="width:92.01974113045908%"></i><span>9,882 · 92%</span></div><div class="bar"><span>装备</span><i style="width:1%"></i><span>0 · 0%</span></div></div>
+            <h3 class="section-title" style="margin-top:16px">Lv100 面板 <small>模板「法师」</small></h3>
+            <div class="kv"><div><label>生命</label><b>2616</b></div><div><label>物攻</label><b>142.8</b></div><div><label>法攻</label><b>266</b></div><div><label>攻速</label><b>0.60</b></div><div><label>暴击率</label><b>0%</b></div><div><label>暴击效果</label><b>40%</b></div><div><label>能量上限</label><b>40</b></div><div><label>伤害加成</label><b>0%</b></div></div></div>
+          <div class="panel" style="padding:14px"><h3 class="section-title">解析到的技能事件</h3><div class="node on"><b>法伤</b><span>15 + 15% 法攻 × 120 <b>(Lv10 强化)</b><br><small class="muted">嬴政展示王权，锁定最近的敌人，在5秒内号令80把飞剑朝其冲击，每把飞剑造成10+10%法术攻击力的法术伤害</small></span></div>
+            </div>
+        </div>
+        
+        <div class="panel" style="padding:14px"><h3 class="section-title">事件流水 <small>15 条</small></h3><div class="events"><table><thead><tr><th>时间</th><th>事件</th><th>类型</th><th>原始</th><th>减伤后</th><th>累计</th></tr></thead><tbody><tr><td>0.0s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>71</td></tr><tr><td>1.7s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>143</td></tr><tr><td>3.3s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>214</td></tr><tr><td>5.0s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>286</td></tr><tr><td>6.7s</td><td>至尊王权×120·Lv10 强化</td><td>法术</td><td>6,588</td><td>3,294</td><td>3,580</td></tr><tr><td>7.2s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>3,651</td></tr><tr><td>8.8s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>3,722</td></tr><tr><td>10.5s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>3,794</td></tr><tr><td>12.2s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>3,865</td></tr><tr><td>13.8s</td><td>至尊王权×120·Lv10 强化</td><td>法术</td><td>6,588</td><td>3,294</td><td>7,159</td></tr><tr><td>14.3s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>7,231</td></tr><tr><td>16.0s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>7,302</td></tr><tr><td>17.7s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>7,373</td></tr><tr><td>19.3s</td><td>普攻</td><td>物理</td><td>143</td><td>71</td><td>7,445</td></tr><tr><td>21.0s</td><td>至尊王权×120·Lv10 强化</td><td>法术</td><td>6,588</td><td>3,294</td><td>10,739</td></tr></tbody></table></div></div>
+        <div class="assume"><b>口径与假设</b><ul><li>回能模型：每次普攻+10，每秒+0（官方未公示，可调）</li><li>暴击按期望值计入；技能命中时点按施法开始计；单目标不移动、不反击</li><li>减伤公式 40/(抗性+40)；成长面板为社区模板推算，非官方公示；技能系数由官方原文正则解析，复杂机制（召唤物、衰减、分摊、位移）未建模。</li></ul></div>
+        
+      </section>
+    </div></main>
+
+<footer><div class="page-width">
+  <div>本站为玩家自建的非官方资料站。所有游戏素材（英雄立绘、图标、卡面与技能文本、棋手资料）的版权归腾讯所有，本站仅作学习交流使用。如涉及侵权，请<a href="/about">留言联系</a>，我们会及时处理。</div>
+  <div>数据来源：王者万象棋官方卡牌数据与官网攻略中心（wxq.qq.com）· 成长模板与伤害模型为社区推算 · <a href="/about">关于本站</a></div>
+  <div class="site-counter" id="siteCounter" hidden>累计访问 <b data-k="pv">–</b> 次 · 访客 <b data-k="uv">–</b> 人 · 今日 <b data-k="todayUv">–</b> 人</div>
+</div></footer>
+
+<!-- 微信交流群入口：独立于 SPA 路由，常驻显示。二维码 2026-10-26 前有效，过期需更新图片 -->
+<div id="wxGroup" class="wx-group">
+  <button id="wxGroupTab" class="wx-group-tab" aria-label="加入交流群">加入交流群</button>
+  <div id="wxGroupCard" class="wx-group-card" hidden>
+    <button id="wxGroupClose" class="wx-group-close" aria-label="关闭">✕</button>
+    <img src="/images/wechat_group_qr.jpg" alt="万象棋微信交流群二维码" width="180" height="272">
+    <p>微信扫码加入「万象棋2群」</p>
+    <small class="muted">二维码定期更新，扫码失败请到<a href="/about">关于本站</a>留言</small>
+  </div>
+</div>
+
+<script>
+(function () {
+  var tab = document.getElementById('wxGroupTab'), card = document.getElementById('wxGroupCard'), close = document.getElementById('wxGroupClose');
+  tab.addEventListener('click', function () { card.hidden = !card.hidden; });
+  close.addEventListener('click', function () { card.hidden = true; });
+})();
+</script>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer"><button class="close" id="drawerClose">✕</button><div class="inner" id="drawerInner"></div></aside>
+
+<div class="palette-bg" id="paletteBg"><div class="palette">
+  <input id="paletteInput" placeholder="输入名称、阵营、关键词… 例如：木兰 / 逐鹿 / 整备">
+  <div class="list" id="paletteList"></div>
+</div></div>
+
+<div class="ent-tip" id="entTip"></div>
+<div class="picker-bg" id="pickerBg"><div class="picker" id="picker"></div></div>
+<div class="player-bg" id="playerBg"><div class="player" id="player"></div></div>
+<script src="/js/app.min.js?v=mvsovy8r"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"5826ad33734a4e2dbab94673bdeacbba","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
