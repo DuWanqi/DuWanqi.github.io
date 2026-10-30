@@ -2,11 +2,19 @@
 
 /* 1. Top Header -> Liquid Chrome & Frosted Night Glass */
 .site-header {
-  background: linear-gradient(180deg, rgba(18, 23, 38, 0.84) 0%, rgba(16, 20, 34, 0.72) 100%) !important;
+  background: linear-gradient(180deg, rgba(18, 23, 38, 0.86) 0%, rgba(16, 20, 34, 0.74) 100%) !important;
   backdrop-filter: blur(20px) saturate(1.25) !important;
   -webkit-backdrop-filter: blur(20px) saturate(1.25) !important;
-  border-bottom: 1px solid rgba(214, 228, 255, 0.22) !important;
+  border-bottom: 1px solid rgba(214, 228, 255, 0.18) !important;
   box-shadow: 0 8px 32px rgba(6, 10, 22, 0.42) !important;
+}
+
+/* Hide legacy "More (...)", "Updates bell", "Sources & Evidence", and "Hemu Fan Group" dialogs */
+.header-more,
+.header-updates,
+.sources-backdrop,
+.contact-backdrop {
+  display: none !important;
 }
 
 /* Custom Liquid Metal Brand Mark ("万象棋笔记") */
@@ -18,11 +26,11 @@
 }
 
 .lm-brand-ring {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   position: relative;
-  border: 2.2px solid #e6f0ff;
+  border: 2px solid #e6f0ff;
   box-shadow:
     inset 0 0 8px rgba(255, 255, 255, 0.6),
     0 0 14px rgba(160, 198, 255, 0.45);
@@ -33,8 +41,8 @@
 
 .lm-brand-ring::after {
   content: "";
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: linear-gradient(180deg, #ffffff 0%, #a9bdd8 100%);
   box-shadow: 0 0 8px #ffffff;
@@ -42,7 +50,7 @@
 
 .lm-brand-title {
   font-family: "WanxiangTitle", "Wanxiang UI", "PingFang SC", sans-serif;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 900;
   letter-spacing: 0.05em;
   transform: skew(-5deg);
@@ -52,52 +60,33 @@
   color: transparent;
 }
 
-.lm-brand-sub {
-  font-family: "WanxiangDIN", sans-serif;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: rgba(205, 222, 248, 0.72);
-  margin-left: 6px;
-  padding: 1px 6px;
-  border-radius: 999px;
-  border: 1px solid rgba(214, 228, 255, 0.25);
-}
-
-/* Primary Nav Pills -> Liquid Chrome Active Indicator */
+/* Keep native clean nav link layout without pill border overflow */
 .pc-primary-nav .pc-nav-link {
-  border-radius: 999px !important;
-  padding: 6px 14px !important;
-  transition: all 0.18s ease !important;
-}
-
-.pc-primary-nav .pc-nav-link:hover {
-  background: rgba(214, 228, 255, 0.1) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
 }
 
 .pc-primary-nav .pc-nav-link.is-current {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(176, 198, 235, 0.1) 100%) !important;
-  border: 1px solid rgba(235, 244, 255, 0.45) !important;
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.45),
-    0 4px 14px rgba(10, 16, 32, 0.35) !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 14px rgba(200, 225, 255, 0.45);
 }
 
 /* Dropdown Menus -> Frosted Cosmic Blue Glass */
-.pc-nav-dropdown,
-.header-updates-menu,
-.header-more-menu {
-  background: rgba(20, 26, 44, 0.88) !important;
-  border: 1px solid rgba(214, 228, 255, 0.28) !important;
-  border-radius: 16px !important;
+.pc-nav-dropdown {
+  background: rgba(20, 26, 44, 0.92) !important;
+  border: 1px solid rgba(214, 228, 255, 0.26) !important;
+  border-radius: 14px !important;
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
     0 20px 60px rgba(6, 10, 22, 0.65) !important;
 }
 
-/* 2. Directory Pages (/atlas & /strategy) -> Redesigned Pop-Mart / Liquid Metal Card Showcase */
+/* 2. Directory Pages (/atlas & /strategy) -> Redesigned Liquid Metal Card Showcase */
 .site-directory {
   width: min(1440px, calc(100% - 64px)) !important;
   margin-inline: auto !important;
@@ -108,13 +97,13 @@
   position: relative;
   padding: 28px 32px !important;
   margin-bottom: 30px !important;
-  border-radius: 20px !important;
+  border-radius: 18px !important;
   background:
     radial-gradient(500px 220px at 85% 20%, rgba(152, 185, 255, 0.2), transparent 70%),
     linear-gradient(135deg, rgba(28, 36, 58, 0.78) 0%, rgba(19, 25, 42, 0.68) 100%) !important;
-  border: 1px solid rgba(220, 234, 255, 0.32) !important;
+  border: 1px solid rgba(220, 234, 255, 0.3) !important;
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.32),
+    inset 0 1px 2px rgba(255, 255, 255, 0.28),
     0 14px 40px rgba(8, 12, 24, 0.42) !important;
   backdrop-filter: blur(16px);
 }
@@ -140,14 +129,14 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
   color: #eef4fc !important;
   margin-bottom: 14px !important;
   padding: 4px 14px;
   border-radius: 999px;
   background: rgba(214, 228, 255, 0.1);
-  border: 1px solid rgba(214, 228, 255, 0.26);
+  border: 1px solid rgba(214, 228, 255, 0.24);
 }
 
 .directory-links {
@@ -157,22 +146,22 @@
 }
 
 .directory-links a {
-  border-radius: 16px !important;
+  border-radius: 14px !important;
   padding: 18px 20px !important;
   background: linear-gradient(145deg, rgba(30, 38, 62, 0.72) 0%, rgba(20, 26, 44, 0.62) 100%) !important;
-  border: 1px solid rgba(214, 228, 255, 0.24) !important;
+  border: 1px solid rgba(214, 228, 255, 0.22) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
     0 10px 28px rgba(6, 10, 22, 0.35) !important;
   backdrop-filter: blur(14px);
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .directory-links a:hover {
-  transform: translateY(-4px) !important;
-  border-color: rgba(240, 247, 255, 0.68) !important;
+  transform: translateY(-3px) !important;
+  border-color: rgba(240, 247, 255, 0.65) !important;
   background: linear-gradient(145deg, rgba(40, 52, 82, 0.84) 0%, rgba(25, 33, 56, 0.76) 100%) !important;
   box-shadow:
-    inset 0 1px 3px rgba(255, 255, 255, 0.45),
+    inset 0 1px 3px rgba(255, 255, 255, 0.42),
     0 16px 36px rgba(10, 16, 34, 0.52) !important;
 }

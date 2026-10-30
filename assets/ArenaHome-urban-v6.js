@@ -27,9 +27,9 @@ function O({navigate:r,onSearch:d}){
   const dockItems=[
     {label:"棋手",to:"/players",Icon:w},
     {label:"卡牌",to:"/atlas",Icon:N},
-    {label:"攻略笔记",to:"/playbooks/ali_zhadunyao",Icon:I},
+    {label:"阵容",to:"/wxq-lineups",Icon:R},
     {label:"克制链",to:"/counters",Icon:z},
-    {label:"木桩探测",to:"/analysis/dps",Icon:S}
+    {label:"数值研究",to:"/analysis/dps",Icon:S}
   ];
 
   // Top-left minimalist quick bar (inspired by Wanxiangqi lobby top bar)
