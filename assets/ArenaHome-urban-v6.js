@@ -16,13 +16,6 @@ function O({navigate:r,onSearch:d}){
   const[c,h]=o.useState("");
   const k=s=>{s.preventDefault(),d?.(c.trim())};
 
-  // Left-side circular Liquid Metal orbs (exact homage to Wanxiangqi lobby "成长之路 / 战令 / 万象之都")
-  const leftOrbs=[
-    {val:"74",sub:"NOTES",label:"实战笔记",to:"/wxq-lineups",Icon:R},
-    {val:"86",sub:"HEROES",label:"英雄卡牌",to:"/explore/hero-sulie",Icon:N},
-    {val:"9.1k",sub:"GRAPH",label:"克制推演",to:"/counters",Icon:z}
-  ];
-
   // Bottom-right minimalist floating icon dock (exact homage to Wanxiangqi lobby "棋手 / 卡牌 / 阵容 + 开始游戏|")
   const dockItems=[
     {label:"棋手",to:"/players",Icon:w},
@@ -92,30 +85,6 @@ function O({navigate:r,onSearch:d}){
                 ]
               })
             ]
-          }),
-
-          /* Left Circular Glass Medallions (like 成长之路 / 战令 / 万象之都) */
-          e.jsx("aside",{
-            className:"lm-left-orbs",
-            "aria-label":"核心数据徽章",
-            children:leftOrbs.map(orb=>e.jsxs(u,{
-              to:orb.to,
-              navigate:r,
-              className:"lm-orb",
-              children:[
-                e.jsxs("div",{
-                  className:"lm-orb-circle",
-                  children:[
-                    e.jsx("span",{
-                      className:"lm-orb-emblem",
-                      children:e.jsx(orb.Icon,{size:14,strokeWidth:2.1})
-                    }),
-                    e.jsx("strong",{children:orb.val})
-                  ]
-                }),
-                e.jsx("span",{className:"lm-orb-label",children:orb.label})
-              ]
-            },orb.label))
           }),
 
           /* Center Liquid Chrome Championship Title */
