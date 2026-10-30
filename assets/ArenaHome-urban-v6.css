@@ -1,6 +1,16 @@
 @font-face {
-  font-family: "WanxiangSans";
-  src: url(/assets/hyqh-75w.otf) format("opentype");
+  font-family: "OSGameFontTitle";
+  src: url(/assets/OSGameFont_Title.ttf) format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "OSGameFontContent";
+  src: url(/assets/OSGameFont_Content.ttf) format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "HYQiHei85S";
+  src: url(/assets/HYQiHei_85S.ttf) format("truetype");
   font-display: swap;
 }
 @font-face {
@@ -31,7 +41,7 @@
   overflow: hidden;
   background: #141826;
   color: #f2f6fc;
-  font-family: "WanxiangSans", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-family: "OSGameFontContent", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   user-select: none;
 }
 
@@ -113,7 +123,7 @@
   flex-wrap: wrap;
 }
 
-/* Pure floating icon + wide solid liquid metal text — NO narrow condensed font */
+/* Pure floating icon + wide solid OSGameFont_Title / HYQiHei_85S liquid metal text */
 .lm-top-pill {
   position: relative;
   display: inline-flex;
@@ -136,8 +146,8 @@
 }
 
 .lm-top-pill > span {
-  font-family: "WanxiangSans", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 15px;
+  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 15.5px;
   font-weight: 700;
   letter-spacing: 0.05em;
   background: linear-gradient(180deg, #ffffff 0%, #e5eefb 58%, #b0c2dc 100%);
@@ -236,7 +246,7 @@
 
 .lm-chrome-title {
   margin: 14px 0 0;
-  font-family: "WanxiangSans", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: clamp(52px, 5.8vw, 78px);
   font-weight: 900;
   line-height: 1.08;
@@ -321,8 +331,8 @@
 }
 
 .lm-dock-label {
-  font-family: "WanxiangSans", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 13px;
+  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.05em;
   background: linear-gradient(180deg, #ffffff 0%, #e0ecfa 60%, #a8bcd8 100%);
@@ -346,7 +356,7 @@
 }
 
 .lm-start-main {
-  font-family: "WanxiangSans", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 36px;
   font-weight: 900;
   letter-spacing: 0.08em;
