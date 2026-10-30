@@ -12,122 +12,114 @@ function u({to:r,navigate:d,children:l,className:c="",...h}){
   });
 }
 
-function O({navigate:r,onSearch:d,phoneH5:l=!1}){
-  const[c,h]=o.useState(""),j=o.useRef(null);
+function O({navigate:r,onSearch:d}){
+  const[c,h]=o.useState("");
   const k=s=>{s.preventDefault(),d?.(c.trim())};
-  const v=[
-    {label:"英雄图鉴",count:W.categories.hero.count,to:"/explore/hero-sulie",Icon:N},
-    {label:"装备图鉴",count:W.categories.equipment.count,to:"/explore/equipment-catalog",Icon:b},
-    {label:"天赋图鉴",count:W.categories.talent.count,to:"/explore/talent-catalog",Icon:z},
-    {label:"效果牌图鉴",count:W.categories.effect.count,to:"/explore/effect-catalog",Icon:y},
-    {label:"棋手档案",count:P.length,to:"/players",Icon:w},
-    {label:"机制词典",to:"/mechanics",Icon:I},
-    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",Icon:y},
-    {label:"抽卡模拟",to:"/analysis/draw",Icon:b}
+
+  // Bottom-right minimalist icon dock ("棋手 / 卡牌 / 阵容 + 实战阵容笔记")
+  const dockItems=[
+    {label:"棋手",to:"/players",Icon:w},
+    {label:"卡牌",to:"/atlas",Icon:N},
+    {label:"阵容",to:"/wxq-lineups",Icon:R},
+    {label:"克制链",to:"/counters",Icon:z},
+    {label:"数值研究",to:"/analysis/dps",Icon:S}
   ];
 
-  return e.jsx("div",{
-    className:`arena-home${l?" is-mobile-home":""}`,
-    children:e.jsxs("section",{
-      ref:j,
-      className:"arena-hero",
-      children:[
-        e.jsx("div",{
-          className:"arena-hero-media",
-          "aria-hidden":"true",
-          children:e.jsx("img",{src:"/assets/official-kv.jpg",alt:""})
-        }),
-        e.jsxs("div",{
-          className:"arena-hero-content",
-          children:[
-            e.jsxs("header",{
-              className:"arena-title",
+  return e.jsxs("div",{
+    className:"lm-home",
+    children:[
+      /* Background Layer: Official KV + Liquid Metal Stepped Ring SVG */
+      e.jsxs("div",{
+        className:"lm-backdrop",
+        "aria-hidden":"true",
+        children:[
+          e.jsx("img",{src:"/assets/official-kv.jpg",alt:""}),
+          e.jsx("div",{className:"lm-vignette"}),
+          e.jsx("div",{className:"lm-ring-graphic"})
+        ]
+      }),
+
+      /* HUD Frame */
+      e.jsxs("section",{
+        className:"lm-hud",
+        children:[
+          /* Top Sub-HUD Bar: Search on the right, no ugly pills or orbs on the left */
+          e.jsx("div",{
+            className:"lm-hud-top",
+            style:{justifyContent:"flex-end"},
+            children:e.jsxs("form",{
+              className:"lm-glass-search",
+              onSubmit:k,
               children:[
-                e.jsx("span",{children:"王者万象棋 · 实战笔记与图鉴推演库"}),
-                e.jsx("h1",{children:"万象棋笔记"}),
-                e.jsx("p",{children:"用数据拆万象棋，用逻辑讲上分"})
-              ]
-            }),
-            e.jsxs("div",{
-              className:"arena-command",
-              children:[
-                e.jsxs("form",{
-                  className:"arena-search",
-                  onSubmit:k,
-                  children:[
-                    e.jsx(C,{size:21,"aria-hidden":"true"}),
-                    e.jsx("input",{
-                      value:c,
-                      onChange:s=>h(s.target.value),
-                      placeholder:"搜索英雄、装备、天赋、效果牌、阵容笔记…",
-                      "aria-label":"搜索万象棋笔记"
-                    }),
-                    e.jsx("button",{type:"submit",children:"搜索资料"})
-                  ]
+                e.jsx(C,{size:16,"aria-hidden":"true"}),
+                e.jsx("input",{
+                  value:c,
+                  onChange:s=>h(s.target.value),
+                  placeholder:"搜索英雄、装备、天赋、阵容笔记…",
+                  "aria-label":"搜索万象棋笔记"
                 }),
-                e.jsx("nav",{
-                  className:"arena-shortcuts",
-                  "aria-label":"分类入口",
-                  children:v.map(({label:s,count:t,to:n,Icon:f})=>e.jsxs(u,{
-                    to:n,
-                    navigate:r,
-                    children:[
-                      e.jsx(f,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
-                      e.jsx("span",{children:s}),
-                      t?e.jsx("small",{children:t}):null
-                    ]
-                  },n))
-                }),
-                e.jsxs("div",{
-                  className:"arena-primary-actions",
-                  children:[
-                    e.jsxs(u,{
-                      to:"/wxq-lineups",
-                      navigate:r,
-                      className:"arena-action arena-action-primary",
-                      children:[
-                        e.jsx(R,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
-                        " 实战阵容笔记 (74篇) ",
-                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
-                      ]
-                    }),
-                    e.jsxs(u,{
-                      to:"/counters",
-                      navigate:r,
-                      className:"arena-action",
-                      children:[
-                        e.jsx(z,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
-                        " 万象克制图谱 ",
-                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
-                      ]
-                    }),
-                    e.jsxs(u,{
-                      to:"/lab",
-                      navigate:r,
-                      className:"arena-action",
-                      children:[
-                        " 固定木桩 · 伤害探测 ",
-                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
-                      ]
-                    }),
-                    e.jsxs(u,{
-                      to:"/analysis/dps",
-                      navigate:r,
-                      className:"arena-action",
-                      children:[
-                        e.jsx(S,{size:18,strokeWidth:1.5,"aria-hidden":"true"}),
-                        " 数值研究 ",
-                        e.jsx(g,{size:16,strokeWidth:1.5,"aria-hidden":"true"})
-                      ]
-                    })
-                  ]
-                })
+                e.jsx("button",{type:"submit",children:"检索"})
               ]
             })
-          ]
-        })
-      ]
-    })
+          }),
+
+          /* Center Liquid Chrome Championship Title */
+          e.jsxs("div",{
+            className:"lm-center-stage",
+            children:[
+              e.jsx("div",{className:"lm-chrome-tag",children:"CHAMPIONSHIP // TACTICAL NOTES"}),
+              e.jsx("h1",{className:"lm-chrome-title",children:"万象棋笔记"})
+            ]
+          }),
+
+          /* Bottom Bar: Left status capsule + Right Lobby Dock ("棋手 / 卡牌 / 阵容" + "实战阵容笔记") */
+          e.jsxs("div",{
+            className:"lm-hud-bottom",
+            children:[
+              e.jsxs("div",{
+                className:"lm-status-capsule",
+                children:[
+                  e.jsx("i",{className:"lm-pulse"}),
+                  e.jsx("span",{children:"S1 万象启程 · 74 篇实战阵容笔记 & 1,492 实体克制图谱已就绪"})
+                ]
+              }),
+
+              e.jsxs("div",{
+                className:"lm-lobby-dock",
+                children:[
+                  e.jsx("nav",{
+                    className:"lm-dock-icons",
+                    "aria-label":"核心功能矩阵",
+                    children:dockItems.map(it=>e.jsxs(u,{
+                      to:it.to,
+                      navigate:r,
+                      className:"lm-dock-item",
+                      children:[
+                        e.jsx("span",{
+                          className:"lm-dock-icon-box",
+                          children:e.jsx(it.Icon,{size:19,strokeWidth:1.6})
+                        }),
+                        e.jsx("span",{className:"lm-dock-label",children:it.label})
+                      ]
+                    },it.label))
+                  }),
+
+                  e.jsxs(u,{
+                    to:"/wxq-lineups",
+                    navigate:r,
+                    className:"lm-start-cta",
+                    children:[
+                      e.jsx("span",{className:"lm-start-main",children:"实战阵容笔记"}),
+                      e.jsx("span",{className:"lm-start-bar"})
+                    ]
+                  })
+                ]
+              })
+            ]
+          })
+        ]
+      })
+    ]
   });
 }
 
