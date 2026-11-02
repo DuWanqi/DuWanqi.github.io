@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02 17:19",
+  "generated_at": "2026-11-02 17:46",
   "pipeline": {
     "entities": 1408,
     "lineups": 76,
@@ -7,15 +7,15 @@
     "judged": 21966,
     "irrelevant": 11468,
     "irrelevant_rate": 52.2,
-    "edges": 20158,
-    "mechanic_edges": 19559,
-    "manual_upsert": 43,
+    "edges": 20159,
+    "mechanic_edges": 19560,
+    "manual_upsert": 44,
     "manual_deleted": 0
   },
   "edges_by_type": {
     "供给": 6257,
     "触发": 1427,
-    "放大": 558,
+    "放大": 559,
     "依赖": 249,
     "协同": 1836,
     "竞争": 18,
@@ -25,7 +25,7 @@
   },
   "edges_by_strength": {
     "中": 7886,
-    "强": 10725,
+    "强": 10726,
     "弱": 1547
   },
   "edges_by_origin": {
@@ -50,7 +50,7 @@
     "counter_frost": 25,
     "counter_opening_flash": 18,
     "counter_kite": 149,
-    "manual": 43,
+    "manual": 44,
     "counter_equip": 327,
     "counter_aoe_summon": 54,
     "counter_summon_single": 30,
