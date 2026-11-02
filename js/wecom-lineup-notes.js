@@ -1,23 +1,139 @@
-/* 万象棋 · 个人实战阵容笔记工作台 (74篇深度阵容笔记 + 157张本地实战截图 + 图鉴实体自动联动) */
+/* 万象棋 · 个人实战阵容笔记工作台 (79篇深度阵容笔记 + 158张本地实战截图 + 社区阵容相关性排序修复) */
 (function () {
   var State = {
     loaded: false,
     loading: false,
-    subView: "notes", // "notes" (74篇个人实战阵容笔记) | "community" (4266套社区阵容库)
+    subView: "notes", // "notes" (79篇个人实战阵容笔记) | "community" (4267套社区阵容库)
     notes: [],
     activeIdx: 0,
     q: "",
     tagFilter: "",
     entRegex: null,
-    entMap: null
+    entMap: null,
+    patchedCommunitySort: false
   };
 
-  var QUICK_TAGS = ["全部", "三分", "日落海", "大河", "河洛", "逐鹿", "无阵营", "花木兰", "艾琳", "李信", "韩信", "嬴政", "炸盾", "养猪", "蒙恬", "诸葛亮"];
+  var QUICK_TAGS = ["全部", "三分", "日落海", "大河", "河洛", "逐鹿", "无阵营", "花木兰", "芈月", "艾琳", "李信", "韩信", "嬴政", "炸盾", "养猪", "蒙恬", "诸葛亮"];
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
       return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c];
     });
+  }
+
+  /* 计算社区阵容搜索相关性得分：标题含搜索词 > 核心主C匹配 > 思路简介提及 > 仅成员列表挂件包含 */
+  function computeCommunityLineupSearchScore(lineup, rawQuery, lordFilter) {
+    var q = String(rawQuery || "").trim().toLowerCase();
+    if (!q) return 0;
+    var name = String(lineup.name || "").toLowerCase();
+    var brief = String(lineup.brief || "").toLowerCase();
+    var heroes = (lineup.heroList || []).map(function (h) { return String(h.name || "").toLowerCase(); });
+
+    // 1. 阵容标题直接包含搜索词（最高优先级：如搜“芈月”时，“阿离伞芈月”、“阿离蹦迪流芈月”、“轮椅流无敌芈月”、“不死芈月”、“阿离养芈月”排最前）
+    if (name.indexOf(q) >= 0) {
+      var s = 1000;
+      if (lineup.source === "wecom" || lineup.tag === "实战笔记") s += 300;
+      if (lordFilter) {
+        var lf = String(lordFilter).toLowerCase();
+        if (name.indexOf(lf) >= 0 || (lf === "阿离" && name.indexOf("伞") >= 0)) s += 120;
+      }
+      if (name.indexOf(q) === 0) s += 40;
+      if (Number(lineup.score) >= 8) s += 30;
+      return s;
+    }
+
+    // 2. 简介明确指出该词为核心/主C（如“芈月核心”、“芈月主c”、“养芈月”、“伞给芈月”）
+    var coreRx = new RegExp(q + "\\s*(核心|主c|单核)|(养|主养|伞给|核心是)\\s*" + q, "i");
+    if (coreRx.test(brief)) {
+      return 650;
+    }
+
+    // 3. 其余仅在成员列表 heroList 或过渡说明里包含该英雄的阵容（如“阿离耀天帝”、“伞曜炸盾速升”），统一排在标题匹配之后，内部按使用量排序
+    return 100;
+  }
+
+  /* 拦截并增强原站 Pages.lineups，使社区阵容在有搜索词时按相关性优先排序，并保持搜索框焦点不丢失 */
+  function patchCommunityLineupsSort() {
+    if (State.patchedCommunitySort) return;
+    if (typeof Pages === "undefined" || !Pages || typeof Pages.lineups !== "function") return;
+
+    var origLineups = Pages.lineups.bind(Pages);
+    Pages.lineups = function (data, urlQuery) {
+      var st = (typeof App !== "undefined" && App && App.state && App.state.lineups) ? App.state.lineups : null;
+      var searchVal = st && st.search ? String(st.search).trim() : "";
+      var lordVal = st && st.lord ? String(st.lord).trim() : "";
+
+      if (searchVal && data && Array.isArray(data.lineups)) {
+        var sortedLineups = data.lineups.slice().sort(function (a, b) {
+          var sa = computeCommunityLineupSearchScore(a, searchVal, lordVal);
+          var sb = computeCommunityLineupSearchScore(b, searchVal, lordVal);
+          if (sb !== sa) return sb - sa;
+          return (Number(b.useNum) || 0) - (Number(a.useNum) || 0);
+        });
+        var patchedData = Object.assign({}, data, { lineups: sortedLineups });
+        return origLineups(patchedData, urlQuery);
+      }
+      return origLineups(data, urlQuery);
+    };
+
+    if (typeof Pages.lineupsMounted === "function") {
+      var origMounted = Pages.lineupsMounted.bind(Pages);
+      Pages.lineupsMounted = function (data) {
+        origMounted(data);
+        var inp = document.querySelector("#lineupToolbar input");
+        if (inp && !inp.dataset.realtimeBound) {
+          inp.dataset.realtimeBound = "1";
+          var composing = false;
+          inp.addEventListener("compositionstart", function () { composing = true; });
+          inp.addEventListener("compositionend", function () {
+            composing = false;
+            var nextVal = this.value.trim();
+            if (App && App.state && App.state.lineups && App.state.lineups.search !== nextVal) {
+              App.state.lineups.search = nextVal;
+              App.render();
+            }
+          });
+          inp.addEventListener("input", function () {
+            if (composing) return;
+            var nextVal = this.value.trim();
+            if (App && App.state && App.state.lineups && App.state.lineups.search !== nextVal) {
+              App.state.lineups.search = nextVal;
+              App.render();
+            }
+          });
+        }
+      };
+    }
+
+    if (typeof App !== "undefined" && App && typeof App.render === "function") {
+      var origRender = App.render.bind(App);
+      App.render = function () {
+        var activeEl = document.activeElement;
+        var isLineupInput = activeEl && activeEl.closest && activeEl.closest("#lineupToolbar") && activeEl.tagName === "INPUT";
+        var selStart = isLineupInput ? activeEl.selectionStart : null;
+        var selEnd = isLineupInput ? activeEl.selectionEnd : null;
+
+        origRender();
+
+        if (location.pathname === "/lineups" || location.pathname === "/wxq-lineups") {
+          var appEl = document.getElementById("app");
+          if (appEl && !appEl.querySelector("#wnWorkbenchWrap")) {
+            renderNotesWorkbench(appEl);
+          }
+          if (isLineupInput) {
+            var newInput = document.querySelector("#lineupToolbar input");
+            if (newInput) {
+              newInput.focus();
+              try {
+                if (selStart !== null) newInput.setSelectionRange(selStart, selEnd);
+              } catch (e) {}
+            }
+          }
+        }
+      };
+    }
+
+    State.patchedCommunitySort = true;
   }
 
   function loadNotesData() {
@@ -183,7 +299,6 @@
         } else if (t === "quote" || t === "callout") {
           html.push('<blockquote class="wn-quote">' + renderRichEntities(b.text) + '</blockquote>');
         } else {
-          // 如果短行像小标题（如“三分倒转”、“高阶逐鹿嬴政”、“日落海倒转”），渲染为分节小标题
           if (b.text.length <= 14 && !/[，。！？、,.!?]/.test(b.text)) {
             html.push('<h4 class="wn-section-tag">' + renderRichEntities(b.text) + '</h4>');
           } else {
@@ -200,9 +315,10 @@
 
   function renderNotesWorkbench(hostEl) {
     if (!hostEl) return;
+    patchCommunityLineupsSort();
     var existingWrap = document.getElementById("wnWorkbenchWrap");
     if (!existingWrap) {
-      // 将原有的 4266 套社区阵容包装进 #wnCommunityView，并在顶部插入双模式切换栏
+      var noteCount = State.notes.length || 79;
       var originalChildren = Array.from(hostEl.childNodes);
       var communityContainer = document.createElement("div");
       communityContainer.id = "wnCommunityView";
@@ -218,31 +334,31 @@
           '<div>' +
             '<p class="os-eyebrow">LINEUP PLAYBOOK & ARCHIVE // PERSONAL WECOM NOTES MERGED</p>' +
             '<h1>万象棋实战阵容笔记 & 社区阵容库</h1>' +
-            '<p class="os-sub">融合你精心制作的 74 篇企业微信万象棋实战阵容笔记（含 157 张实战对局截图）与 4,266 套社区推荐阵容。笔记内所有英雄/装备/天赋词条均支持悬浮查卡面。</p>' +
+            '<p class="os-sub">融合你精心制作的 ' + noteCount + ' 篇企业微信万象棋实战阵容笔记（含 158 张实战对局截图）与 4,267 套社区推荐阵容。笔记内所有英雄/装备/天赋词条均支持悬浮查卡面。</p>' +
           '</div>' +
           '<div class="os-metrics">' +
-            '<div class="os-metric"><span>个人实战笔记</span><strong>74 篇</strong><small>企微文档全量同步</small></div>' +
-            '<div class="os-metric"><span>实战对局配图</span><strong>157 张</strong><small>高清原图已本地化</small></div>' +
-            '<div class="os-metric"><span>社区阵容库</span><strong>4,266 套</strong><small>营地推荐与热门榜</small></div>' +
+            '<div class="os-metric"><span>个人实战笔记</span><strong>' + noteCount + ' 篇</strong><small>企微文档全量同步</small></div>' +
+            '<div class="os-metric"><span>实战对局配图</span><strong>158 张</strong><small>高清原图已本地化</small></div>' +
+            '<div class="os-metric"><span>社区阵容库</span><strong>4,267 套</strong><small>营地推荐与热门榜</small></div>' +
           '</div>' +
         '</div>' +
         '<div class="os-mode-bar">' +
           '<div class="os-mode-tabs">' +
             '<button type="button" class="os-mode-tab ' + (State.subView === "notes" ? "is-active" : "") + '" data-wn-view="notes">' +
-              '实战阵容笔记 (74 篇图文笔记 · 157 张配图)' +
+              '实战阵容笔记 (' + noteCount + ' 篇图文笔记 · 158 张配图)' +
             '</button>' +
             '<button type="button" class="os-mode-tab ' + (State.subView === "community" ? "is-active" : "") + '" data-wn-view="community">' +
-              '社区阵容库 (4,266 套营地阵容检索)' +
+              '社区阵容库 (4,267 套营地阵容检索)' +
             '</button>' +
           '</div>' +
-          '<span class="os-mode-status"><i></i><span>支持 Markdown 图文阅读 · 词条悬浮看卡面 · 点击图片全屏放大</span></span>' +
+          '<span class="os-mode-status"><i></i><span>支持 Markdown 图文阅读 · 词条悬浮看卡面 · 阵容名匹配优先置顶</span></span>' +
         '</div>' +
         '<div id="wnNotesView" class="' + (State.subView === "notes" ? "" : "hidden") + '">' +
           '<div class="wn-tag-bar" id="wnTagBar"></div>' +
           '<div class="wn-layout">' +
             '<aside class="wn-sidebar">' +
               '<div class="wn-search-wrap">' +
-                '<input id="wnSearchInput" type="search" placeholder="搜索 74 篇笔记标题或正文关键词…" value="' + esc(State.q) + '">' +
+                '<input id="wnSearchInput" type="search" placeholder="搜索 ' + noteCount + ' 篇笔记标题或正文关键词…" value="' + esc(State.q) + '">' +
               '</div>' +
               '<div class="wn-note-list" id="wnNoteList"></div>' +
             '</aside>' +
@@ -257,7 +373,6 @@
       hostEl.appendChild(headerBar);
       hostEl.appendChild(communityContainer);
 
-      // Hide duplicate page-head inside communityContainer
       var oldHead = communityContainer.querySelector(".page-head");
       if (oldHead) oldHead.style.display = "none";
 
@@ -317,11 +432,21 @@
   }
 
   function filteredNotes() {
-    return State.notes.filter(function (n) {
+    var activeFilter = State.q || (State.tagFilter ? State.tagFilter.toLowerCase() : "");
+    var list = State.notes.filter(function (n) {
       if (State.tagFilter && n.searchText.indexOf(State.tagFilter.toLowerCase()) < 0) return false;
       if (State.q && n.searchText.indexOf(State.q) < 0) return false;
       return true;
     });
+    if (activeFilter) {
+      list.sort(function (a, b) {
+        var ta = a.title.toLowerCase().indexOf(activeFilter) >= 0 ? 1 : 0;
+        var tb = b.title.toLowerCase().indexOf(activeFilter) >= 0 ? 1 : 0;
+        if (tb !== ta) return tb - ta;
+        return a.idx - b.idx;
+      });
+    }
+    return list;
   }
 
   function renderNoteSidebar() {
@@ -407,6 +532,7 @@
   }
 
   function tryMountOnLineupsPage() {
+    patchCommunityLineupsSort();
     var path = location.pathname || "";
     if (path !== "/lineups" && path !== "/wxq-lineups") return;
     var appEl = document.getElementById("app");
