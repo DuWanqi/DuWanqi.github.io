@@ -1,4 +1,4 @@
-/* 万象棋笔记 · 官方解包美术资源与液态金属都市潮流风格升级 */
+/* 万象棋笔记 · 官方解包美术资源与客户端内页（图鉴/目录）轻量磨砂UI复刻 */
 @font-face {
   font-family: "OSGameFontTitle";
   src: url(/assets/OSGameFont_Title.ttf) format("truetype");
@@ -14,8 +14,15 @@
   src: url(/assets/HYQiHei_85S.ttf) format("truetype");
   font-display: swap;
 }
+@font-face {
+  font-family: "WanxiangDIN";
+  src: url(/assets/Helvetica_Inserat_LT_Pro.ttf) format("truetype");
+  font-display: swap;
+}
 
-/* 1. Top Header -> Floating Transparent HUD on Home, Frosted Glass when Scrolled or on Subpages */
+/* ==========================================================================
+   1. 顶部全局导航栏（首页透明悬浮 HUD，内页清透深蓝磨砂玻璃）
+   ========================================================================== */
 .site-shell.is-arena-home .site-header:not(.is-scrolled) {
   background: linear-gradient(180deg, rgba(10, 14, 24, 0.56) 0%, rgba(10, 14, 24, 0) 100%) !important;
   backdrop-filter: none !important;
@@ -26,14 +33,13 @@
 
 .site-shell:not(.is-arena-home) .site-header,
 .site-shell .site-header.is-scrolled {
-  background: linear-gradient(180deg, rgba(16, 20, 34, 0.86) 0%, rgba(14, 18, 30, 0.74) 100%) !important;
-  backdrop-filter: blur(18px) saturate(1.2) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(1.2) !important;
-  border-bottom: 1px solid rgba(214, 228, 255, 0.14) !important;
+  background: linear-gradient(180deg, rgba(22, 30, 50, 0.94) 0%, rgba(18, 25, 42, 0.88) 100%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid rgba(214, 232, 255, 0.22) !important;
   box-shadow: 0 8px 28px rgba(6, 10, 22, 0.38) !important;
 }
 
-/* Hide legacy "More (...)", "Updates bell", "Sources & Evidence", and "Hemu Fan Group" dialogs */
 .header-more,
 .header-updates,
 .sources-backdrop,
@@ -41,7 +47,6 @@
   display: none !important;
 }
 
-/* Official Extracted Glowing Brand Mark ("万象棋笔记") */
 .lm-brand-mark {
   display: inline-flex !important;
   align-items: center !important;
@@ -75,7 +80,6 @@
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.75));
 }
 
-/* Floating Liquid Metal Typography for Primary Nav Links (using extracted OSGameFont_Title / HYQiHei_85S) */
 .pc-primary-nav .pc-nav-link,
 .site-header .pc-nav-link:focus,
 .site-header .pc-nav-link:focus-visible {
@@ -113,7 +117,6 @@
   filter: drop-shadow(0 0 12px rgba(210, 232, 255, 0.65)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.85));
 }
 
-/* Minimalist dropdown arrow without circular box border */
 .site-header .pc-nav-toggle {
   border: 0 !important;
   background: transparent !important;
@@ -125,38 +128,639 @@
   color: #ffffff !important;
 }
 
-/* Dropdown Menus -> Frosted Cosmic Blue Glass */
 .pc-nav-dropdown {
-  background: rgba(20, 26, 44, 0.92) !important;
-  border: 1px solid rgba(214, 228, 255, 0.26) !important;
+  background: rgba(20, 28, 48, 0.96) !important;
+  border: 1px solid rgba(214, 232, 255, 0.28) !important;
   border-radius: 14px !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.25),
     0 20px 60px rgba(6, 10, 22, 0.65) !important;
 }
 
-/* 2. Directory Pages (/atlas & /strategy) -> Redesigned Liquid Metal Card Showcase */
+/* ==========================================================================
+   2. 内页背景处理（复刻客户端内页深蓝紫磨砂底色 + 金属流光棱线 + 幻彩泡泡 + 阶梯圆环线）
+   ========================================================================== */
+.site-shell:not(.is-arena-home),
+.site-shell:has(.hw-page),
+.site-shell:has(.hw-shell) {
+  background-color: #182034 !important;
+  background-image:
+    /* 右上与左上阶梯同心圆环几何线（复刻客户端内页背景环线） */
+    radial-gradient(circle at 86% 18%, transparent 0 140px, rgba(214, 232, 255, 0.05) 140px 141px, transparent 141px 210px, rgba(214, 232, 255, 0.038) 210px 211px, transparent 211px 290px, rgba(214, 232, 255, 0.025) 290px 291px, transparent 291px),
+    radial-gradient(circle at 12% 78%, transparent 0 160px, rgba(214, 232, 255, 0.04) 160px 161px, transparent 161px 240px, rgba(214, 232, 255, 0.028) 240px 241px, transparent 241px),
+    /* 客户端内页磨砂玻璃泡泡光晕 */
+    url(/assets/wxq-lobby/wxq-bubble-glow.png),
+    /* 柔和深蓝紫高光氛围层 */
+    radial-gradient(ellipse 68% 52% at 50% 8%, rgba(116, 156, 224, 0.24) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 48% at 85% 65%, rgba(102, 128, 208, 0.16) 0%, transparent 72%),
+    /* 蒙版过渡 + 原厂金属流光竖向棱线背景 */
+    linear-gradient(180deg, rgba(23, 31, 52, 0.78) 0%, rgba(28, 37, 62, 0.82) 48%, rgba(20, 26, 44, 0.90) 100%),
+    url(/assets/wxq-lobby/wxq-inner-bg.png) !important;
+  background-position:
+    center top,
+    center top,
+    right -40px top 28px,
+    center top,
+    center top,
+    center top,
+    center top !important;
+  background-size:
+    100% 100%,
+    100% 100%,
+    420px auto,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    cover !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+.hw-page,
+.ew-page,
+.ccw-page {
+  background: transparent !important;
+  --hw-line: rgba(208, 226, 255, 0.18) !important;
+  --hw-text: #f2f6fc !important;
+  --hw-muted: #a8bbd4 !important;
+  --ew-line: rgba(208, 226, 255, 0.18) !important;
+  --ew-muted: #a8bbd4 !important;
+  --ccw-line: rgba(208, 226, 255, 0.18) !important;
+  --ccw-line-strong: rgba(218, 234, 255, 0.34) !important;
+  --ccw-text: #f2f6fc !important;
+  --ccw-muted: #a8bbd4 !important;
+  font-family: "OSGameFontContent", "HYQiHei85S", "PingFang SC", "Microsoft YaHei", sans-serif !important;
+}
+
+/* ==========================================================================
+   3. 左上角返回按钮 `< 万象图鉴 |` 与顶部二级栏目条（复刻 `< 棋手 |` / `总览 技能 战力`）
+   ========================================================================== */
+.wxq-back-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 4px 6px 4px 0 !important;
+  margin-right: 4px !important;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  background: transparent !important;
+  color: #f4f8ff !important;
+  cursor: pointer !important;
+  transition: transform 0.16s ease, filter 0.16s ease !important;
+}
+
+.wxq-back-btn svg {
+  color: #ffffff !important;
+  filter: drop-shadow(0 0 8px rgba(180, 218, 255, 0.65));
+  transition: transform 0.16s ease;
+}
+
+.wxq-back-btn:hover svg {
+  transform: translateX(-3px);
+}
+
+.wxq-back-title {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(8, 14, 28, 0.65);
+}
+
+.wxq-back-divider {
+  display: inline-block;
+  width: 1.5px;
+  height: 18px;
+  margin-left: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(220, 236, 255, 0.62) 50%, rgba(255, 255, 255, 0.15) 100%);
+}
+
+/* 顶部二级栏目导航条 */
+.hw-navigation {
+  position: relative;
+  min-height: 60px !important;
+  padding: 8px 22px !important;
+  margin-top: 10px !important;
+  border-radius: 12px !important;
+  background:
+    url(/assets/wxq-ui/game-btn-deco.png) right 12px center / auto 44px no-repeat,
+    linear-gradient(90deg, rgba(36, 50, 84, 0.78) 0%, rgba(26, 36, 64, 0.62) 100%) !important;
+  border: 1px solid rgba(214, 232, 255, 0.24) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    0 8px 24px rgba(8, 12, 24, 0.26) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.hw-navigation .explorer-type-tabs,
+.hw-navigation .explorer-knowledge-nav {
+  gap: 24px !important;
+}
+
+.hw-navigation .explorer-type-tabs button:not(.wxq-back-btn),
+.hw-navigation .explorer-knowledge-nav button {
+  position: relative;
+  min-height: 40px !important;
+  padding: 6px 4px !important;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  color: rgba(196, 214, 240, 0.76) !important;
+  border-bottom: 2.5px solid transparent !important;
+  transition: color 0.16s ease, border-color 0.16s ease, text-shadow 0.16s ease !important;
+}
+
+.hw-navigation .explorer-type-tabs button:not(.wxq-back-btn) small {
+  font-family: "WanxiangDIN", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 1px 7px !important;
+  border-radius: 999px !important;
+  background: rgba(154, 192, 248, 0.14) !important;
+  border: 1px solid rgba(204, 226, 255, 0.2) !important;
+  color: #bed6f8 !important;
+}
+
+.hw-navigation .explorer-type-tabs button:not(.wxq-back-btn):hover,
+.hw-navigation .explorer-knowledge-nav button:hover {
+  color: #ffffff !important;
+}
+
+.hw-navigation .explorer-type-tabs button.is-active,
+.hw-navigation .explorer-knowledge-nav button.is-active {
+  color: #ffffff !important;
+  border-bottom-color: #eef6ff !important;
+  text-shadow: 0 0 14px rgba(164, 212, 255, 0.72) !important;
+  background: radial-gradient(ellipse 80% 55% at 50% 100%, rgba(148, 202, 255, 0.24), transparent 76%) !important;
+}
+
+.hw-navigation .explorer-type-tabs button.is-active small {
+  background: linear-gradient(180deg, rgba(168, 208, 255, 0.36) 0%, rgba(112, 158, 232, 0.28) 100%) !important;
+  border-color: rgba(230, 242, 255, 0.55) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   4. 栏目竖条指示器 `| 标题`（复刻客户端 `| 领棋手闹闹` / `| 万象指南` 竖条）
+   ========================================================================== */
+.hw-rail-title > span,
+.hw-side-heading > span,
+.hw-section-title > span,
+.hw-card-effect > span,
+.ew-eyebrow,
+.ccw-section-heading > span,
+.ccw-card-column header > span,
+.ccw-insight > span,
+.cq-filter-label,
+.hep-effect > span,
+.hep-section-label > span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  color: #dceaff !important;
+}
+
+.hw-rail-title > span::before,
+.hw-side-heading > span::before,
+.hw-section-title > span::before,
+.hw-card-effect > span::before,
+.ew-eyebrow::before,
+.ccw-section-heading > span::before,
+.ccw-insight > span::before,
+.cq-filter-label::before,
+.hep-effect > span::before,
+.hep-section-label > span::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ffffff 0%, #86beff 100%);
+  box-shadow: 0 0 8px rgba(142, 198, 255, 0.82);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   5. 按钮系统（复刻客户端半透明冰蓝磨砂胶囊按钮 `game-btn-bg.png` 与细亮银框）
+   ========================================================================== */
+/* 英雄图鉴顶部「切换英雄」「召唤物」胶囊按钮 */
+.hw-object-nav {
+  min-height: 58px !important;
+  gap: 14px !important;
+}
+
+.hw-object-nav button {
+  min-height: 36px !important;
+  padding: 6px 18px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(218, 236, 255, 0.44) !important;
+  background:
+    url(/assets/wxq-ui/game-btn-bg.png) center / cover no-repeat,
+    linear-gradient(180deg, rgba(136, 176, 236, 0.32) 0%, rgba(78, 112, 174, 0.42) 100%) !important;
+  color: #f6faff !important;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.38),
+    0 6px 16px rgba(8, 14, 28, 0.28) !important;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+.hw-object-nav button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(242, 248, 255, 0.82) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.55),
+    0 8px 20px rgba(14, 24, 48, 0.42),
+    0 0 14px rgba(154, 206, 255, 0.35) !important;
+}
+
+.hw-object-nav > span {
+  font-family: "WanxiangDIN", "OSGameFontContent", sans-serif !important;
+  font-size: 13px !important;
+  padding: 4px 12px !important;
+  border-radius: 999px !important;
+  background: rgba(30, 42, 72, 0.48) !important;
+  border: 1px solid rgba(204, 226, 255, 0.2) !important;
+  color: #c6daf4 !important;
+}
+
+/* 面包屑与觉醒形态胶囊开关 */
+.hw-breadcrumb {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 3px 11px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(208, 228, 255, 0.26) !important;
+  background: rgba(34, 46, 78, 0.48) !important;
+  color: #c8dcf6 !important;
+  font-size: 12px !important;
+}
+
+.hw-breadcrumb:hover {
+  border-color: rgba(230, 242, 255, 0.56) !important;
+  color: #ffffff !important;
+}
+
+.hw-form-toggle {
+  padding: 5px 14px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(214, 232, 255, 0.34) !important;
+  background: linear-gradient(90deg, rgba(48, 66, 108, 0.56) 0%, rgba(32, 44, 76, 0.42) 100%) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.24) !important;
+  color: #edf5ff !important;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+}
+
+/* 等级预设按钮、加减步进按钮与侧边栏胶囊操作按钮 */
+.hw-level-presets {
+  gap: 5px !important;
+}
+
+.hw-level-presets button,
+.hw-level-step button {
+  min-height: 31px !important;
+  border: 1px solid rgba(204, 226, 255, 0.24) !important;
+  border-radius: 6px !important;
+  background: rgba(28, 38, 64, 0.56) !important;
+  color: #c6daf4 !important;
+  font-family: "WanxiangDIN", sans-serif !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  transition: all 0.15s ease !important;
+}
+
+.hw-level-presets button:hover,
+.hw-level-step button:hover {
+  border-color: rgba(226, 240, 255, 0.6) !important;
+  color: #ffffff !important;
+  background: rgba(52, 72, 116, 0.62) !important;
+}
+
+.hw-level-presets button.is-active {
+  border-color: #ffffff !important;
+  background: linear-gradient(180deg, #f5faff 0%, #bad6fa 100%) !important;
+  color: #141e34 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 12px rgba(156, 206, 255, 0.55) !important;
+}
+
+.hw-level-step input {
+  border: 1px solid rgba(204, 226, 255, 0.28) !important;
+  border-radius: 6px !important;
+  background: rgba(18, 26, 46, 0.65) !important;
+  color: #f4f8ff !important;
+  font-family: "WanxiangDIN", sans-serif !important;
+  font-size: 15px !important;
+}
+
+.hw-rail-actions > button,
+.hep-actions > button,
+.ew-empty button,
+.ccw-empty button {
+  min-height: 38px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(218, 236, 255, 0.44) !important;
+  background:
+    url(/assets/wxq-ui/game-btn-bg.png) center / cover no-repeat,
+    linear-gradient(180deg, rgba(136, 176, 236, 0.34) 0%, rgba(78, 112, 174, 0.44) 100%) !important;
+  color: #f6faff !important;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.36),
+    0 6px 16px rgba(8, 14, 28, 0.28) !important;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+.hw-rail-actions > button:hover:not(:disabled),
+.hep-actions > button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(242, 248, 255, 0.85) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.55),
+    0 8px 20px rgba(14, 24, 48, 0.42),
+    0 0 14px rgba(154, 206, 255, 0.35) !important;
+}
+
+.hw-rail-actions .lineup-relation-link {
+  border-radius: 12px !important;
+  border: 1px solid rgba(208, 228, 255, 0.24) !important;
+  background: linear-gradient(145deg, rgba(38, 52, 86, 0.56) 0%, rgba(26, 36, 62, 0.42) 100%) !important;
+}
+
+/* ==========================================================================
+   6. 线条、边框与轻量化磨砂面板（拒绝厚重黑框，采用 1px 银白细线 + 斜纹装饰）
+   ========================================================================== */
+@media (min-width: 861px) {
+  .hw-reading-surface {
+    background:
+      url(/assets/wxq-ui/game-btn-deco.png) right 16px top 14px / auto 56px no-repeat,
+      linear-gradient(165deg, rgba(34, 46, 78, 0.72) 0%, rgba(22, 30, 54, 0.58) 100%) !important;
+    border: 1px solid rgba(214, 232, 255, 0.24) !important;
+    border-radius: 16px !important;
+    padding: 28px 34px 38px !important;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.22),
+      0 14px 36px rgba(8, 12, 26, 0.28) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .hw-rail {
+    background:
+      linear-gradient(165deg, rgba(32, 44, 74, 0.74) 0%, rgba(20, 28, 50, 0.60) 100%) !important;
+    border: 1px solid rgba(214, 232, 255, 0.24) !important;
+    border-radius: 16px !important;
+    padding: 22px 20px !important;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.22),
+      0 14px 36px rgba(8, 12, 26, 0.28) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .ew-archive,
+  .ccw-archive {
+    background:
+      url(/assets/wxq-ui/game-btn-deco.png) right 18px top 14px / auto 56px no-repeat,
+      linear-gradient(165deg, rgba(34, 46, 78, 0.72) 0%, rgba(22, 30, 54, 0.58) 100%) !important;
+    border: 1px solid rgba(214, 232, 255, 0.24) !important;
+    border-radius: 16px !important;
+    padding: 28px 32px !important;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.22),
+      0 14px 36px rgba(8, 12, 26, 0.28) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* 装备槽位 */
+.hw-slot {
+  border: 1px dashed rgba(204, 226, 255, 0.32) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, rgba(34, 46, 78, 0.48) 0%, rgba(22, 30, 54, 0.36) 100%) !important;
+  color: #c8dcf6 !important;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease !important;
+}
+
+.hw-slot:hover {
+  border-color: rgba(230, 242, 255, 0.72) !important;
+  background: linear-gradient(180deg, rgba(48, 66, 108, 0.62) 0%, rgba(30, 42, 72, 0.48) 100%) !important;
+  transform: translateY(-1px);
+}
+
+.hw-slot.is-filled {
+  border-style: solid !important;
+  border-color: rgba(214, 232, 255, 0.42) !important;
+}
+
+/* 标题与数值字体复刻 */
+.hw-title h1,
+.ew-identity h1,
+.ccw-card-column h1 {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+  background: linear-gradient(180deg, #ffffff 0%, #dceaff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  filter: drop-shadow(0 4px 14px rgba(6, 10, 24, 0.65));
+}
+
+.hw-section-title h2,
+.ew-reading h2 {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-weight: 700 !important;
+  color: #f4f8ff !important;
+}
+
+.hw-node-level strong,
+.hw-side-heading > strong,
+.hw-stats dd strong {
+  font-family: "WanxiangDIN", "OSGameFontTitle", sans-serif !important;
+  letter-spacing: 0.02em !important;
+}
+
+.hw-nodes article.is-reached .hw-node-level strong {
+  color: #ffe2a8 !important;
+  text-shadow: 0 0 12px rgba(255, 214, 138, 0.35);
+}
+
+/* ==========================================================================
+   7. 装备/天赋/效果牌筛选条、搜索胶囊与图鉴网格卡片（复刻「棋手商店」通透卡片）
+   ========================================================================== */
+.ew-toolbar,
+.ccw-toolbar {
+  border-bottom: 1px solid rgba(208, 226, 255, 0.2) !important;
+}
+
+.ew-categories button {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 15px !important;
+  color: rgba(196, 214, 240, 0.76) !important;
+}
+
+.ew-categories button[aria-pressed="true"] {
+  color: #ffffff !important;
+  border-bottom-color: #eef6ff !important;
+  text-shadow: 0 0 12px rgba(164, 212, 255, 0.65) !important;
+}
+
+/* 筛选胶囊（阵营 / 等阶 / 分组 / 倾向） */
+.cq-filter-options {
+  gap: 6px 10px !important;
+}
+
+.cq-filter-options button {
+  min-height: 28px !important;
+  padding: 2px 11px !important;
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+  color: #b8cce6 !important;
+  font-size: 13px !important;
+  transition: all 0.15s ease !important;
+}
+
+.cq-filter-options button:hover {
+  color: #ffffff !important;
+  background: rgba(144, 184, 244, 0.14) !important;
+}
+
+.cq-filter-options button[aria-pressed="true"] {
+  color: #ffffff !important;
+  border-color: rgba(218, 236, 255, 0.5) !important;
+  background: linear-gradient(180deg, rgba(142, 184, 244, 0.36) 0%, rgba(86, 126, 194, 0.28) 100%) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32), 0 4px 10px rgba(8, 14, 28, 0.22) !important;
+}
+
+/* 胶囊搜索框 */
+.hw-search,
+.ew-search,
+.ccw-search,
+.hep-search {
+  border: 1px solid rgba(210, 228, 255, 0.28) !important;
+  border-radius: 999px !important;
+  padding: 0 14px !important;
+  background: rgba(20, 28, 48, 0.56) !important;
+  box-shadow: inset 0 1px 2px rgba(6, 10, 22, 0.35) !important;
+}
+
+.hw-search:focus-within,
+.ew-search:focus-within,
+.ccw-search:focus-within,
+.hep-search:focus-within {
+  border-color: rgba(230, 242, 255, 0.72) !important;
+  box-shadow: 0 0 14px rgba(154, 206, 255, 0.28) !important;
+  outline: none !important;
+}
+
+/* 图鉴网格与列表项卡片 */
+.ew-grid,
+.ccw-grid {
+  gap: 8px 10px !important;
+}
+
+.ew-grid > button,
+.ccw-grid > button,
+.hw-hero-list button {
+  border: 1px solid rgba(206, 226, 255, 0.16) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, rgba(40, 54, 88, 0.42) 0%, rgba(26, 36, 62, 0.28) 100%) !important;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+.ew-grid > button:hover,
+.ccw-grid > button:hover,
+.hw-hero-list button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(224, 240, 255, 0.48) !important;
+  background: linear-gradient(180deg, rgba(54, 74, 118, 0.54) 0%, rgba(34, 48, 82, 0.40) 100%) !important;
+}
+
+.ew-grid > button.is-selected,
+.ccw-grid > button.is-selected,
+.hw-hero-list button.is-selected {
+  border-color: rgba(234, 245, 255, 0.78) !important;
+  background: linear-gradient(180deg, rgba(70, 96, 150, 0.62) 0%, rgba(42, 60, 102, 0.48) 100%) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.38),
+    0 8px 20px rgba(8, 14, 28, 0.35) !important;
+}
+
+/* 弹窗（英雄索引 / 装备选择器）深蓝磨砂玻璃升级 */
+.hw-equipment-dialog,
+.hep-dialog {
+  border: 1px solid rgba(214, 232, 255, 0.34) !important;
+  border-radius: 16px !important;
+  background:
+    url(/assets/wxq-ui/game-btn-deco.png) right 20px top 14px / auto 52px no-repeat,
+    linear-gradient(165deg, rgba(28, 38, 64, 0.96) 0%, rgba(18, 25, 44, 0.98) 100%) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    0 28px 90px rgba(4, 8, 18, 0.75) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.hep-card,
+.hep-actions {
+  background: rgba(18, 25, 44, 0.55) !important;
+}
+
+/* ==========================================================================
+   8. 目录页（/atlas 万象图鉴总览 & /strategy 攻略）客户端内页化
+   ========================================================================== */
 .site-directory {
-  width: min(1440px, calc(100% - 64px)) !important;
+  width: min(1380px, calc(100% - 64px)) !important;
   margin-inline: auto !important;
-  padding: 36px 0 72px !important;
+  padding: 28px 0 72px !important;
 }
 
 .site-directory > header {
   position: relative;
-  padding: 28px 32px !important;
-  margin-bottom: 30px !important;
-  border-radius: 18px !important;
+  padding: 24px 30px !important;
+  margin-bottom: 28px !important;
+  border-radius: 16px !important;
   background:
-    radial-gradient(500px 220px at 85% 20%, rgba(152, 185, 255, 0.2), transparent 70%),
-    linear-gradient(135deg, rgba(28, 36, 58, 0.78) 0%, rgba(19, 25, 42, 0.68) 100%) !important;
-  border: 1px solid rgba(220, 234, 255, 0.3) !important;
+    url(/assets/wxq-ui/game-btn-deco.png) right 20px top 16px / auto 64px no-repeat,
+    radial-gradient(500px 220px at 85% 20%, rgba(152, 185, 255, 0.24), transparent 70%),
+    linear-gradient(135deg, rgba(36, 48, 80, 0.82) 0%, rgba(24, 32, 56, 0.72) 100%) !important;
+  border: 1px solid rgba(218, 234, 255, 0.28) !important;
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.28),
-    0 14px 40px rgba(8, 12, 24, 0.42) !important;
-  backdrop-filter: blur(16px);
+    inset 0 1px 2px rgba(255, 255, 255, 0.26),
+    0 14px 40px rgba(8, 12, 24, 0.34) !important;
+  backdrop-filter: none !important;
+}
+
+.wxq-dir-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.wxq-dir-top > p {
+  margin: 0 !important;
+  color: #a8c0e0 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
 }
 
 .site-directory > header h1 {
@@ -164,7 +768,7 @@
   font-size: 34px !important;
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
-  background: linear-gradient(180deg, #ffffff 0%, #d4e2f7 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #d4e4f9 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent !important;
@@ -172,47 +776,69 @@
 
 .directory-group {
   border-top: 0 !important;
-  padding-top: 8px !important;
-  margin-bottom: 28px !important;
+  padding-top: 6px !important;
+  margin-bottom: 26px !important;
 }
 
+/* 目录分组栏目头：复刻客户端左侧竖条 `| 排位 · 万象大赛` */
 .directory-group > h2 {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  font-size: 16px !important;
   font-weight: 700 !important;
-  color: #eef4fc !important;
+  letter-spacing: 0.04em !important;
+  color: #f0f6ff !important;
   margin-bottom: 14px !important;
-  padding: 4px 14px;
-  border-radius: 999px;
-  background: rgba(214, 228, 255, 0.1);
-  border: 1px solid rgba(214, 228, 255, 0.24);
+  padding: 6px 18px 6px 12px !important;
+  border-radius: 6px !important;
+  background: linear-gradient(90deg, rgba(132, 174, 238, 0.22) 0%, rgba(132, 174, 238, 0) 100%) !important;
+  border: 0 !important;
+}
+
+.directory-group > h2::before {
+  content: "";
+  display: inline-block;
+  width: 3.5px;
+  height: 16px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ffffff 0%, #86beff 100%);
+  box-shadow: 0 0 10px rgba(145, 200, 255, 0.85);
 }
 
 .directory-links {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
-  gap: 16px !important;
+  gap: 14px !important;
 }
 
 .directory-links a {
-  border-radius: 14px !important;
-  padding: 18px 20px !important;
-  background: linear-gradient(145deg, rgba(30, 38, 62, 0.72) 0%, rgba(20, 26, 44, 0.62) 100%) !important;
-  border: 1px solid rgba(214, 228, 255, 0.22) !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  background:
+    url(/assets/wxq-ui/game-btn-deco.png) right -10px bottom -8px / auto 42px no-repeat,
+    linear-gradient(145deg, rgba(38, 52, 86, 0.78) 0%, rgba(24, 34, 60, 0.66) 100%) !important;
+  border: 1px solid rgba(214, 232, 255, 0.24) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 10px 28px rgba(6, 10, 22, 0.35) !important;
-  backdrop-filter: blur(14px);
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease !important;
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    0 10px 26px rgba(6, 10, 22, 0.28) !important;
+  backdrop-filter: none !important;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+.directory-links a h3 {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
+  color: #f4f8ff !important;
 }
 
 .directory-links a:hover {
-  transform: translateY(-3px) !important;
-  border-color: rgba(240, 247, 255, 0.65) !important;
-  background: linear-gradient(145deg, rgba(40, 52, 82, 0.84) 0%, rgba(25, 33, 56, 0.76) 100%) !important;
+  transform: translateY(-2px) !important;
+  border-color: rgba(236, 245, 255, 0.68) !important;
+  background:
+    url(/assets/wxq-ui/game-btn-deco.png) right -10px bottom -8px / auto 42px no-repeat,
+    linear-gradient(145deg, rgba(50, 68, 110, 0.76) 0%, rgba(32, 44, 74, 0.64) 100%) !important;
   box-shadow:
-    inset 0 1px 3px rgba(255, 255, 255, 0.42),
-    0 16px 36px rgba(10, 16, 34, 0.52) !important;
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    0 14px 32px rgba(10, 16, 34, 0.45) !important;
 }
