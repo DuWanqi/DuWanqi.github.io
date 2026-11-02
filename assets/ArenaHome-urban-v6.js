@@ -230,26 +230,17 @@ function O({navigate:r,onSearch:d}){
                     },it.label))
                   }),
 
-                  e.jsxs(u,{
+                  e.jsx(u,{
                     to:"/wxq-lineups",
                     navigate:r,
                     className:"wxq-start-game-btn",
-                    children:[
-                      e.jsxs("div",{
-                        className:"wxq-start-main-row",
-                        children:[
-                          e.jsx("span",{className:"wxq-start-label",children:"实战笔记"}),
-                          e.jsx("span",{className:"wxq-start-cursor"})
-                        ]
-                      }),
-                      e.jsxs("div",{
-                        className:"wxq-start-sub-row",
-                        children:[
-                          e.jsx("span",{className:"wxq-start-script",children:"Season 1 · Wanxiang"}),
-                          e.jsx("span",{className:"wxq-start-season",children:"S1 万象启程"})
-                        ]
-                      })
-                    ]
+                    children:e.jsxs("div",{
+                      className:"wxq-start-main-row",
+                      children:[
+                        e.jsx("span",{className:"wxq-start-label",children:"实战笔记"}),
+                        e.jsx("span",{className:"wxq-start-cursor"})
+                      ]
+                    })
                   })
                 ]
               })
