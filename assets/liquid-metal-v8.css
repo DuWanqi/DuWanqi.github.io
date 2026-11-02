@@ -76,12 +76,19 @@
 }
 
 /* Floating Liquid Metal Typography for Primary Nav Links (using extracted OSGameFont_Title / HYQiHei_85S) */
-.pc-primary-nav .pc-nav-link {
+.pc-primary-nav .pc-nav-link,
+.site-header .pc-nav-link:focus,
+.site-header .pc-nav-link:focus-visible {
   border: 0 !important;
   border-radius: 0 !important;
+  outline: none !important;
   background: transparent !important;
   box-shadow: none !important;
   white-space: nowrap !important;
+}
+
+.pc-primary-nav .pc-nav-link > small {
+  display: none !important;
 }
 
 .pc-primary-nav .pc-nav-link > span {

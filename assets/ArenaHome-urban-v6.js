@@ -14,20 +14,19 @@ function u({to:r,navigate:d,children:l,className:c="",...h}){
 
 function O({navigate:r,onSearch:d}){
   const[c,h]=o.useState("");
-  const[bgMode,setBgMode]=o.useState("lobby"); // "lobby" | "kv"
   const k=s=>{s.preventDefault(),d?.(c.trim())};
 
-  // 顶栏金色 3D 图标导航（100% 源自 08_局内HUD与大厅核心UI_UI_HUD_Lobby/UILobbyMainMenu_baike_*）
+  // 顶栏金色 3D 图标导航（源自 08_局内HUD与大厅核心UI_UI_HUD_Lobby/UILobbyMainMenu_baike_*）
   const topGoldNav=[
-    {label:"实战笔记",to:"/wxq-lineups",iconSrc:"/assets/wxq-lobby/icon_baike_46.png",orig:"活动"},
-    {label:"装备合成",to:"/explore/equipment-catalog",iconSrc:"/assets/wxq-lobby/icon_baike_42.png",orig:"商城"},
-    {label:"天赋词条",to:"/explore/talent-catalog",iconSrc:"/assets/wxq-lobby/icon_baike_23.png",orig:"祈愿"},
-    {label:"效果牌库",to:"/explore/effect-catalog",iconSrc:"/assets/wxq-lobby/icon_baike_44.png",orig:"交易行"},
-    {label:"抽卡模拟",to:"/analysis/draw",iconSrc:"/assets/wxq-lobby/icon_baike_53.png",orig:"礼盒"},
-    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",iconSrc:"/assets/wxq-lobby/icon_baike_7.png",orig:"检索"}
+    {label:"实战笔记",to:"/wxq-lineups",iconSrc:"/assets/wxq-lobby/icon_baike_46.png"},
+    {label:"装备合成",to:"/explore/equipment-catalog",iconSrc:"/assets/wxq-lobby/icon_baike_42.png"},
+    {label:"天赋词条",to:"/explore/talent-catalog",iconSrc:"/assets/wxq-lobby/icon_baike_23.png"},
+    {label:"效果牌库",to:"/explore/effect-catalog",iconSrc:"/assets/wxq-lobby/icon_baike_44.png"},
+    {label:"抽卡模拟",to:"/analysis/draw",iconSrc:"/assets/wxq-lobby/icon_baike_53.png"},
+    {label:"钻石狂潮",to:"/modes/diamond-frenzy?tab=packs",iconSrc:"/assets/wxq-lobby/icon_baike_7.png"}
   ];
 
-  // 右下角纯白/亮银浮空操作台（1:1 对应游戏大厅右下角「棋手 / 卡牌 / 阵容」）
+  // 右下角纯白/亮银浮空操作台（严格保留游戏大厅原版 3 项两字入口：棋手 / 卡牌 / 阵容，尺寸完全一致）
   const rightDockItems=[
     {
       label:"棋手",
@@ -45,23 +44,11 @@ function O({navigate:r,onSearch:d}){
       to:"/wxq-lineups",
       iconSrc:"/assets/wxq-lobby/icon_baike_48.png",
       isSilverFilter:true
-    },
-    {
-      label:"克制链",
-      to:"/counters",
-      iconSrc:"/assets/wxq-lobby/icon_baike_39.png",
-      isSilverFilter:true
-    },
-    {
-      label:"木桩探测",
-      to:"/analysis/dps",
-      iconSrc:"/assets/wxq-lobby/icon_baike_1.png",
-      isSilverFilter:true
     }
   ];
 
   return e.jsxs("div",{
-    className:`wxq-lobby-home is-bg-${bgMode}`,
+    className:"wxq-lobby-home",
     children:[
       /* SVG 银白金属渐变定义 */
       e.jsx("svg",{
@@ -78,77 +65,140 @@ function O({navigate:r,onSearch:d}){
         })
       }),
 
-      /* 1. 游戏大厅背景层：支持万象之都斑马线街道夜景 + 右侧巨型液态金属皇冠雕像（源自 09 Icon_PaiWei_10.png） */
+      /* 1. 游戏大厅背景层：恢复官方全屏英雄群像背景 /assets/official-kv.jpg */
       e.jsxs("div",{
         className:"wxq-lobby-backdrop",
         "aria-hidden":"true",
         children:[
           e.jsx("img",{
             className:"wxq-lobby-bg-img",
-            src:bgMode==="lobby"?"/assets/wxq-ui/main-bg.jpg":"/assets/official-kv.jpg",
+            src:"/assets/official-kv.jpg",
             alt:""
           }),
-          e.jsx("div",{className:"wxq-lobby-crosswalk"}),
-          e.jsx("div",{className:"wxq-lobby-vignette"}),
-          /* 右侧液态金属皇冠主雕像（09_段位排位与MVP击杀高光 Icon_PaiWei_10.png 原厂解包大图） */
-          bgMode==="lobby"&&e.jsxs("div",{
-            className:"wxq-lobby-statue-wrap",
-            children:[
-              e.jsx("div",{className:"wxq-lobby-statue-glow"}),
-              e.jsx("img",{
-                className:"wxq-lobby-statue-img",
-                src:"/assets/wxq-lobby/Icon_PaiWei_10.png",
-                alt:""
-              })
-            ]
-          })
+          e.jsx("div",{className:"wxq-lobby-vignette"})
         ]
       }),
 
-      /* 2. 大厅 HUD 主画布（1:1 对齐客户端大厅布局） */
+      /* 2. 大厅 HUD 主画布 */
       e.jsxs("section",{
         className:"wxq-lobby-hud",
         children:[
-          /* 顶栏：汉堡菜单 + 竖线 + 金色 3D 图标条 + 右侧胶囊检索框 */
-          e.jsxs("header",{
-            className:"wxq-lobby-topbar",
+          /* 左上角区：金色 3D 图标条 + 等大对齐的三大圆球入口 */
+          e.jsxs("div",{
+            className:"wxq-lobby-upper-left",
             children:[
-              e.jsxs("div",{
-                className:"wxq-topbar-left",
-                children:[
-                  e.jsxs("button",{
-                    type:"button",
-                    className:"wxq-hamburger-btn",
-                    title:"切换大厅主视觉 (万象之都雕像 / 官方群像KV)",
-                    onClick:()=>setBgMode(m=>m==="lobby"?"kv":"lobby"),
-                    children:[
-                      e.jsx("span",{}),
-                      e.jsx("span",{}),
-                      e.jsx("span",{})
-                    ]
-                  }),
-                  e.jsx("span",{className:"wxq-topbar-divider"}),
-                  e.jsx("nav",{
-                    className:"wxq-gold-nav",
-                    "aria-label":"大厅顶栏核心入口",
-                    children:topGoldNav.map(item=>e.jsxs(u,{
-                      to:item.to,
+              /* 顶栏金色 3D 图标条 */
+              e.jsx("header",{
+                className:"wxq-lobby-topbar",
+                children:e.jsxs("div",{
+                  className:"wxq-topbar-left",
+                  children:[
+                    e.jsxs(u,{
+                      to:"/atlas",
                       navigate:r,
-                      className:"wxq-gold-nav-item",
+                      className:"wxq-hamburger-btn",
+                      title:"浏览万象全图鉴",
                       children:[
-                        e.jsx("img",{src:item.iconSrc,alt:""}),
-                        e.jsx("span",{children:item.label})
+                        e.jsx("span",{}),
+                        e.jsx("span",{}),
+                        e.jsx("span",{})
                       ]
-                    },item.to))
-                  })
-                ]
+                    }),
+                    e.jsx("span",{className:"wxq-topbar-divider"}),
+                    e.jsx("nav",{
+                      className:"wxq-gold-nav",
+                      "aria-label":"大厅顶栏核心入口",
+                      children:topGoldNav.map(item=>e.jsxs(u,{
+                        to:item.to,
+                        navigate:r,
+                        className:"wxq-gold-nav-item",
+                        children:[
+                          e.jsx("img",{src:item.iconSrc,alt:""}),
+                          e.jsx("span",{children:item.label})
+                        ]
+                      },item.to))
+                    })
+                  ]
+                })
               }),
 
+              /* 左上角三大圆球入口（统一 84×84 等大尺寸与同一水平基线） */
+              e.jsxs("div",{
+                className:"wxq-left-orbs",
+                children:[
+                  /* 第 1 球：74 实战笔记 */
+                  e.jsxs(u,{
+                    to:"/wxq-lineups",
+                    navigate:r,
+                    className:"wxq-orb-item",
+                    children:[
+                      e.jsxs("div",{
+                        className:"wxq-orb-circle wxq-orb-silver",
+                        children:[
+                          e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
+                          e.jsx("img",{className:"wxq-orb-saoguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_saoguang.png",alt:""}),
+                          e.jsx("img",{className:"wxq-orb-emblem",src:"/assets/wxq-lobby/icon_baike_25.png",alt:""}),
+                          e.jsx("span",{className:"wxq-orb-num",children:"74"})
+                        ]
+                      }),
+                      e.jsx("span",{className:"wxq-orb-caption",children:"实战笔记"})
+                    ]
+                  }),
+
+                  /* 第 2 球：86 英雄图鉴 */
+                  e.jsxs(u,{
+                    to:"/explore/hero-sulie",
+                    navigate:r,
+                    className:"wxq-orb-item",
+                    children:[
+                      e.jsxs("div",{
+                        className:"wxq-orb-circle wxq-orb-silver",
+                        children:[
+                          e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
+                          e.jsx("img",{className:"wxq-orb-saoguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_saoguang.png",alt:""}),
+                          e.jsx("img",{className:"wxq-orb-emblem",src:"/assets/wxq-lobby/icon_baike_57.png",alt:""}),
+                          e.jsx("span",{className:"wxq-orb-num",children:"86"})
+                        ]
+                      }),
+                      e.jsx("span",{className:"wxq-orb-caption",children:"英雄图鉴"})
+                    ]
+                  }),
+
+                  /* 第 3 球：万象之都 CITY · 万象克制（与前两球严格 84×84 等大对齐） */
+                  e.jsxs(u,{
+                    to:"/counters",
+                    navigate:r,
+                    className:"wxq-orb-item",
+                    children:[
+                      e.jsxs("div",{
+                        className:"wxq-orb-circle wxq-orb-city",
+                        children:[
+                          e.jsx("img",{className:"wxq-city-bg",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_cityBG.png",alt:""}),
+                          e.jsx("img",{className:"wxq-city-caiguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_caiguang.png",alt:""}),
+                          e.jsx("img",{className:"wxq-city-statue",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_xulieren_huangse01.png",alt:""}),
+                          e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
+                          e.jsx("img",{className:"wxq-city-text-fill",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_tianchong_zi.png",alt:""}),
+                          e.jsx("img",{className:"wxq-city-text-stroke",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_miaobian_zi.png",alt:""})
+                        ]
+                      }),
+                      e.jsx("span",{className:"wxq-orb-caption",children:"万象克制"})
+                    ]
+                  })
+                ]
+              })
+            ]
+          }),
+
+          /* 底部栏：左下角放置胶囊搜索框 + 右下角「棋手/卡牌/阵容」+「实战笔记|」 */
+          e.jsxs("footer",{
+            className:"wxq-lobby-bottom",
+            children:[
+              /* 左下角：胶囊搜索框（完整显示占位文字，不遮挡） */
               e.jsxs("form",{
                 className:"wxq-lobby-search",
                 onSubmit:k,
                 children:[
-                  e.jsx(C,{size:15,"aria-hidden":"true"}),
+                  e.jsx(C,{size:16,"aria-hidden":"true"}),
                   e.jsx("input",{
                     value:c,
                     onChange:s=>h(s.target.value),
@@ -157,149 +207,9 @@ function O({navigate:r,onSearch:d}){
                   }),
                   e.jsx("button",{type:"submit",children:"检索"})
                 ]
-              })
-            ]
-          }),
-
-          /* 左上角三大圆球入口（1:1 复刻截图「24 成长之路」「13 战令」「CITY 万象之都」） */
-          e.jsxs("div",{
-            className:"wxq-left-orbs",
-            children:[
-              /* 第 1 球：74 实战笔记（复刻「24 成长之路」：原厂 Circle.png + baike_25 六芒星皇冠 + 74） */
-              e.jsxs(u,{
-                to:"/wxq-lineups",
-                navigate:r,
-                className:"wxq-orb-item",
-                children:[
-                  e.jsxs("div",{
-                    className:"wxq-orb-circle wxq-orb-silver",
-                    children:[
-                      e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
-                      e.jsx("img",{className:"wxq-orb-saoguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_saoguang.png",alt:""}),
-                      e.jsx("img",{className:"wxq-orb-emblem",src:"/assets/wxq-lobby/icon_baike_25.png",alt:""}),
-                      e.jsx("span",{className:"wxq-orb-num",children:"74"})
-                    ]
-                  }),
-                  e.jsx("span",{className:"wxq-orb-caption",children:"实战笔记"})
-                ]
               }),
 
-              /* 第 2 球：86 英雄图鉴（复刻「13 战令」：原厂 Circle.png + baike_57 战令金勋章 + 86） */
-              e.jsxs(u,{
-                to:"/explore/hero-sulie",
-                navigate:r,
-                className:"wxq-orb-item",
-                children:[
-                  e.jsxs("div",{
-                    className:"wxq-orb-circle wxq-orb-silver",
-                    children:[
-                      e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
-                      e.jsx("img",{className:"wxq-orb-saoguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_saoguang.png",alt:""}),
-                      e.jsx("img",{className:"wxq-orb-emblem",src:"/assets/wxq-lobby/icon_baike_57.png",alt:""}),
-                      e.jsx("span",{className:"wxq-orb-num",children:"86"})
-                    ]
-                  }),
-                  e.jsx("span",{className:"wxq-orb-caption",children:"英雄图鉴"})
-                ]
-              }),
-
-              /* 第 3 球：万象之都 CITY · 克制图谱（100% 原厂 6 层分层切图拼合！） */
-              e.jsxs(u,{
-                to:"/counters",
-                navigate:r,
-                className:"wxq-orb-item wxq-orb-city-item",
-                children:[
-                  e.jsxs("div",{
-                    className:"wxq-orb-circle wxq-orb-city",
-                    children:[
-                      e.jsx("img",{className:"wxq-city-bg",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_cityBG.png",alt:""}),
-                      e.jsx("img",{className:"wxq-city-caiguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_caiguang.png",alt:""}),
-                      e.jsx("img",{className:"wxq-city-statue",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_xulieren_huangse01.png",alt:""}),
-                      e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
-                      e.jsx("img",{className:"wxq-city-text-fill",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_tianchong_zi.png",alt:""}),
-                      e.jsx("img",{className:"wxq-city-text-stroke",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_miaobian_zi.png",alt:""})
-                    ]
-                  }),
-                  e.jsx("span",{className:"wxq-orb-caption",children:"万象克制"})
-                ]
-              })
-            ]
-          }),
-
-          /* 左侧中部：「排 行 —⇄—」极简折叠入口 + 半透明圆点（1:1 复刻截图左侧中部） */
-          e.jsxs(u,{
-            to:"/wxq-lineups",
-            navigate:r,
-            className:"wxq-left-rank-widget",
-            title:"查看全分段热门阵容排行",
-            children:[
-              e.jsx("span",{className:"wxq-rank-title",children:"排 行"}),
-              e.jsx("span",{className:"wxq-rank-arrows",children:"— ⇄ —"}),
-              e.jsxs("div",{
-                className:"wxq-rank-dots",
-                children:[
-                  e.jsx("span",{className:"wxq-rank-dot"}),
-                  e.jsx("span",{className:"wxq-rank-dot"}),
-                  e.jsx("span",{className:"wxq-rank-dot"})
-                ]
-              })
-            ]
-          }),
-
-          /* 底部栏：左下角社交/招募广播栏 + 右下角「棋手/卡牌/阵容」+「实战笔记|」 */
-          e.jsxs("footer",{
-            className:"wxq-lobby-bottom",
-            children:[
-              /* 左下角：头像框 + 好友/社区图标 + 招募/更新广播条（1:1 复刻截图左下角） */
-              e.jsxs("div",{
-                className:"wxq-bottom-left-social",
-                children:[
-                  e.jsxs(u,{
-                    to:"/players",
-                    navigate:r,
-                    className:"wxq-avatar-box",
-                    title:"浏览全部棋手图鉴",
-                    children:[
-                      e.jsx("img",{className:"wxq-avatar-img",src:"/assets/wxq-lobby/Icon_LordHead_DaQiao_128x128.png",alt:"棋手"}),
-                      e.jsx("span",{className:"wxq-avatar-sub",children:"棋手"})
-                    ]
-                  }),
-
-                  e.jsxs("div",{
-                    className:"wxq-social-bar",
-                    children:[
-                      e.jsx(u,{
-                        to:"/explore/hero-sulie",
-                        navigate:r,
-                        className:"wxq-social-icon-btn",
-                        title:"86 位英雄全图鉴",
-                        children:e.jsx("img",{src:"/assets/wxq-lobby/icon_baike_39_1.png",alt:""})
-                      }),
-                      e.jsx("span",{className:"wxq-social-sep"}),
-                      e.jsx(u,{
-                        to:"/players",
-                        navigate:r,
-                        className:"wxq-social-icon-btn",
-                        title:"棋手档案",
-                        children:e.jsx("img",{src:"/assets/wxq-lobby/icon_baike_15.png",alt:""})
-                      }),
-                      e.jsx("span",{className:"wxq-social-sep"}),
-                      e.jsxs(u,{
-                        to:"/wxq-lineups",
-                        navigate:r,
-                        className:"wxq-chat-ticker",
-                        children:[
-                          e.jsx("img",{className:"wxq-chat-icon",src:"/assets/wxq-lobby/icon_baike_11.png",alt:""}),
-                          e.jsx("span",{className:"wxq-chat-tag",children:"【万象启程】"}),
-                          e.jsx("span",{className:"wxq-chat-text",children:"74 篇实战阵容笔记 & 9,289 张客户端原生图鉴已就绪"})
-                        ]
-                      })
-                    ]
-                  })
-                ]
-              }),
-
-              /* 右下角：上排纯白图标（棋手·卡牌·阵容·克制链·木桩探测）+ 下排「实战笔记|」+ S1 万象启程 */
+              /* 右下角：上排 3 个等大两字图标（棋手·卡牌·阵容）+ 下排「实战笔记|」+ S1 万象启程 */
               e.jsxs("div",{
                 className:"wxq-bottom-right-dock",
                 children:[
