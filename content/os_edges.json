@@ -128826,9 +128826,9 @@
     },
     "priority": 3.12,
     "id": "e10568",
-    "cause": "空间与距离博弈",
-    "cause_sub": "风筝拉扯",
-    "cause_blurb": "无限射程或转移，让手短近战摸不到"
+    "cause": "其他",
+    "cause_sub": "未归类",
+    "cause_blurb": ""
   },
   {
     "source": "装备:643208",
@@ -135366,9 +135366,9 @@
     },
     "priority": 3.12,
     "id": "e10893",
-    "cause": "空间与距离博弈",
-    "cause_sub": "风筝拉扯",
-    "cause_blurb": "无限射程或转移，让手短近战摸不到"
+    "cause": "施法与控制博弈",
+    "cause_sub": "战中眩晕",
+    "cause_blurb": "硬控打断持续引导"
   },
   {
     "source": "装备:644112",
@@ -143113,9 +143113,9 @@
     },
     "priority": 2.12,
     "id": "e11279",
-    "cause": "空间与距离博弈",
-    "cause_sub": "风筝拉扯",
-    "cause_blurb": "无限射程或转移，让手短近战摸不到"
+    "cause": "其他",
+    "cause_sub": "未归类",
+    "cause_blurb": ""
   },
   {
     "source": "天赋:6370192",
@@ -262823,9 +262823,9 @@
     },
     "priority": 3,
     "id": "e16676",
-    "cause": "空间与距离博弈",
-    "cause_sub": "风筝拉扯",
-    "cause_blurb": "无限射程或转移，让手短近战摸不到"
+    "cause": "其他",
+    "cause_sub": "未归类",
+    "cause_blurb": ""
   },
   {
     "source": "装备:643403",
@@ -262919,9 +262919,9 @@
     },
     "priority": 3,
     "id": "e16680",
-    "cause": "空间与距离博弈",
-    "cause_sub": "风筝拉扯",
-    "cause_blurb": "无限射程或转移，让手短近战摸不到"
+    "cause": "施法与控制博弈",
+    "cause_sub": "战中眩晕",
+    "cause_blurb": "硬控打断持续引导"
   },
   {
     "source": "效果牌:7089",
@@ -333933,9 +333933,9 @@
     "annotator": "杜万奇",
     "review": "accept",
     "id": "e20144",
-    "cause": "空间与距离博弈",
-    "cause_sub": "风筝拉扯",
-    "cause_blurb": "无限射程或转移，让手短近战摸不到"
+    "cause": "其他",
+    "cause_sub": "未归类",
+    "cause_blurb": ""
   },
   {
     "source": "英雄:1411",
