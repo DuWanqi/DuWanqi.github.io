@@ -1,4 +1,4 @@
-/* 万象棋笔记 · 客户端内页无框清透 UI 复刻（去除深色垫底方块、修复背景切图与网格严格对齐） */
+/* 万象棋笔记 · 客户端内页无框清透 UI 复刻（全站透明悬浮顶栏 + 闹闹躺椅泡泡壁纸 + 零深色垫底块） */
 @font-face {
   font-family: "OSGameFontTitle";
   src: url(/assets/OSGameFont_Title.ttf) format("truetype");
@@ -21,23 +21,27 @@
 }
 
 /* ==========================================================================
-   1. 顶部全局导航栏
+   1. 顶部全局导航栏：全站与首页完全一致！彻底去掉深色背景框与底部分隔横线
    ========================================================================== */
-.site-shell.is-arena-home .site-header:not(.is-scrolled) {
-  background: linear-gradient(180deg, rgba(10, 14, 24, 0.56) 0%, rgba(10, 14, 24, 0) 100%) !important;
+.site-header,
+.site-shell .site-header,
+.site-shell:not(.is-arena-home) .site-header,
+.site-shell.is-arena-home .site-header,
+.site-shell .site-header.is-scrolled,
+.site-shell:not(.is-arena-home) .site-header.is-scrolled,
+.site-shell.is-arena-home .site-header.is-scrolled,
+body:has(.explorer-page.is-art-v2) .site-header {
+  background: linear-gradient(180deg, rgba(8, 12, 22, 0.48) 0%, rgba(8, 12, 22, 0) 100%) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  border: 0 !important;
   border-bottom: 0 !important;
   box-shadow: none !important;
 }
 
-.site-shell:not(.is-arena-home) .site-header,
-.site-shell .site-header.is-scrolled {
-  background: linear-gradient(180deg, rgba(16, 22, 38, 0.90) 0%, rgba(14, 19, 34, 0.72) 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: 1px solid rgba(204, 224, 255, 0.14) !important;
-  box-shadow: none !important;
+.site-header::after,
+.site-shell .site-header.is-scrolled::after {
+  display: none !important;
 }
 
 .header-more,
@@ -138,21 +142,28 @@
 }
 
 /* ==========================================================================
-   2. 内页纯净背景（彻底移除那张带灰白方底的贴图，仅用原厂深蓝竖纹光束 + 纯CSS柔和光晕）
+   2. 内页背景处理：直接使用你参考图里的「闹闹躺椅 + 幻彩泡泡」全屏高清壁纸！
+      叠加上柔和的深蓝半透明渐变蒙版，既露出背景里的闹闹与梦幻泡泡，又保证前景白字清晰
    ========================================================================== */
 .site-shell:not(.is-arena-home),
 .site-shell:has(.hw-page),
 .site-shell:has(.hw-shell) {
-  background-color: #141b2d !important;
+  background-color: #121829 !important;
   background-image:
-    /* 左上与右上柔和梦幻蓝紫径向光晕（复刻客户端内页氛围光，无任何硬边界） */
-    radial-gradient(640px 420px at 18% 12%, rgba(96, 136, 214, 0.20) 0%, transparent 72%),
-    radial-gradient(560px 420px at 84% 24%, rgba(114, 152, 230, 0.18) 0%, transparent 72%),
-    radial-gradient(600px 460px at 50% 85%, rgba(78, 112, 188, 0.14) 0%, transparent 75%),
-    /* 柔和深蓝蒙版 + 原厂深蓝流光背景（wxq-inner-bg.png 全屏平滑铺满） */
-    linear-gradient(180deg, rgba(17, 23, 39, 0.72) 0%, rgba(20, 27, 46, 0.78) 50%, rgba(15, 20, 35, 0.88) 100%),
-    url(/assets/wxq-lobby/wxq-inner-bg.png) !important;
-  background-position: center top !important;
+    linear-gradient(
+      90deg,
+      rgba(16, 22, 38, 0.78) 0%,
+      rgba(18, 25, 44, 0.62) 45%,
+      rgba(18, 25, 44, 0.66) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(14, 19, 34, 0.65) 0%,
+      rgba(18, 24, 42, 0.42) 38%,
+      rgba(14, 19, 34, 0.76) 100%
+    ),
+    url(/assets/wxq-lobby/wxq-naonao-bg.jpg) !important;
+  background-position: center center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
@@ -162,20 +173,20 @@
 .ew-page,
 .ccw-page {
   background: transparent !important;
-  --hw-line: rgba(204, 224, 255, 0.16) !important;
-  --hw-text: #f2f6fc !important;
-  --hw-muted: #9eb2cc !important;
-  --ew-line: rgba(204, 224, 255, 0.16) !important;
-  --ew-muted: #9eb2cc !important;
-  --ccw-line: rgba(204, 224, 255, 0.16) !important;
-  --ccw-line-strong: rgba(214, 232, 255, 0.30) !important;
-  --ccw-text: #f2f6fc !important;
-  --ccw-muted: #9eb2cc !important;
+  --hw-line: rgba(214, 232, 255, 0.20) !important;
+  --hw-text: #f4f8ff !important;
+  --hw-muted: #b0c4de !important;
+  --ew-line: rgba(214, 232, 255, 0.20) !important;
+  --ew-muted: #b0c4de !important;
+  --ccw-line: rgba(214, 232, 255, 0.20) !important;
+  --ccw-line-strong: rgba(224, 238, 255, 0.34) !important;
+  --ccw-text: #f4f8ff !important;
+  --ccw-muted: #b0c4de !important;
   font-family: "OSGameFontContent", "HYQiHei85S", "PingFang SC", "Microsoft YaHei", sans-serif !important;
 }
 
 /* ==========================================================================
-   3. 顶部 `< 万象图鉴 |` 返回与二级栏目条（彻底去掉外层深色盒子，保持单行左右对齐）
+   3. 顶部 `< 万象图鉴 |` 返回与二级栏目条（无深色底框，单行左右对齐）
    ========================================================================== */
 .wxq-back-btn {
   display: inline-flex !important;
@@ -186,7 +197,7 @@
   border: 0 !important;
   border-bottom: 2px solid transparent !important;
   background: transparent !important;
-  color: #f4f8ff !important;
+  color: #ffffff !important;
   cursor: pointer !important;
   white-space: nowrap !important;
   transition: transform 0.16s ease !important;
@@ -194,6 +205,7 @@
 
 .wxq-back-btn svg {
   color: #ffffff !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
   transition: transform 0.16s ease;
 }
 
@@ -207,15 +219,15 @@
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
   color: #ffffff !important;
-  text-shadow: 0 2px 10px rgba(6, 10, 22, 0.65);
+  text-shadow: 0 2px 10px rgba(6, 10, 22, 0.78);
 }
 
 .wxq-back-divider {
   display: inline-block;
-  width: 1px;
+  width: 1.5px;
   height: 16px;
   margin-left: 8px;
-  background: rgba(214, 232, 255, 0.42);
+  background: rgba(224, 238, 255, 0.52);
 }
 
 /* 顶部二级导航：无深色底框，仅底部 1px 细线，单行左右两端对齐 */
@@ -225,11 +237,11 @@
   align-items: center !important;
   justify-content: space-between !important;
   gap: 16px !important;
-  min-height: 54px !important;
-  padding: 6px 0 !important;
+  min-height: 52px !important;
+  padding: 4px 0 !important;
   margin-top: 0 !important;
   border: 0 !important;
-  border-bottom: 1px solid rgba(204, 224, 255, 0.18) !important;
+  border-bottom: 1px solid rgba(214, 232, 255, 0.22) !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -252,11 +264,12 @@
   font-size: 15px !important;
   font-weight: 700 !important;
   letter-spacing: 0.03em !important;
-  color: rgba(190, 210, 236, 0.72) !important;
+  color: rgba(210, 226, 248, 0.78) !important;
   background: transparent !important;
   border: 0 !important;
   border-bottom: 2px solid transparent !important;
   white-space: nowrap !important;
+  text-shadow: 0 2px 8px rgba(6, 10, 22, 0.72) !important;
   transition: color 0.16s ease, border-color 0.16s ease !important;
 }
 
@@ -264,7 +277,7 @@
   font-family: "WanxiangDIN", sans-serif !important;
   font-size: 12px !important;
   font-weight: 400 !important;
-  color: rgba(164, 188, 220, 0.78) !important;
+  color: rgba(186, 208, 238, 0.85) !important;
   background: transparent !important;
   border: 0 !important;
   padding: 0 !important;
@@ -279,12 +292,12 @@
 .hw-navigation .explorer-knowledge-nav button.is-active {
   color: #ffffff !important;
   border-bottom-color: #ffffff !important;
-  text-shadow: 0 0 12px rgba(170, 214, 255, 0.65) !important;
+  text-shadow: 0 0 12px rgba(170, 214, 255, 0.75), 0 2px 8px rgba(6, 10, 22, 0.8) !important;
   background: transparent !important;
 }
 
 .hw-navigation .explorer-type-tabs button.is-active small {
-  color: #dceaff !important;
+  color: #ffffff !important;
 }
 
 /* ==========================================================================
@@ -308,7 +321,8 @@
   font-size: 13px !important;
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
-  color: #cde0fa !important;
+  color: #d8ebff !important;
+  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.75) !important;
 }
 
 .hw-rail-title > span::before,
@@ -326,19 +340,19 @@
   width: 2.5px;
   height: 13px;
   border-radius: 2px;
-  background: #d8ebff;
-  box-shadow: 0 0 6px rgba(160, 210, 255, 0.75);
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(160, 210, 255, 0.85);
   flex-shrink: 0;
 }
 
 /* ==========================================================================
-   5. 图鉴内页正文区：彻底移除文字背后的深色方块垫底！直接清透排版 + 1px 细分隔线
+   5. 图鉴内页正文区：无任何深色方块垫底，直接清透排版 + 1px 细分隔线
    ========================================================================== */
 @media (min-width: 861px) {
   .hw-reading-surface {
     background: transparent !important;
     border: 0 !important;
-    border-left: 1px solid rgba(204, 224, 255, 0.16) !important;
+    border-left: 1px solid rgba(214, 232, 255, 0.20) !important;
     border-radius: 0 !important;
     padding: 12px 28px 38px 32px !important;
     box-shadow: none !important;
@@ -347,7 +361,7 @@
   .hw-rail {
     background: transparent !important;
     border: 0 !important;
-    border-left: 1px solid rgba(204, 224, 255, 0.16) !important;
+    border-left: 1px solid rgba(214, 232, 255, 0.20) !important;
     border-radius: 0 !important;
     padding: 12px 0 28px 24px !important;
     box-shadow: none !important;
@@ -357,7 +371,7 @@
   .ccw-archive {
     background: transparent !important;
     border: 0 !important;
-    border-left: 1px solid rgba(204, 224, 255, 0.16) !important;
+    border-left: 1px solid rgba(214, 232, 255, 0.20) !important;
     border-radius: 0 !important;
     padding: 4px 0 32px 32px !important;
     box-shadow: none !important;
@@ -372,7 +386,7 @@
   font-weight: 800 !important;
   letter-spacing: 0.03em !important;
   color: #ffffff !important;
-  text-shadow: 0 2px 12px rgba(6, 10, 22, 0.65) !important;
+  text-shadow: 0 2px 14px rgba(6, 10, 22, 0.82) !important;
 }
 
 .hw-section-title h2,
@@ -380,14 +394,16 @@
   font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
   font-weight: 700 !important;
   color: #ffffff !important;
-  text-shadow: 0 2px 10px rgba(6, 10, 22, 0.55) !important;
+  text-shadow: 0 2px 12px rgba(6, 10, 22, 0.78) !important;
 }
 
 .hw-skill-base,
 .hw-node-content > p,
+.hw-card-effect p,
+.hw-knowledge > p,
 .ew-effect,
 .ccw-official-copy blockquote {
-  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.55);
+  text-shadow: 0 1px 8px rgba(6, 10, 22, 0.75);
 }
 
 .hw-node-level strong,
@@ -395,15 +411,16 @@
 .hw-stats dd strong {
   font-family: "WanxiangDIN", "OSGameFontTitle", sans-serif !important;
   letter-spacing: 0.02em !important;
+  text-shadow: 0 2px 8px rgba(6, 10, 22, 0.72);
 }
 
 .hw-nodes article.is-reached .hw-node-level strong {
   color: #ffe2a8 !important;
-  text-shadow: 0 0 12px rgba(255, 214, 138, 0.35);
+  text-shadow: 0 0 12px rgba(255, 214, 138, 0.45), 0 2px 8px rgba(6, 10, 22, 0.75);
 }
 
 /* ==========================================================================
-   6. 按钮系统（复刻客户端右侧「前往 / 领取」冰蓝半透明胶囊按钮，仅用于真实交互按钮）
+   6. 按钮系统（复刻客户端右侧「前往 / 领取」冰蓝半透明胶囊按钮）
    ========================================================================== */
 .hw-object-nav {
   min-height: 54px !important;
@@ -418,14 +435,14 @@
   min-height: 34px !important;
   padding: 5px 18px !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(208, 230, 255, 0.42) !important;
-  background: linear-gradient(180deg, rgba(132, 178, 242, 0.34) 0%, rgba(76, 116, 186, 0.44) 100%) !important;
-  color: #f6faff !important;
+  border: 1px solid rgba(214, 234, 255, 0.48) !important;
+  background: linear-gradient(180deg, rgba(142, 188, 250, 0.38) 0%, rgba(82, 124, 196, 0.48) 100%) !important;
+  color: #ffffff !important;
   font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.36) !important;
   transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease !important;
 }
 
@@ -433,24 +450,25 @@
 .hw-rail-actions > button:hover:not(:disabled),
 .hep-actions > button:hover:not(:disabled) {
   transform: translateY(-1px);
-  border-color: rgba(238, 246, 255, 0.82) !important;
-  background: linear-gradient(180deg, rgba(152, 198, 255, 0.46) 0%, rgba(92, 136, 210, 0.56) 100%) !important;
+  border-color: rgba(242, 248, 255, 0.88) !important;
+  background: linear-gradient(180deg, rgba(162, 206, 255, 0.52) 0%, rgba(98, 144, 218, 0.62) 100%) !important;
 }
 
 .hw-object-nav > span {
   font-family: "WanxiangDIN", "OSGameFontContent", sans-serif !important;
   font-size: 13px !important;
-  color: #a8c0de !important;
+  color: #bed4f0 !important;
   background: transparent !important;
   border: 0 !important;
   padding: 0 !important;
+  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.72);
 }
 
 .hw-breadcrumb {
   padding: 0 !important;
   border: 0 !important;
   background: transparent !important;
-  color: #9eb4d0 !important;
+  color: #b4cae6 !important;
   font-size: 12px !important;
 }
 
@@ -466,10 +484,10 @@
 .hw-level-presets button,
 .hw-level-step button {
   min-height: 30px !important;
-  border: 1px solid rgba(204, 224, 255, 0.22) !important;
+  border: 1px solid rgba(214, 232, 255, 0.28) !important;
   border-radius: 6px !important;
-  background: rgba(255, 255, 255, 0.04) !important;
-  color: #bfd4ee !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #d0e2f8 !important;
   font-family: "WanxiangDIN", sans-serif !important;
   font-size: 13px !important;
   transition: all 0.15s ease !important;
@@ -477,45 +495,45 @@
 
 .hw-level-presets button:hover,
 .hw-level-step button:hover {
-  border-color: rgba(226, 240, 255, 0.56) !important;
+  border-color: rgba(232, 244, 255, 0.65) !important;
   color: #ffffff !important;
-  background: rgba(142, 186, 248, 0.16) !important;
+  background: rgba(142, 186, 248, 0.22) !important;
 }
 
 .hw-level-presets button.is-active {
-  border-color: rgba(224, 240, 255, 0.85) !important;
-  background: linear-gradient(180deg, rgba(154, 198, 255, 0.45) 0%, rgba(92, 138, 212, 0.55) 100%) !important;
+  border-color: rgba(236, 246, 255, 0.92) !important;
+  background: linear-gradient(180deg, rgba(154, 198, 255, 0.52) 0%, rgba(92, 138, 212, 0.62) 100%) !important;
   color: #ffffff !important;
   font-weight: 700 !important;
 }
 
 .hw-level-step input {
-  border: 1px solid rgba(204, 224, 255, 0.24) !important;
+  border: 1px solid rgba(214, 232, 255, 0.28) !important;
   border-radius: 6px !important;
   background: rgba(12, 18, 32, 0.35) !important;
-  color: #f4f8ff !important;
+  color: #ffffff !important;
   font-family: "WanxiangDIN", sans-serif !important;
   font-size: 15px !important;
 }
 
 /* 装备槽位 */
 .hw-slot {
-  border: 1px dashed rgba(204, 224, 255, 0.28) !important;
+  border: 1px dashed rgba(214, 232, 255, 0.34) !important;
   border-radius: 8px !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-  color: #bfd4ee !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #cde0f8 !important;
   transition: border-color 0.15s ease, background 0.15s ease !important;
 }
 
 .hw-slot:hover {
-  border-color: rgba(226, 240, 255, 0.65) !important;
-  background: rgba(142, 186, 248, 0.12) !important;
+  border-color: rgba(232, 244, 255, 0.72) !important;
+  background: rgba(142, 186, 248, 0.16) !important;
 }
 
 .hw-rail-actions .lineup-relation-link {
   border-radius: 8px !important;
-  border: 1px solid rgba(204, 224, 255, 0.2) !important;
-  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(214, 232, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }
 
 /* ==========================================================================
@@ -523,19 +541,20 @@
    ========================================================================== */
 .ew-toolbar,
 .ccw-toolbar {
-  border-bottom: 1px solid rgba(204, 224, 255, 0.16) !important;
+  border-bottom: 1px solid rgba(214, 232, 255, 0.20) !important;
 }
 
 .ew-categories button {
   font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif !important;
   font-size: 15px !important;
-  color: rgba(190, 210, 236, 0.72) !important;
+  color: rgba(206, 224, 248, 0.78) !important;
+  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.72);
 }
 
 .ew-categories button[aria-pressed="true"] {
   color: #ffffff !important;
   border-bottom-color: #ffffff !important;
-  text-shadow: 0 0 12px rgba(164, 212, 255, 0.6) !important;
+  text-shadow: 0 0 12px rgba(164, 212, 255, 0.65), 0 1px 6px rgba(6, 10, 22, 0.8) !important;
 }
 
 /* 筛选条件行：单行紧凑不折行 */
@@ -553,7 +572,7 @@
   padding: 2px 7px !important;
   border: 1px solid transparent !important;
   border-radius: 999px !important;
-  color: #b4cae6 !important;
+  color: #c2d6f0 !important;
   font-size: 12px !important;
   white-space: nowrap !important;
 }
@@ -564,8 +583,8 @@
 
 .cq-filter-options button[aria-pressed="true"] {
   color: #ffffff !important;
-  border-color: rgba(214, 232, 255, 0.45) !important;
-  background: linear-gradient(180deg, rgba(136, 180, 242, 0.32) 0%, rgba(82, 122, 190, 0.38) 100%) !important;
+  border-color: rgba(220, 236, 255, 0.52) !important;
+  background: linear-gradient(180deg, rgba(142, 186, 248, 0.38) 0%, rgba(84, 126, 196, 0.44) 100%) !important;
 }
 
 /* 搜索框：极简胶囊细线框 */
@@ -573,18 +592,18 @@
 .ew-search,
 .ccw-search,
 .hep-search {
-  border: 1px solid rgba(204, 224, 255, 0.24) !important;
+  border: 1px solid rgba(214, 232, 255, 0.30) !important;
   border-radius: 999px !important;
   padding: 0 14px !important;
-  background: rgba(255, 255, 255, 0.04) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
 }
 
 .hw-search:focus-within,
 .ew-search:focus-within,
 .ccw-search:focus-within,
 .hep-search:focus-within {
-  border-color: rgba(228, 242, 255, 0.68) !important;
-  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(236, 246, 255, 0.78) !important;
+  background: rgba(255, 255, 255, 0.10) !important;
   outline: none !important;
 }
 
@@ -601,14 +620,14 @@
 .ew-grid > button:hover,
 .ccw-grid > button:hover,
 .hw-hero-list button:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
 }
 
 .ew-grid > button.is-selected,
 .ccw-grid > button.is-selected,
 .hw-hero-list button.is-selected {
-  border-color: rgba(220, 236, 255, 0.55) !important;
-  background: linear-gradient(180deg, rgba(132, 176, 240, 0.18) 0%, rgba(76, 114, 182, 0.12) 100%) !important;
+  border-color: rgba(226, 240, 255, 0.62) !important;
+  background: linear-gradient(180deg, rgba(142, 186, 248, 0.22) 0%, rgba(82, 122, 192, 0.16) 100%) !important;
 }
 
 /* 弹窗（英雄索引 / 装备选择器） */
@@ -622,7 +641,7 @@
 
 /* ==========================================================================
    8. 目录页（/atlas 万象图鉴总览 & /strategy 攻略）
-      严格三列等宽等高对齐 + 去除深色方盒 + 复刻客户端内页清透条目与右侧「前往」胶囊
+      严格三列等宽等高对齐 + 去除深色方盒 + 复刻客户端内页清透条目与右侧胶囊
    ========================================================================== */
 .site-directory {
   width: min(1380px, calc(100% - 128px)) !important;
@@ -631,12 +650,11 @@
   padding: 20px 0 72px !important;
 }
 
-/* 顶部标题区：无深色盒子，直接排版在背景上 + 底部 1px 细分隔线 */
 .site-directory > header {
   padding: 8px 0 22px !important;
   margin-bottom: 28px !important;
   border: 0 !important;
-  border-bottom: 1px solid rgba(204, 224, 255, 0.18) !important;
+  border-bottom: 1px solid rgba(214, 232, 255, 0.22) !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -651,9 +669,10 @@
 
 .wxq-dir-top > p {
   margin: 0 !important;
-  color: #9cb6d8 !important;
+  color: #b4cae6 !important;
   font-size: 12px !important;
   letter-spacing: 0.08em !important;
+  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.72);
 }
 
 .site-directory > header h1 {
@@ -663,15 +682,15 @@
   letter-spacing: 0.04em !important;
   color: #ffffff !important;
   margin: 0 0 6px !important;
-  text-shadow: 0 2px 12px rgba(6, 10, 22, 0.65) !important;
+  text-shadow: 0 2px 14px rgba(6, 10, 22, 0.8) !important;
 }
 
 .site-directory > header > span {
-  color: #a8c0de !important;
+  color: #c2d6f0 !important;
   font-size: 14px !important;
+  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.72);
 }
 
-/* 目录三列网格严格对齐 */
 @media (min-width: 861px) {
   .site-directory .directory-groups {
     display: grid !important;
@@ -687,7 +706,6 @@
   border: 0 !important;
 }
 
-/* 栏目分组标题：复刻客户端 `| 领棋手闹闹` 竖条标题，无深色圆角垫底块 */
 .directory-group > h2 {
   display: flex !important;
   align-items: center !important;
@@ -703,7 +721,7 @@
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
   color: #ffffff !important;
-  text-shadow: 0 2px 8px rgba(6, 10, 22, 0.65) !important;
+  text-shadow: 0 2px 10px rgba(6, 10, 22, 0.8) !important;
 }
 
 .directory-group > h2::before {
@@ -717,12 +735,11 @@
   flex-shrink: 0;
 }
 
-/* 每个栏目内部条目列表：严格单列等高对齐，采用客户端右侧任务行风格（上下 1px 细线，无深色方块） */
 .directory-links {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) !important;
   gap: 0 !important;
-  border-top: 1px solid rgba(204, 224, 255, 0.18) !important;
+  border-top: 1px solid rgba(214, 232, 255, 0.22) !important;
 }
 
 .directory-links > a,
@@ -736,20 +753,19 @@
   padding: 12px 6px !important;
   margin: 0 !important;
   border: 0 !important;
-  border-bottom: 1px solid rgba(204, 224, 255, 0.16) !important;
+  border-bottom: 1px solid rgba(214, 232, 255, 0.18) !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   text-decoration: none !important;
-  transition: background 0.16s ease, padding-left 0.16s ease !important;
+  transition: background 0.16s ease !important;
 }
 
 .directory-links > a:hover {
-  background: linear-gradient(90deg, rgba(136, 180, 244, 0.12) 0%, rgba(136, 180, 244, 0.02) 100%) !important;
-  border-bottom-color: rgba(220, 236, 255, 0.36) !important;
+  background: linear-gradient(90deg, rgba(142, 188, 250, 0.16) 0%, rgba(142, 188, 250, 0.02) 100%) !important;
+  border-bottom-color: rgba(228, 242, 255, 0.42) !important;
 }
 
-/* 左侧缩略图标统一居中收拢在 64x68 盒内 */
 .directory-links > a > .atlas-entry-art {
   width: 64px !important;
   height: 68px !important;
@@ -761,10 +777,9 @@
   width: 28px !important;
   height: 28px !important;
   justify-self: center !important;
-  color: #cce0fa !important;
+  color: #d6e6fc !important;
 }
 
-/* 中间文字严格左对齐、固定两行截断，保证每行高度 100% 一致 */
 .directory-links > a > div {
   min-width: 0 !important;
   display: flex !important;
@@ -783,35 +798,35 @@
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  text-shadow: 0 2px 8px rgba(6, 10, 22, 0.65) !important;
+  text-shadow: 0 2px 10px rgba(6, 10, 22, 0.78) !important;
 }
 
 .directory-links > a p {
   font-size: 12px !important;
   line-height: 1.45 !important;
   margin: 0 !important;
-  color: #a6bddb !important;
+  color: #bcd2ee !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
+  text-shadow: 0 1px 6px rgba(6, 10, 22, 0.72);
 }
 
-/* 右侧箭头：复刻客户端右侧冰蓝半透明胶囊小按钮 */
 .directory-links > a > svg:last-child {
   width: 34px !important;
   height: 24px !important;
   padding: 4px 9px !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(208, 230, 255, 0.38) !important;
-  background: linear-gradient(180deg, rgba(132, 178, 242, 0.30) 0%, rgba(76, 116, 186, 0.40) 100%) !important;
-  color: #f4f9ff !important;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.28) !important;
+  border: 1px solid rgba(214, 234, 255, 0.44) !important;
+  background: linear-gradient(180deg, rgba(142, 188, 250, 0.36) 0%, rgba(82, 124, 196, 0.46) 100%) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32) !important;
   transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease !important;
 }
 
 .directory-links > a:hover > svg:last-child {
   transform: translateX(2px);
-  border-color: rgba(238, 246, 255, 0.82) !important;
-  background: linear-gradient(180deg, rgba(154, 200, 255, 0.48) 0%, rgba(92, 138, 212, 0.58) 100%) !important;
+  border-color: rgba(242, 248, 255, 0.88) !important;
+  background: linear-gradient(180deg, rgba(162, 206, 255, 0.52) 0%, rgba(98, 144, 218, 0.62) 100%) !important;
 }
