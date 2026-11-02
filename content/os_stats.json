@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17 10:00",
+  "generated_at": "2026-11-02 17:19",
   "pipeline": {
     "entities": 1408,
     "lineups": 76,
@@ -7,9 +7,9 @@
     "judged": 21966,
     "irrelevant": 11468,
     "irrelevant_rate": 52.2,
-    "edges": 20121,
-    "mechanic_edges": 19522,
-    "manual_upsert": 1,
+    "edges": 20158,
+    "mechanic_edges": 19559,
+    "manual_upsert": 43,
     "manual_deleted": 0
   },
   "edges_by_type": {
@@ -19,13 +19,13 @@
     "依赖": 249,
     "协同": 1836,
     "竞争": 18,
-    "克制": 9113,
+    "克制": 9150,
     "负作用": 64,
     "同流派": 599
   },
   "edges_by_strength": {
-    "中": 7877,
-    "强": 10697,
+    "中": 7886,
+    "强": 10725,
     "弱": 1547
   },
   "edges_by_origin": {
@@ -49,7 +49,8 @@
     "counter_flash": 297,
     "counter_frost": 25,
     "counter_opening_flash": 18,
-    "counter_kite": 150,
+    "counter_kite": 149,
+    "manual": 43,
     "counter_equip": 327,
     "counter_aoe_summon": 54,
     "counter_summon_single": 30,
@@ -61,9 +62,8 @@
     "counter_block_onhit": 7,
     "counter_pen": 20,
     "counter_lineup": 518,
-    "counter_lineup_role": 3106,
-    "manual": 1,
-    "counter_core_lineup": 1105,
+    "counter_lineup_role": 3104,
+    "counter_core_lineup": 1103,
     "counter_arch": 303,
     "side_as_lock": 44,
     "side_hp_cut": 20,
@@ -120,9 +120,9 @@
     {
       "type": "棋手卡",
       "total": 385,
-      "linked": 222,
-      "zero": 163,
-      "rate": 57.7
+      "linked": 225,
+      "zero": 160,
+      "rate": 58.4
     },
     {
       "type": "效果牌",
@@ -160,11 +160,11 @@
       "rate": 72.1
     }
   ],
-  "zero_edge_total": 492,
+  "zero_edge_total": 489,
   "top_tags": [
     [
       "克阵容",
-      4420
+      4416
     ],
     [
       "永久等级",
@@ -172,7 +172,7 @@
     ],
     [
       "克英雄",
-      2728
+      2727
     ],
     [
       "产出源",
@@ -180,11 +180,11 @@
     ],
     [
       "核心受益",
-      1662
+      1660
     ],
     [
       "核心继承",
-      1105
+      1103
     ],
     [
       "克装备",
@@ -243,7 +243,7 @@
       "type": "英雄",
       "archetype": "闪现击杀流",
       "role": "核心C位",
-      "degree": 232
+      "degree": 233
     },
     {
       "name": "露娜",
@@ -264,7 +264,7 @@
       "type": "英雄",
       "archetype": "闪现击杀流",
       "role": "核心C位",
-      "degree": 215
+      "degree": 217
     },
     {
       "name": "周瑜",
@@ -285,7 +285,7 @@
       "type": "英雄",
       "archetype": "整备科技流",
       "role": "核心C位",
-      "degree": 196
+      "degree": 197
     },
     {
       "name": "小乔",

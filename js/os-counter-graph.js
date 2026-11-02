@@ -267,11 +267,9 @@
     S.dirSel = { "克制": true, "被克制": false };
     S.strength = { "强": true, "中": true, "弱": false };
     var types = allTypes();
-    // 默认不把 76 套继承的具体阵容和 385 张棋手卡全铺在 1度图上（避免 100+ 节点挤成一团），想看具体阵容可点芯片开启
-    var defaultTargetTypes = ["英雄", "流派", "装备", "天赋", "效果牌", "棋手", "特殊单位"];
     types.forEach(function (t) {
       S.srcT[t] = true;
-      S.tgtT[t] = defaultTargetTypes.indexOf(t) >= 0;
+      S.tgtT[t] = true;
     });
     ARCH_ORDER.forEach(function (a) { S.arch[a] = true; });
     CAUSE_ORDER.forEach(function (c) { S.cause[c] = true; });
@@ -295,14 +293,12 @@
       var a = S.byId[e.source], b = S.byId[e.target];
       if (!S.arch[a.archetype] || !S.arch[b.archetype]) return false;
       if (e.type === "克制" && !S.cause[e.cause || "其他"]) return false;
-      if (e.type !== "负作用") {
-        if (S.focus) {
-          var otherNode = e.source === S.focus ? b : (e.target === S.focus ? a : null);
-          if (otherNode && !S.tgtT[otherNode.type]) return false;
-          if (!otherNode && (!S.tgtT[a.type] || !S.tgtT[b.type])) return false;
-        } else {
-          if (!S.tgtT[a.type] || !S.tgtT[b.type]) return false;
-        }
+      if (S.focus) {
+        var otherNode = e.source === S.focus ? b : (e.target === S.focus ? a : null);
+        if (otherNode && !S.tgtT[otherNode.type]) return false;
+        if (!otherNode && (!S.tgtT[a.type] || !S.tgtT[b.type])) return false;
+      } else {
+        if (!S.tgtT[a.type] || !S.tgtT[b.type]) return false;
       }
       if (S.focus) {
         if (e.source === S.focus && !out) return false;
@@ -506,7 +502,20 @@
     var searchInput = document.getElementById("osSearchInput");
     if (searchInput) {
       searchInput.oninput = function () {
-        S.q = this.value.trim();
+        var nextQ = this.value.trim();
+        S.q = nextQ;
+        if (nextQ) {
+          var ql = nextQ.toLowerCase();
+          var exact = S.nodes.find(function (n) { return n.name.toLowerCase() === ql; }) ||
+                      S.nodes.find(function (n) { return n.name.toLowerCase().indexOf(ql) >= 0; });
+          if (exact) {
+            S.atlasType = exact.type;
+          } else {
+            S.atlasType = "全部";
+          }
+        } else if (S.atlasType === "全部") {
+          S.atlasType = (S.atlasId && S.byId[S.atlasId]) ? S.byId[S.atlasId].type : "装备";
+        }
         renderAtlasColumn();
       };
     }
@@ -626,37 +635,73 @@
     renderChartPanel();
   }
 
+  function matchQueryScore(n, q) {
+    if (!q) return 1;
+    var nl = (n.name || "").toLowerCase();
+    if (nl === q) return 3;
+    if (nl.indexOf(q) >= 0) return 2;
+    if ((n.summary || "").toLowerCase().indexOf(q) >= 0 ||
+        (n.text || "").toLowerCase().indexOf(q) >= 0) return 1;
+    return 0;
+  }
+
   function renderAtlasColumn() {
     var tabBox = document.getElementById("osTypeTabs");
     var listBox = document.getElementById("osAtlasList");
     if (!tabBox || !listBox) return;
 
-    var counts = {};
-    S.nodes.forEach(function (n) { counts[n.type] = (counts[n.type] || 0) + 1; });
+    var q = (S.q || "").toLowerCase();
+    var totalCounts = {}, matchCounts = {}, totalMatches = 0;
+    S.nodes.forEach(function (n) {
+      totalCounts[n.type] = (totalCounts[n.type] || 0) + 1;
+      if (q && matchQueryScore(n, q) > 0) {
+        matchCounts[n.type] = (matchCounts[n.type] || 0) + 1;
+        totalMatches++;
+      }
+    });
     var types = allTypes();
 
-    tabBox.innerHTML = types.map(function (t) {
+    var allTabHtml = q
+      ? '<button type="button" class="os-type-btn ' + (S.atlasType === "全部" ? "on" : "") + '" data-type="全部">全部<small>' + totalMatches + '</small></button>'
+      : '';
+
+    tabBox.innerHTML = allTabHtml + types.map(function (t) {
+      var c = q ? (matchCounts[t] !== undefined ? matchCounts[t] + "/" + (totalCounts[t] || 0) : (totalCounts[t] || 0)) : (totalCounts[t] || 0);
       return '<button type="button" class="os-type-btn ' + (t === S.atlasType ? "on" : "") + '" data-type="' + esc(t) + '">' +
-        esc(t) + '<small>' + (counts[t] || 0) + '</small></button>';
+        esc(t) + '<small>' + c + '</small></button>';
     }).join("");
 
     Array.prototype.forEach.call(tabBox.querySelectorAll("[data-type]"), function (btn) {
       btn.onclick = function () {
-        S.atlasType = btn.getAttribute("data-type");
+        var clickedType = btn.getAttribute("data-type");
+        if (q && clickedType !== "全部") {
+          var hasMatchesInType = (matchCounts[clickedType] || 0) > 0;
+          var curSelected = S.atlasId && S.byId[S.atlasId];
+          var isSearchingSelectedNode = curSelected && curSelected.name.toLowerCase() === q;
+          // 如果该分类在当前搜索词下为0条，或当前已选中搜索对象且用户点击其他分类浏览，或再次点击同一分类，则自动清空搜索词展示该分类全量列表
+          if (!hasMatchesInType || isSearchingSelectedNode || S.atlasType === clickedType) {
+            S.q = "";
+            var inp = document.getElementById("osSearchInput");
+            if (inp) inp.value = "";
+          }
+        }
+        S.atlasType = clickedType;
         listBox.scrollTop = 0;
         renderAtlasColumn();
       };
     });
 
-    var q = (S.q || "").toLowerCase();
+    var activeQ = (S.q || "").toLowerCase();
     var degMap = S.graphScope === "all" ? S.totalDeg : S.counterDeg;
     var rows = S.nodes.filter(function (n) {
-      if (!q && n.type !== S.atlasType) return false;
-      if (!q) return true;
-      return n.name.toLowerCase().indexOf(q) >= 0 ||
-        (n.summary || "").toLowerCase().indexOf(q) >= 0 ||
-        (n.text || "").toLowerCase().indexOf(q) >= 0;
+      if (S.atlasType && S.atlasType !== "全部" && n.type !== S.atlasType) return false;
+      if (!activeQ) return true;
+      return matchQueryScore(n, activeQ) > 0;
     }).sort(function (a, b) {
+      if (activeQ) {
+        var sa = matchQueryScore(a, activeQ), sb = matchQueryScore(b, activeQ);
+        if (sb !== sa) return sb - sa;
+      }
       return (degMap[b.id] || 0) - (degMap[a.id] || 0) || a.name.localeCompare(b.name, "zh");
     });
 
@@ -811,20 +856,49 @@
     });
     var order = { "强": 0, "中": 1, "弱": 2 };
     relEdges.sort(function (a, b) {
+      var ma = a.origin === "manual" ? 0 : 1;
+      var mb = b.origin === "manual" ? 0 : 1;
+      if (ma !== mb) return ma - mb;
       return (order[a.strength] - order[b.strength]) || a.type.localeCompare(b.type);
     });
 
     var f = S.relf;
-    var filteredEdges = relEdges.filter(function (e) {
+    var dirEdges = relEdges.filter(function (e) {
       var isOut = e.source === n.id;
       if (f.dir === "out" && !isOut) return false;
       if (f.dir === "in" && isOut) return false;
       if (f.rel && e.type !== f.rel) return false;
       return true;
     });
+    var relTypeCounts = {};
+    dirEdges.forEach(function (e) {
+      var isOut = e.source === n.id;
+      var other = S.byId[isOut ? e.target : e.source];
+      if (other) relTypeCounts[other.type] = (relTypeCounts[other.type] || 0) + 1;
+    });
+    var relTypes = TYPE_ORDER.filter(function (t) { return relTypeCounts[t] > 0; });
+    if (f.type && !relTypeCounts[f.type]) {
+      f.type = "";
+    }
+    var filteredEdges = dirEdges.filter(function (e) {
+      if (!f.type) return true;
+      var isOut = e.source === n.id;
+      var other = S.byId[isOut ? e.target : e.source];
+      return other && other.type === f.type;
+    });
 
     var outCount = relEdges.filter(function (e) { return e.source === n.id; }).length;
     var inCount = relEdges.length - outCount;
+
+    var relTypeTabsHtml = relTypes.length > 1
+      ? '<div class="os-type-tabs" style="margin:0 0 10px">' +
+          '<button type="button" class="os-type-btn ' + (!f.type ? "on" : "") + '" data-rtype="">全部<small>' + dirEdges.length + '</small></button>' +
+          relTypes.map(function (t) {
+            return '<button type="button" class="os-type-btn ' + (f.type === t ? "on" : "") + '" data-rtype="' + esc(t) + '">' +
+              esc(t) + '<small>' + relTypeCounts[t] + '</small></button>';
+          }).join("") +
+        '</div>'
+      : '';
 
     box.innerHTML =
       '<div class="os-detail-head">' +
@@ -853,6 +927,7 @@
             '<button type="button" class="' + (f.dir === "in" ? "on" : "") + '" data-rdir="in">入边/被克 (' + inCount + ')</button>' +
           '</div>' +
         '</div>' +
+        relTypeTabsHtml +
         '<div class="os-edge-list">' +
           filteredEdges.slice(0, 150).map(function (e) {
             var isOut = e.source === n.id;
@@ -881,6 +956,13 @@
     Array.prototype.forEach.call(box.querySelectorAll("[data-rdir]"), function (btn) {
       btn.onclick = function () {
         S.relf.dir = btn.getAttribute("data-rdir");
+        renderDetailColumn();
+      };
+    });
+
+    Array.prototype.forEach.call(box.querySelectorAll("[data-rtype]"), function (btn) {
+      btn.onclick = function () {
+        S.relf.type = btn.getAttribute("data-rtype");
         renderDetailColumn();
       };
     });

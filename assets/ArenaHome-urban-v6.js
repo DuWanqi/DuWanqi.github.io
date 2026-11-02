@@ -138,7 +138,7 @@ function O({navigate:r,onSearch:d}){
                           e.jsx("img",{className:"wxq-orb-ring",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_Circle.png",alt:""}),
                           e.jsx("img",{className:"wxq-orb-saoguang",src:"/assets/wxq-lobby/UILobbyCircleOperationEnter_WXC_TEX_saoguang.png",alt:""}),
                           e.jsx("img",{className:"wxq-orb-emblem",src:"/assets/wxq-lobby/icon_baike_25.png",alt:""}),
-                          e.jsx("span",{className:"wxq-orb-num",children:"74"})
+                          e.jsx("span",{className:"wxq-orb-num",children:"79"})
                         ]
                       }),
                       e.jsx("span",{className:"wxq-orb-caption",children:"实战笔记"})
