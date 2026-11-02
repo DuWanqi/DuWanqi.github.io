@@ -1,0 +1,6 @@
+# Do not track raw multi-GB asset dumps if ever placed inside site
+wxq_game_ui_assets/
+rea_extracted_assets/
+_rea_sources/
+node_modules/
+*.log

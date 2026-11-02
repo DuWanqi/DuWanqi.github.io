@@ -32,162 +32,248 @@
   padding-top: 0 !important;
 }
 
-/* ================= 万象棋笔记 · 官方原厂切图与液态金属大厅 ================= */
-.lm-home {
+/* ============================================================================
+   《王者万象棋》客户端本体大厅 1:1 复刻主页 (wxq-lobby-home)
+   使用 08_局内HUD与大厅核心UI & 09_段位排位与MVP击杀高光 原厂解包切图
+   ============================================================================ */
+.wxq-lobby-home {
   position: relative;
   width: 100%;
   height: 100svh;
-  min-height: 680px;
+  min-height: 520px;
   overflow: hidden;
-  background: #141826;
-  color: #f2f6fc;
-  font-family: "OSGameFontContent", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background: #232a3e;
+  color: #f4f7fc;
+  font-family: "OSGameFontContent", "HYQiHei85S", "PingFang SC", "Microsoft YaHei", sans-serif;
   user-select: none;
 }
 
-.lm-backdrop {
+/* 1. 背景层：万象之都都市广场（斜向斑马线透视 + 右侧巨型液态金属皇冠雕像） */
+.wxq-lobby-backdrop {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
-.lm-backdrop img {
+.wxq-lobby-bg-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 42%;
-  filter: saturate(1.06) contrast(1.04);
-  transform: scale(1.02);
+  object-position: center 45%;
+  transform: scale(1.03);
+  transition: opacity 0.35s ease, filter 0.35s ease;
 }
 
-/* Urban Night & Iridescent Bubble Atmosphere Overlay */
-.lm-vignette {
+.wxq-lobby-home.is-bg-lobby .wxq-lobby-bg-img {
+  filter: brightness(0.88) saturate(0.95) contrast(1.04);
+}
+
+/* 还原游戏大厅地面斜向都市斑马线与蓝灰光泽质感 */
+.wxq-lobby-crosswalk {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(650px 420px at 18% 26%, rgba(124, 158, 255, 0.14), transparent 68%),
-    radial-gradient(560px 380px at 84% 72%, rgba(143, 223, 220, 0.14), transparent 65%),
-    linear-gradient(180deg, rgba(12, 16, 28, 0.52) 0%, rgba(18, 23, 38, 0.08) 45%, rgba(12, 16, 28, 0.82) 100%);
-}
-
-/* Official Stepped Ring + Diagonal Hatch Decoration */
-.lm-ring-graphic {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  width: min(560px, 62vw);
-  height: min(560px, 62vw);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1.5px solid rgba(226, 238, 255, 0.14);
-  box-shadow:
-    inset 0 0 60px rgba(175, 206, 255, 0.06),
-    0 0 80px rgba(120, 165, 255, 0.06);
+    radial-gradient(900px 540px at 32% 30%, rgba(162, 182, 224, 0.24), transparent 70%),
+    linear-gradient(135deg, rgba(58, 70, 102, 0.56) 0%, rgba(36, 44, 72, 0.46) 48%, rgba(22, 28, 50, 0.78) 100%),
+    repeating-linear-gradient(
+      -28deg,
+      rgba(255, 255, 255, 0.045) 0px,
+      rgba(255, 255, 255, 0.045) 26px,
+      transparent 26px,
+      transparent 56px
+    );
   pointer-events: none;
 }
 
-.lm-ring-graphic::before {
-  content: "";
-  position: absolute;
-  inset: 38px;
-  border-radius: 50%;
-  border: 1px dashed rgba(214, 230, 255, 0.18);
+.wxq-lobby-home.is-bg-kv .wxq-lobby-crosswalk {
+  opacity: 0.25;
 }
 
-/* Main HUD Container */
-.lm-hud {
+.wxq-lobby-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(640px 440px at 72% 44%, rgba(130, 175, 255, 0.16), transparent 68%),
+    linear-gradient(180deg, rgba(16, 20, 34, 0.62) 0%, rgba(24, 30, 48, 0.08) 32%, rgba(20, 26, 44, 0.16) 68%, rgba(12, 16, 28, 0.84) 100%);
+  pointer-events: none;
+}
+
+/* 右侧巨型液态金属皇冠主雕像（09_段位排位 Icon_PaiWei_10.png） */
+.wxq-lobby-statue-wrap {
+  position: absolute;
+  right: 8%;
+  top: 47%;
+  width: clamp(380px, 38vw, 560px);
+  height: clamp(380px, 38vw, 560px);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wxq-lobby-statue-glow {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(164, 202, 255, 0.24) 0%, rgba(120, 152, 232, 0.08) 46%, transparent 72%);
+  filter: blur(18px);
+}
+
+.wxq-lobby-statue-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(8, 12, 24, 0.78)) drop-shadow(0 0 28px rgba(175, 210, 255, 0.22));
+  animation: wxqStatueFloat 6s ease-in-out infinite;
+}
+
+@keyframes wxqStatueFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+/* 2. 大厅 HUD 主容器 */
+.wxq-lobby-hud {
   position: relative;
   z-index: 2;
-  width: min(1480px, calc(100% - 64px));
+  width: min(1600px, calc(100% - 56px));
   height: 100%;
   margin-inline: auto;
-  padding: 78px 0 34px;
+  padding: 62px 0 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-/* Top Sub-HUD Bar: Official WXQ Icon + Floating Liquid Metal Text Strip */
-.lm-hud-top {
+/* ============================================================================
+   2.1 左上角顶栏：汉堡菜单 + 竖线分隔 + 原厂金色 3D 图标条（活动/商城/祈愿/交易行）
+   ============================================================================ */
+.wxq-lobby-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 
-.lm-top-pills {
+.wxq-topbar-left {
   display: flex;
   align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 14px;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
-.lm-top-pill {
-  position: relative;
+.wxq-hamburger-btn {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 28px;
+  height: 26px;
+  padding: 0 3px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.9;
+  flex-shrink: 0;
+  transition: transform 0.16s ease, opacity 0.16s ease;
+}
+
+.wxq-hamburger-btn:hover {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.wxq-hamburger-btn span {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #e9effa;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.wxq-topbar-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(235, 242, 255, 0.34);
+  flex-shrink: 0;
+}
+
+.wxq-gold-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: nowrap;
+}
+
+.wxq-gold-nav-item {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 4px 2px;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
+  gap: 5px;
+  padding: 2px 1px;
   text-decoration: none;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.82));
-  transition: transform 0.18s ease, filter 0.18s ease;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.75));
+  transition: transform 0.16s ease, filter 0.16s ease;
 }
 
-.lm-native-icon {
-  width: 20px;
-  height: 20px;
+.wxq-gold-nav-item img {
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
   transition: transform 0.18s ease;
 }
 
-.lm-top-pill > span {
-  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 15.5px;
+.wxq-gold-nav-item span {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  background: linear-gradient(180deg, #ffffff 0%, #e5eefb 58%, #b0c2dc 100%);
+  letter-spacing: 0.03em;
+  background: linear-gradient(180deg, #fff6dc 0%, #f5d896 52%, #d8ad5c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.lm-top-pill:hover {
+.wxq-gold-nav-item:hover {
   transform: translateY(-1.5px);
-  filter: drop-shadow(0 0 12px rgba(215, 235, 255, 0.75)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 10px rgba(255, 222, 145, 0.65)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.85));
 }
 
-.lm-top-pill:hover .lm-native-icon {
+.wxq-gold-nav-item:hover img {
   transform: scale(1.1);
 }
 
-/* Official Extracted Capsule Search Box + Liquid Metal Submit Button */
-.lm-glass-search {
+/* 顶栏右侧快速检索框 */
+.wxq-lobby-search {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) 76px;
+  grid-template-columns: 32px minmax(0, 1fr) 64px;
   align-items: center;
-  width: min(350px, 100%);
-  height: 40px;
+  width: clamp(220px, 24vw, 310px);
+  height: 36px;
+  flex-shrink: 0;
   border-radius: 999px;
-  background: rgba(14, 18, 30, 0.52);
-  border: 1px solid rgba(224, 236, 255, 0.28);
+  background: rgba(16, 22, 36, 0.56);
+  border: 1px solid rgba(226, 238, 255, 0.28);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 6px 20px rgba(8, 12, 24, 0.42);
-  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(8, 12, 24, 0.42);
 }
 
-.lm-glass-search > svg {
+.wxq-lobby-search > svg {
   justify-self: center;
-  color: rgba(230, 240, 255, 0.85);
+  color: rgba(232, 242, 255, 0.85);
 }
 
-.lm-glass-search input {
+.wxq-lobby-search input {
   border: 0;
   outline: 0;
   background: transparent;
@@ -197,227 +283,565 @@
   min-width: 0;
 }
 
-.lm-glass-search input::placeholder {
-  color: rgba(216, 228, 248, 0.68);
+.wxq-lobby-search input::placeholder {
+  color: rgba(214, 226, 246, 0.68);
 }
 
-/* Official Launcher Liquid Metal Capsule Button (launcher_game-button-default-bg.6fa4adbc.png) */
-.lm-glass-search button {
-  height: 30px;
+.wxq-lobby-search button {
+  height: 28px;
   margin-right: 5px;
   border: 0;
   border-radius: 999px;
   background: url(/assets/wxq-ui/game-btn-bg.png) center / cover no-repeat;
   color: #162035;
   font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(160, 198, 255, 0.35);
   transition: filter 0.15s ease, transform 0.15s ease;
 }
 
-.lm-glass-search button:hover {
+.wxq-lobby-search button:hover {
   filter: brightness(1.08);
   transform: scale(1.02);
 }
 
-/* Center Liquid Chrome Title with Official Diagonal-Hatch Decoration */
-.lm-center-stage {
+/* ============================================================================
+   2.2 左上角三大圆球入口（1:1 复刻截图「24 成长之路」「13 战令」「CITY 万象之都」）
+   ============================================================================ */
+.wxq-left-orbs {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.wxq-orb-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  color: #eef4fc;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s ease;
+}
+
+.wxq-orb-item:hover {
+  transform: translateY(-3px) scale(1.03);
+  filter: drop-shadow(0 6px 16px rgba(145, 196, 255, 0.42));
+}
+
+.wxq-orb-circle {
   position: relative;
-  margin: auto 0;
-  padding-top: 60px;
-  text-align: center;
-  pointer-events: none;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.lm-center-stage::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  width: 340px;
-  height: 92px;
-  transform: translate(-50%, -50%);
-  background: url(/assets/wxq-ui/game-btn-deco.png) center / contain no-repeat;
-  opacity: 0.36;
-  pointer-events: none;
-}
-
-.lm-chrome-tag {
-  display: inline-block;
-  padding: 4px 18px;
-  border-radius: 999px;
-  font-family: "WanxiangDIN", sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: #e8f1ff;
-  background: rgba(18, 24, 42, 0.42);
-  border: 1px solid rgba(224, 238, 255, 0.32);
+/* 前两个圆球（成长之路 / 战令同款半透明银灰磨砂圆球） */
+.wxq-orb-silver {
+  background: radial-gradient(circle at 35% 28%, rgba(112, 124, 148, 0.62) 0%, rgba(52, 60, 78, 0.78) 68%, rgba(36, 42, 58, 0.88) 100%);
+  box-shadow:
+    inset 0 2px 10px rgba(255, 255, 255, 0.25),
+    0 6px 18px rgba(10, 14, 26, 0.52);
   backdrop-filter: blur(8px);
 }
 
-.lm-chrome-title {
+.wxq-orb-ring {
+  position: absolute;
+  inset: -3px;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.wxq-orb-saoguang {
+  position: absolute;
+  inset: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  object-fit: contain;
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.wxq-orb-emblem {
   position: relative;
-  margin: 14px 0 0;
-  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: clamp(52px, 5.8vw, 78px);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  margin-top: 2px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
+}
+
+.wxq-orb-num {
+  position: relative;
+  z-index: 2;
+  margin-top: -2px;
+  font-family: "OSGameFontTitle", "WanxiangDIN", sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+/* 第 3 个圆球：万象之都 CITY（原厂 6 层切图拼合） */
+.wxq-orb-city {
+  width: 88px;
+  height: 88px;
+  margin-top: -3px;
+}
+
+.wxq-city-bg {
+  position: absolute;
+  inset: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.wxq-city-caiguang {
+  position: absolute;
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  object-fit: contain;
+  mix-blend-mode: screen;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 破圈而出的液态金属皇冠雕像 + 右侧金卡（UILobbyCircleOperationEnter_WXC_TEX_xulieren_huangse01.png） */
+.wxq-city-statue {
+  position: absolute;
+  left: 52%;
+  top: 40%;
+  width: 98px;
+  height: 82px;
+  transform: translate(-46%, -52%);
+  object-fit: contain;
+  z-index: 4;
+  filter: drop-shadow(0 4px 10px rgba(12, 18, 36, 0.72));
+  pointer-events: none;
+}
+
+/* 底部青蓝色立体 CITY 艺术字 */
+.wxq-city-text-fill,
+.wxq-city-text-stroke {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 68px;
+  height: 33px;
+  transform: translateX(-50%);
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.wxq-city-text-fill {
+  z-index: 5;
+  filter: drop-shadow(0 2px 6px rgba(16, 45, 78, 0.9));
+}
+
+.wxq-city-text-stroke {
+  z-index: 6;
+  mix-blend-mode: screen;
+}
+
+.wxq-orb-caption {
+  font-family: "OSGameFontContent", "HYQiHei85S", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(235, 242, 255, 0.92);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.88);
+}
+
+/* ============================================================================
+   2.3 左侧中部：「排 行 —⇄—」极简折叠组件（1:1 复刻截图左侧中部）
+   ============================================================================ */
+.wxq-left-rank-widget {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-left: 8px;
+  padding: 6px 4px;
+  text-decoration: none;
+  color: rgba(240, 246, 255, 0.92);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.wxq-left-rank-widget:hover {
+  transform: translateX(3px);
+  color: #ffffff;
+}
+
+.wxq-rank-title {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+.wxq-rank-arrows {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: rgba(216, 228, 248, 0.78);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.wxq-rank-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.wxq-rank-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(210, 224, 250, 0.16) 0%, rgba(160, 180, 220, 0.05) 70%, transparent 100%);
+  border: 1px solid rgba(220, 234, 255, 0.12);
+}
+
+/* ============================================================================
+   2.4 中心轻量化水印标题与万象绝世段位徽章
+   ============================================================================ */
+.wxq-center-watermark {
+  position: relative;
+  align-self: flex-start;
+  margin-left: 4px;
+  margin-top: -12px;
+  pointer-events: none;
+}
+
+.wxq-season-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 8px;
+  border-radius: 999px;
+  background: rgba(16, 22, 38, 0.48);
+  border: 1px solid rgba(226, 238, 255, 0.26);
+  backdrop-filter: blur(8px);
+}
+
+.wxq-season-badge-pill img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.wxq-season-badge-pill span {
+  font-family: "WanxiangDIN", "OSGameFontContent", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #e6f0ff;
+}
+
+.wxq-watermark-title {
+  margin: 10px 0 0;
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
+  font-size: clamp(42px, 4.4vw, 64px);
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: 0.08em;
-  background: linear-gradient(180deg, #ffffff 0%, #eef5ff 45%, #9eb2ce 56%, #f4f8ff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #ebf3ff 48%, #a6bad6 58%, #f5f9ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 6px 28px rgba(8, 14, 28, 0.82));
+  filter: drop-shadow(0 6px 24px rgba(8, 12, 26, 0.85));
 }
 
-/* Bottom Lobby Bar */
-.lm-hud-bottom {
+/* ============================================================================
+   2.5 底部栏：左下角头像/社交广播栏 + 右下角「棋手/卡牌/阵容」+「实战笔记|」
+   ============================================================================ */
+.wxq-lobby-bottom {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
 }
 
-/* Floating bottom-left status line with official liquid metal badge */
-.lm-status-capsule {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 6px 4px;
-  background: transparent;
-  border: 0;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: rgba(236, 243, 255, 0.94);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.88);
+/* 左下角：头像框 + 图标 + 竖线 + 好友 + 竖线 + 招募/更新广播条 */
+.wxq-bottom-left-social {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
 }
 
-.lm-status-badge {
+.wxq-avatar-box {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid rgba(228, 238, 255, 0.55);
+  box-shadow: 0 6px 18px rgba(6, 10, 22, 0.68);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform 0.16s ease, border-color 0.16s ease;
+}
+
+.wxq-avatar-box:hover {
+  transform: translateY(-2px);
+  border-color: #ffffff;
+}
+
+.wxq-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wxq-avatar-sub {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 1px 0;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #e9f2ff;
+  background: rgba(12, 16, 28, 0.72);
+}
+
+.wxq-social-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+  padding: 0 14px 0 8px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(16, 22, 38, 0.52) 0%, rgba(16, 22, 38, 0.28) 100%);
+  backdrop-filter: blur(6px);
+}
+
+.wxq-social-icon-btn {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  opacity: 0.88;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.wxq-social-icon-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.wxq-social-icon-btn img {
   width: 22px;
   height: 22px;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(143, 223, 220, 0.55));
+  filter: grayscale(1) brightness(1.85);
 }
 
-/* Bottom-Right Lobby Dock (pure floating official WXQ icons + "实战阵容笔记|") */
-.lm-lobby-dock {
+.wxq-social-sep {
+  width: 1px;
+  height: 13px;
+  background: rgba(226, 236, 255, 0.28);
+}
+
+.wxq-chat-ticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-size: 13.5px;
+  color: rgba(235, 242, 255, 0.94);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  transition: color 0.15s ease;
+}
+
+.wxq-chat-ticker:hover {
+  color: #ffffff;
+}
+
+.wxq-chat-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.85);
+}
+
+.wxq-chat-tag {
+  color: #63c5ff;
+  font-weight: 700;
+}
+
+.wxq-chat-text {
+  max-width: 420px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 右下角主操作区（1:1 复刻截图右下角「棋手·卡牌·阵容」+「开始游戏|」+「S1 万象启程」） */
+.wxq-bottom-right-dock {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 12px;
+  gap: 14px;
 }
 
-.lm-dock-icons {
+.wxq-dock-row {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 }
 
-.lm-dock-item {
+.wxq-dock-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  color: #f4f8ff;
   text-decoration: none;
+  color: #f4f8ff;
   filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.82));
   transition: transform 0.18s ease, filter 0.18s ease;
 }
 
-.lm-dock-item:hover {
+.wxq-dock-btn:hover {
   transform: translateY(-3px);
-  filter: drop-shadow(0 0 12px rgba(215, 235, 255, 0.8)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.88));
+  filter: drop-shadow(0 0 12px rgba(220, 238, 255, 0.82)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.88));
 }
 
-.lm-dock-icon-box {
+.wxq-dock-icon-wrap {
   width: 34px;
   height: 34px;
   display: grid;
   place-items: center;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
 }
 
-.lm-dock-icon-box img {
-  width: 28px;
-  height: 28px;
+.wxq-dock-icon-wrap svg,
+.wxq-dock-icon-wrap img {
+  width: 30px;
+  height: 30px;
   object-fit: contain;
-  filter: brightness(1.15) contrast(1.08);
 }
 
-.lm-dock-label {
-  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 13.5px;
+/* 将金色雪碧图单帧图标转换为游戏右下角同款的纯白亮银质感 */
+.wxq-dock-icon-wrap.is-silver-icon img {
+  filter: grayscale(1) brightness(2.05) contrast(1.15);
+}
+
+.wxq-dock-text {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  background: linear-gradient(180deg, #ffffff 0%, #e0ecfa 60%, #a8bcd8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  letter-spacing: 0.06em;
+  color: #f2f7ff;
 }
 
-.lm-start-cta {
+/* 超大号白色粗体「实战笔记 |」+ 底部手写签名花体 & S1 万象启程 */
+.wxq-start-game-btn {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 4px 6px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 4px 2px 2px 24px;
   text-decoration: none;
   transition: transform 0.18s ease, filter 0.18s ease;
 }
 
-.lm-start-cta::before {
-  content: "";
-  position: absolute;
-  right: 16px;
-  top: -8px;
-  width: 140px;
-  height: 38px;
-  background: url(/assets/wxq-ui/game-btn-deco.png) right center / contain no-repeat;
-  opacity: 0.42;
-  pointer-events: none;
-}
-
-.lm-start-cta:hover {
+.wxq-start-game-btn:hover {
   transform: translateX(-3px);
-  filter: brightness(1.1);
+  filter: brightness(1.08);
 }
 
-.lm-start-main {
-  font-family: "OSGameFontTitle", "HYQiHei85S", "Wanxiang UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 36px;
+.wxq-start-main-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wxq-start-label {
+  font-family: "OSGameFontTitle", "HYQiHei85S", sans-serif;
+  font-size: 46px;
   font-weight: 900;
+  line-height: 1;
   letter-spacing: 0.08em;
-  background: linear-gradient(180deg, #ffffff 0%, #e2ecfa 56%, #9fb3cf 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #eef5ff 62%, #b8cbe6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.82));
 }
 
-.lm-start-bar {
-  width: 6px;
-  height: 36px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #ffffff 0%, #b8cbe6 100%);
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.75);
+.wxq-start-cursor {
+  width: 7px;
+  height: 44px;
+  border-radius: 1.5px;
+  background: linear-gradient(180deg, #ffffff 0%, #c8daf2 100%);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.8);
 }
 
-@media (max-width: 900px) {
-  .lm-hud {
-    width: calc(100% - 32px);
-    padding: 72px 0 24px;
+.wxq-start-sub-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 2px;
+  padding-right: 4px;
+}
+
+.wxq-start-script {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 20px;
+  color: rgba(220, 232, 252, 0.34);
+  letter-spacing: 0.04em;
+  margin-right: -8px;
+}
+
+.wxq-start-season {
+  font-family: "OSGameFontContent", "HYQiHei85S", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(224, 236, 255, 0.82);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+@media (max-width: 960px) {
+  .wxq-lobby-hud {
+    width: calc(100% - 28px);
+    padding: 64px 0 20px;
   }
-  .lm-hud-bottom {
+  .wxq-lobby-statue-wrap {
+    right: -6%;
+    opacity: 0.55;
+  }
+  .wxq-lobby-bottom {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
-  .lm-lobby-dock {
-    align-items: center;
+  .wxq-bottom-right-dock {
+    align-items: flex-end;
+  }
+  .wxq-chat-text {
+    max-width: 220px;
   }
 }
